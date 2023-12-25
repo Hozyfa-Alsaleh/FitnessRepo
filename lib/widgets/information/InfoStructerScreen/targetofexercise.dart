@@ -42,7 +42,7 @@ class TargetOfExercise extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              width: 8,
+              width: 2,
             ),
             Expanded(
               child: WorkButton(
@@ -67,7 +67,7 @@ class TargetOfExercise extends StatelessWidget {
               child: WorkButton(
                 height: 50,
                 text: "حرق دهون وبناء عضل",
-                fontsize: 20,
+                fontsize: 17,
                 onTap: () {
                   controller.exercisetext = "حرق دهون وبناء عضل";
                   controller.selectedExerciseButton();
@@ -78,7 +78,7 @@ class TargetOfExercise extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              width: 8,
+              width: 2,
             ),
             Expanded(
               child: WorkButton(

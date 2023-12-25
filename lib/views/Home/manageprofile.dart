@@ -2,21 +2,24 @@ import 'package:fitnessapp/Utils/appcolors.dart';
 import 'package:fitnessapp/approute.dart';
 import 'package:fitnessapp/controllers/manageprofilecontroller.dart';
 import 'package:fitnessapp/core/functions/validator.dart';
-import 'package:fitnessapp/main.dart';
+
 import 'package:fitnessapp/widgets/logs/settingstextfileds.dart';
-import 'package:fitnessapp/widgets/logs/signuptextfield.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ManageProfile extends StatelessWidget {
-  const ManageProfile({super.key});
+  final String route;
+  final String type;
+
+  const ManageProfile({super.key, required this.route, required this.type});
 
   @override
   Widget build(BuildContext context) {
     Get.put(ManageProfileController());
     return WillPopScope(
       onWillPop: () async {
-        Get.offAllNamed(AppRoute.HOME);
+        Get.offAllNamed(route);
         return false;
       },
       child: Scaffold(
@@ -58,23 +61,26 @@ class ManageProfile extends StatelessWidget {
                           key: controller.settingKey,
                           child: Column(
                             children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: controller.bkcolor,
-                                    borderRadius: BorderRadius.circular(20)),
-                                alignment: Alignment.center,
-                                margin: const EdgeInsets.only(bottom: 30),
-                                padding: const EdgeInsets.all(5),
-                                child: Text(
-                                  controller.statusText,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                      fontFamily: 'Tajwal',
-                                      fontSize:
-                                          controller.bkcolor == Colors.yellow
-                                              ? 22
-                                              : 29),
+                              Visibility(
+                                visible: type == "user" ? true : false,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: controller.bkcolor,
+                                      borderRadius: BorderRadius.circular(20)),
+                                  alignment: Alignment.center,
+                                  margin: const EdgeInsets.only(bottom: 30),
+                                  padding: const EdgeInsets.all(5),
+                                  child: Text(
+                                    controller.statusText,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                        fontFamily: 'Tajwal',
+                                        fontSize:
+                                            controller.bkcolor == Colors.yellow
+                                                ? 22
+                                                : 29),
+                                  ),
                                 ),
                               ),
                               Row(

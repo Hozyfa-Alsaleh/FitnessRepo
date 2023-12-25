@@ -19,6 +19,7 @@ class FoodCourseController extends GetxController {
     var request = await http.post(Uri.parse(ApiLinks.foodInsert), body: {
       'acc_id': selectedUserId.toString(),
       'meal': firstMeal.text,
+      'name': selectedUserName
     });
     var response = await jsonDecode(request.body);
     if (response['status'] == 1) {
@@ -70,6 +71,7 @@ class FoodCourseController extends GetxController {
       var request = await http.post(Uri.parse(ApiLinks.foodUpdate), body: {
         'acc_id': selectedUserId.toString(),
         'meal': firstMeal.text,
+        'name': selectedUserName
       });
       var response = await jsonDecode(request.body);
       if (response['status'] == 1) {

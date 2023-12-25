@@ -5,6 +5,8 @@ import 'package:fitnessapp/approute.dart';
 import 'package:fitnessapp/controllers/CaptinControllers/homepagecontroller.dart';
 
 import 'package:fitnessapp/main.dart';
+import 'package:fitnessapp/views/Home/manageprofile.dart';
+import 'package:fitnessapp/views/Home/notifications.dart';
 import 'package:fitnessapp/widgets/coachpages/captinbuttons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -68,6 +70,19 @@ class CaptinHomePage extends StatelessWidget {
               color: Colors.black,
             ),
           ),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Get.offAll(() => const MyNotifyPage(
+                        route: AppRoute.captineHomePage,
+                      ));
+                },
+                icon: const Icon(
+                  Icons.notifications_active_rounded,
+                  color: Colors.black,
+                  size: 30,
+                ))
+          ],
         ),
         body: SizedBox(
           width: width,
@@ -113,6 +128,20 @@ class CaptinHomePage extends StatelessWidget {
                     Get.offAllNamed(AppRoute.contactInfo);
                   },
                   text: "معلومات التواصل",
+                  icon: Icons.health_and_safety_rounded,
+                  color: Colors.white,
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                CaptinButtons(
+                  onPressed: () {
+                    Get.offAll(() => const ManageProfile(
+                          route: AppRoute.captineHomePage,
+                          type: "admin",
+                        ));
+                  },
+                  text: "الإعدادات",
                   icon: Icons.health_and_safety_rounded,
                   color: Colors.white,
                 ),

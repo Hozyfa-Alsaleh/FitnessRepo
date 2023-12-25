@@ -6,6 +6,7 @@ import 'package:fitnessapp/Utils/apilinks.dart';
 import 'package:fitnessapp/approute.dart';
 import 'package:fitnessapp/core/StaticLData/staticvar.dart';
 import 'package:fitnessapp/core/functions/getxdialog.dart';
+import 'package:fitnessapp/main.dart';
 import 'package:fitnessapp/models/exercies.dart';
 import 'package:fitnessapp/models/videos.dart';
 import 'package:fitnessapp/views/coachpages/exedetails.dart';
@@ -90,43 +91,19 @@ class AdminExeController extends GetxController {
   }
 
   Future<void> deleteExeCourse() async {}
+
   Future<void> updateExeCourse() async {
-    dynamic request;
-    dynamic response;
-    dynamic base64;
-    details = editExe.text;
-    if (details == "") return;
-    if (videoFile != null) {
-      base64 = base64Encode(videoFile!.readAsBytesSync());
-      request = await http.post(Uri.parse(ApiLinks.exerciseUpdate), body: {
-        'id_user': selectedUserId.toString(),
-        'details': details,
-        'video': videoName,
-        'update64': base64,
-      });
-      response = await jsonDecode(request.body);
-      videoFile = null;
-    } else {
-      try {
-        request = await http.post(Uri.parse(ApiLinks.exerciseUpdate), body: {
-          'id': currentExeId.toString(),
-          'id_user': selectedUserId.toString(),
-          'details': details,
-          // 'video': reciveVideos[listIndex],
-          //'update64': "",
-        });
-        response = await jsonDecode(request.body);
-      } catch (e) {
-        print(e.toString());
-      }
-    }
-
-    if (response['status'] == 1) {
+    var request = await http
+        .post(Uri.parse("${ApiLinks.proteam}/exercises.php?update"), body: {
+      'details': editExe.text,
+      'acc_id': selectedUserId.toString(),
+      'day_id': sherdpref!.getInt('dayId').toString(),
+      'name': selectedUserName
+    });
+    var response = await jsonDecode(request.body);
+    if (response['status'] == "exercise updated") {
       lineColor = Colors.lightGreen;
-
       getxDialog('تعديل الكورس ', 'تم تحديث الكورس بنجاح');
-
-      // fetchExeCourse();
       update();
     } else {
       getxDialog('تعديل الكورس ', 'حدث خطأ ما');

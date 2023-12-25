@@ -4,6 +4,7 @@ import 'package:fitnessapp/approute.dart';
 import 'package:fitnessapp/main.dart';
 import 'package:fitnessapp/views/Home/imageviewer.dart';
 import 'package:fitnessapp/views/Home/manageprofile.dart';
+import 'package:fitnessapp/views/Home/notifications.dart';
 import 'package:fitnessapp/widgets/PlayerProfile/rowofinfo.dart';
 import 'package:fitnessapp/widgets/PlayerProfile/switchpagebutton.dart';
 import 'package:flutter/material.dart';
@@ -84,23 +85,14 @@ class PlayerProfile extends StatelessWidget {
                                   )
                                 ],
                               ),
+                              Text(
+                                sherdpref!.getString('username').toString(),
+                                style: const TextStyle(
+                                    color: Colors.black, fontSize: 30),
+                              ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    sherdpref!.getString('username').toString(),
-                                    style: const TextStyle(
-                                        color: Colors.black, fontSize: 30),
-                                  ),
-                                  IconButton(
-                                      onPressed: () {
-                                        Get.offAllNamed(AppRoute.PlayerInfo);
-                                      },
-                                      icon: const Icon(
-                                        Icons.edit,
-                                        size: 30,
-                                        color: Colors.black,
-                                      )),
                                   IconButton(
                                       onPressed: () {
                                         controller.logout();
@@ -112,11 +104,34 @@ class PlayerProfile extends StatelessWidget {
                                       )),
                                   IconButton(
                                       onPressed: () {
-                                        Get.offAll(() => const ManageProfile());
+                                        Get.offAllNamed(AppRoute.PlayerInfo);
+                                      },
+                                      icon: const Icon(
+                                        Icons.edit,
+                                        size: 30,
+                                        color: Colors.black,
+                                      )),
+                                  IconButton(
+                                      onPressed: () {
+                                        Get.offAll(() => const ManageProfile(
+                                              route: AppRoute.PlayerProfile,
+                                              type: "user",
+                                            ));
                                         //controller.logout();
                                       },
                                       icon: const Icon(
                                         Icons.settings,
+                                        size: 30,
+                                        color: Colors.black,
+                                      )),
+                                  IconButton(
+                                      onPressed: () {
+                                        Get.offAll(() => const MyNotifyPage(
+                                              route: AppRoute.PlayerProfile,
+                                            ));
+                                      },
+                                      icon: const Icon(
+                                        Icons.notifications,
                                         size: 30,
                                         color: Colors.black,
                                       )),

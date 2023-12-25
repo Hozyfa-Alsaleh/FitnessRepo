@@ -72,7 +72,6 @@ class FetchPlayerExeCtrl extends GetxController {
     } else {
       getxDialog("خطأ", "حدث خطأ غير متوقع");
     }
-    update();
   }
 
   List<Videos> videosM = [];

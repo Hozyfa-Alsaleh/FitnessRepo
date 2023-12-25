@@ -1,6 +1,4 @@
 // ignore_for_file: avoid_print
-
-import 'dart:convert';
 import 'package:fitnessapp/Utils/apilinks.dart';
 import 'package:fitnessapp/approute.dart';
 import 'package:fitnessapp/core/StaticLData/staticvar.dart';
@@ -11,7 +9,6 @@ import 'package:fitnessapp/core/functions/handlingdata.dart';
 import 'package:fitnessapp/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 
 class LoginController extends GetxController {
   late GlobalKey<FormState> loginFormKey;
@@ -55,7 +52,7 @@ class LoginController extends GetxController {
     if (RequestStatus.success == reqStatus) {
       if (loginFormKey.currentState!.validate()) {
         if (res['data']['acc_id'] == 1) {
-          sherdpref!.setString('userId', res['data']['acc_id'].toString());
+          sherdpref!.setString('userId', '1');
           sherdpref!.setString('username', res['data']['name']);
           sherdpref!.setBool('isLog', true);
           Get.offAllNamed(AppRoute.captineHomePage);

@@ -37,6 +37,7 @@ class AddNewExeController extends GetxController {
       'acc_id': selectedUserId.toString(),
       'day_id': sherdpref!.getInt('dayId').toString(),
       'details': exerciseText.text,
+      'name': selectedUserName
     });
     var response = await jsonDecode(request.body);
     if (response['status'] == 'exercise added') {
@@ -62,6 +63,8 @@ class AddNewExeController extends GetxController {
       getxDialog('خطأ', 'حصل خطأ أثناء رفع الفيديوهات');
     }
   }
+
+  Future<void> updatexe() async {}
 
   ///-------------------------------------------------------///
   ///-----------------------Picked Methods------------------///

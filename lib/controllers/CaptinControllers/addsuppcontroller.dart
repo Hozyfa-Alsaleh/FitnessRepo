@@ -17,8 +17,11 @@ class AddSuppController extends GetxController {
   ///-----------------------------------------------------------///
   Future<void> insertNewSuppCourse() async {
     try {
-      var request = await http.post(Uri.parse(ApiLinks.suppInsert),
-          body: {'acc_id': selectedUserId.toString(), 'supp': supptext.text});
+      var request = await http.post(Uri.parse(ApiLinks.suppInsert), body: {
+        'acc_id': selectedUserId.toString(),
+        'supp': supptext.text,
+        'name': selectedUserName
+      });
       var response = await jsonDecode(request.body);
       if (response['status'] == 1) {
         isUpdate = true;
@@ -40,8 +43,11 @@ class AddSuppController extends GetxController {
   ///------------------------Update Methods---------------------///
   ///-----------------------------------------------------------///
   Future<void> updateSuppCourse() async {
-    var request = await http.post(Uri.parse(ApiLinks.suppUpdate),
-        body: {'acc_id': selectedUserId.toString(), 'supp': supptext.text});
+    var request = await http.post(Uri.parse(ApiLinks.suppUpdate), body: {
+      'acc_id': selectedUserId.toString(),
+      'supp': supptext.text,
+      'name': selectedUserName
+    });
     var response = await jsonDecode(request.body);
     if (response['status'] == 1) {
       print('success');

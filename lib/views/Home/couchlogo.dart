@@ -22,63 +22,68 @@ class CouchLogo extends StatelessWidget {
         height: MediaQuery.sizeOf(context).height,
         child: Column(
           children: [
-            Container(
-              height: height! / 1.9,
-              width: width,
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
-              child: const Image(
-                image: AssetImage(
-                  'assets/images/couch.jpg',
+            Expanded(
+              child: Container(
+                height: height! / 1.9,
+                width: width,
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                child: const Image(
+                  image: AssetImage(
+                    'assets/images/couch.jpg',
+                  ),
+                  //  fit: BoxFit.fill,
                 ),
-                //  fit: BoxFit.fill,
               ),
             ),
-            Container(
-              height: height! / 3.1,
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(30),
-                      topLeft: Radius.circular(30))),
-              width: width,
-              child: const Column(
-                //crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CoachDisc(
-                    text: "-مدرب كمال أجسام وصحة بدنية",
-                    fontSize: 20,
-                    textalign: TextAlign.start,
-                  ),
-                  CoachDisc(
-                    text: "Bodybuilding and physical health coach",
-                    fontSize: 20,
-                    textalign: TextAlign.end,
-                  ),
-                  CoachDisc(
-                    text: "-شهادة دبلوم تغذية صحية",
-                    fontSize: 20,
-                    textalign: TextAlign.start,
-                  ),
-                  CoachDisc(
-                    text: "Health Nutrition Diploma Certificate",
-                    fontSize: 20,
-                    textalign: TextAlign.left,
-                  ),
-                  CoachDisc(
-                    text: "-شهادة بكلوريوس مختبر(هرمونات+أمراض دم)",
-                    fontSize: 18,
-                    textalign: TextAlign.start,
-                  ),
-                  CoachDisc(
-                    text:
-                        "Bachelor's degree in laboratory (hormones,hematology)",
-                    fontSize: 22,
-                    textalign: TextAlign.end,
-                  )
-                ],
+            Expanded(
+              child: Container(
+                height: height! / 3.1,
+                alignment: Alignment.bottomCenter,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(30),
+                        topLeft: Radius.circular(30))),
+                width: width,
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    CoachDisc(
+                      text: "-مدرب كمال أجسام وصحة بدنية",
+                      fontSize: 20,
+                      textalign: TextAlign.start,
+                    ),
+                    CoachDisc(
+                      text: "Bodybuilding and physical health coach",
+                      fontSize: 20,
+                      textalign: TextAlign.end,
+                    ),
+                    CoachDisc(
+                      text: "-شهادة دبلوم تغذية صحية",
+                      fontSize: 20,
+                      textalign: TextAlign.start,
+                    ),
+                    CoachDisc(
+                      text: "Health Nutrition Diploma Certificate",
+                      fontSize: 20,
+                      textalign: TextAlign.left,
+                    ),
+                    CoachDisc(
+                      text: "-شهادة بكلوريوس مختبر(هرمونات+أمراض دم)",
+                      fontSize: 18,
+                      textalign: TextAlign.start,
+                    ),
+                    CoachDisc(
+                      text:
+                          "Bachelor's degree in laboratory (hormones,hematology)",
+                      fontSize: 22,
+                      textalign: TextAlign.end,
+                    )
+                  ],
+                ),
               ),
             ),
           ],
@@ -102,7 +107,7 @@ class CoachDisc extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      margin: const EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 20),
       child: Text(
         text,
         textAlign: textalign,

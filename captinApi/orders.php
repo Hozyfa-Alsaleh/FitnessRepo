@@ -33,12 +33,15 @@ if(isset($_GET['fetchuser'])){
 else if(isset($_GET['accept'])){
     $acc_id = filter('acc_id');
     $date = filter('date');
+    $name = filter('name');
     $stmt = $connect->prepare('UPDATE accounts SET accounts.status = 1 , accounts.stopwatch = ? WHERE `acc_id` = ?');
     $stmt->execute(array($date,$acc_id));
     $count = $stmt->rowCount();
+    
     if($count > 0){
         $deletS = $connect->prepare('DELETE FROM `subscribe` WHERE `acc_id` = ?');
         $deletS->execute(array($acc_id));
+        sendGCM("إشعار الإشتراك","تم قبول طلبك سيقوم الكابتن شعيب بإضافة الكورسات اللازمة","$name$acc_id","","");
         echo json_encode(array('status'=>1));
     }
     else{
@@ -47,12 +50,14 @@ else if(isset($_GET['accept'])){
 }
 else if(isset($_GET['reject'])){
     $acc_id = filter('acc_id');
+    $name = filter('name');
     $stmt = $connect->prepare('DELETE FROM `subscribe` WHERE `acc_id` = ?');
     $stmt->execute(array($acc_id));
     $stmt = $connect->prepare('DELETE FROM `information` WHERE `acc_id` = ?');
     $stmt->execute(array($acc_id));
     $count = $stmt->rowCount();
     if($count > 0){
+        sendGCM("إشعار الإشتراك","للأسف تم رفض طلبك ","$name$acc_id","","");
         echo json_encode(array('status'=>1));
     }
     else{

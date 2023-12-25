@@ -8,6 +8,7 @@ $stmt->execute(array($email,$pass));
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 $count = $stmt->rowCount();
 if($count > 0){
+
     $arr = array("status" => "success", 'data' => $user);
     echo json_encode($arr);
 }

@@ -7,7 +7,7 @@ if(isset($_GET['insert'])){
     $details = filter('details');
     $day_id = filter('day_id');
     $acc_id = filter('acc_id');
-
+    $name = filter('name');
     $stmt = $connect->prepare("INSERT INTO `exercises` VALUES (:id,:det,:d,:acc)");
     $stmt->execute(array('id'=>NULL,'det'=>$details,'d'=>$day_id,'acc'=>$acc_id));
     $count = $stmt->rowCount();
@@ -16,6 +16,7 @@ if(isset($_GET['insert'])){
         $fetch = $connect->prepare("SELECT * FROM `exercises` WHERE `acc_id` = ?");
         $fetch->execute(array($acc_id));
         $exes = $fetch->fetchAll(PDO::FETCH_ASSOC);
+        
         $arr = array('status' => 'exercise added','data'=>$exes);
         echo json_encode($arr);
     }
@@ -28,11 +29,12 @@ else if(isset($_GET['update'])){
     $details = filter('details');
     $day_id = filter('day_id');
     $acc_id = filter('acc_id');
-
+    $name = filter('name');
     $stmt = $connect->prepare("UPDATE `exercises` SET `details` = ? , `day_id` = ? WHERE `acc_id` = ? ");
     $stmt->execute(array($details,$day_id,$acc_id));
     $count = $stmt->rowCount();   
     if($count > 0){
+        sendGCM("تمارين","تم تحديث تمرين في اليوم رقم $day_id","$name$acc_id","","");
         $arr = array('status' => 'exercise updated');
         echo json_encode($arr);
     }

@@ -4,10 +4,12 @@ include "connection.php";
 if(isset($_GET['insert'])){
     $acc_id = filter('acc_id');
     $meal = filter('meal');
+    $name = filter('name');
     $stmt = $connect->prepare("INSERT INTO `food` VALUES(?,?,?)");
     $stmt->execute(array(NULL,$acc_id,$meal));
     $count = $stmt->rowCount();
     if($count > 0){
+        sendGCM("الغذاء","تم إضافة كورس غذائي","$name$acc_id","","");
         $arr = array('status' => 1,'Message'=>'تم إضافة كورس التغذية بنجاح');
         echo json_encode($arr);
     }
@@ -19,11 +21,13 @@ if(isset($_GET['insert'])){
 else if(isset($_GET['update'])){
     $acc_id = filter('acc_id');
     $meal = filter('meal');
+    $name = filter('name');
     $stmt = $connect->prepare("UPDATE `food` SET `meal` = ? WHERE `acc_id` = ?");
 
     $stmt->execute(array($meal,$acc_id));
     $count = $stmt->rowCount();
     if($count > 0){
+        sendGCM("الغذاء","تم تحديث كورس الغذاء","$name$acc_id","","");
         $arr = array('status' =>1,'Message'=> 'تم تحديث كورس التغذية بنجاح');
         echo json_encode($arr);
     }

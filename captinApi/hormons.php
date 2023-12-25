@@ -3,10 +3,12 @@ include "connection.php";
 if(isset($_GET['insert'])){
     $acc_id = filter('acc_id');
     $supp = filter('supp');
+    $name = filter('name');
     $stmt = $connect->prepare("INSERT INTO `supplements` VALUES (?,?,?)");
     $stmt->execute(array(NULL,$acc_id,$supp));
    $count =  $stmt->rowCount();
     if($count>0){
+        sendGCM("مكملات","تم إضافة كورس المكملات","$name$acc_id","","");
         $arr = array('status'=>1,'Message'=>'تم إضافة كورس الهرمون بنجاح');
         echo json_encode($arr);
     }
@@ -18,10 +20,12 @@ if(isset($_GET['insert'])){
 else if(isset($_GET['update'])){
     $acc_id = filter('acc_id');
     $supp = filter('supp');
+    $name = filter('name');
     $stmt = $connect->prepare("UPDATE `supplements` SET `supp` = ? WHERE `acc_id` = ?");
     $stmt->execute(array($supp,$acc_id));
    $count =  $stmt->rowCount();
     if($count>0){
+        sendGCM("مكملات","تم تحديث كورس المكملات","$name$acc_id","","");
         $arr = array('status'=>1,'Message'=>'تم تحديث كورس الهرمون بنجاح');
         echo json_encode($arr);
     }

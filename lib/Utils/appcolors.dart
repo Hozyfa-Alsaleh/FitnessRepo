@@ -13,5 +13,5 @@ class AppColors {
   //     Color.fromARGB(255, 236, 236, 236);
   static const Color scaffoldBackGroundColor = Colors.white;
   static const Color detailsButtons = Colors.black;
-  static const Color border = const Color.fromARGB(192, 1, 52, 110);
+  static const Color border = Color.fromARGB(192, 1, 52, 110);
 }

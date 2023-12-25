@@ -1,10 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 <uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.VIBRATE"/>
+<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <application
         android:usesCleartextTraffic="true"
-        android:label="fitnessapp"
+        android:label="Shooeb fitness"
         android:name="${applicationName}"
-        android:icon="@mipmap/myicon">
+        android:icon="@mipmap/newicon">
         <activity
             android:name=".MainActivity"
             android:exported="true"

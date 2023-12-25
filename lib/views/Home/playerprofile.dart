@@ -3,6 +3,7 @@ import 'package:fitnessapp/controllers/playerprofilecontroller.dart';
 import 'package:fitnessapp/approute.dart';
 import 'package:fitnessapp/main.dart';
 import 'package:fitnessapp/views/Home/imageviewer.dart';
+import 'package:fitnessapp/views/Home/manageprofile.dart';
 import 'package:fitnessapp/widgets/PlayerProfile/rowofinfo.dart';
 import 'package:fitnessapp/widgets/PlayerProfile/switchpagebutton.dart';
 import 'package:flutter/material.dart';
@@ -102,14 +103,23 @@ class PlayerProfile extends StatelessWidget {
                                       )),
                                   IconButton(
                                       onPressed: () {
-                                        sherdpref!.clear();
-                                        Get.offAllNamed(AppRoute.Splash);
+                                        controller.logout();
                                       },
                                       icon: const Icon(
                                         Icons.logout,
                                         size: 30,
                                         color: Colors.black,
-                                      ))
+                                      )),
+                                  IconButton(
+                                      onPressed: () {
+                                        Get.offAll(() => const ManageProfile());
+                                        //controller.logout();
+                                      },
+                                      icon: const Icon(
+                                        Icons.settings,
+                                        size: 30,
+                                        color: Colors.black,
+                                      )),
                                 ],
                               ),
                               const SizedBox(

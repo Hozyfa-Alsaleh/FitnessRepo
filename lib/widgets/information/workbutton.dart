@@ -34,7 +34,7 @@ class WorkButton extends StatelessWidget {
           ],
           // color: Colors.deepOrange[900],
           // color: color ?? AppColors.buttonsColor,
-          color: color ?? Color.fromARGB(255, 87, 87, 87),
+          color: color ?? const Color.fromARGB(255, 87, 87, 87),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(

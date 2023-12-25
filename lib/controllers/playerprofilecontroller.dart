@@ -1,7 +1,9 @@
 // ignore_for_file: avoid_print
 import 'dart:convert';
 import 'dart:io';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fitnessapp/Utils/apilinks.dart';
+import 'package:fitnessapp/approute.dart';
 import 'package:fitnessapp/core/StaticLData/staticvar.dart';
 import 'package:fitnessapp/core/classes/requeststate.dart';
 import 'package:fitnessapp/core/functions/getxdialog.dart';
@@ -167,6 +169,13 @@ class PlayerProfileController extends GetxController {
       print('faild');
     }
     update();
+  }
+
+  logout() {
+    FirebaseMessaging.instance.unsubscribeFromTopic(
+        "${sherdpref!.getString('username')}${sherdpref!.getString('userId')}");
+    sherdpref!.clear();
+    Get.offAllNamed(AppRoute.Splash);
   }
 
   @override

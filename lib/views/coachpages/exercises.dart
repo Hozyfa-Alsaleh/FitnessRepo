@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:fitnessapp/Utils/appcolors.dart';
 import 'package:fitnessapp/approute.dart';
 import 'package:fitnessapp/controllers/CaptinControllers/adminexecontroller.dart';

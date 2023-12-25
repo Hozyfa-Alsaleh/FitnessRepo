@@ -182,7 +182,8 @@ class InfoController extends GetxController {
         ApiLinks.subscribe,
         {
           'acc_id': sherdpref!.getString('userId').toString(),
-          'package_id': packageId.toString()
+          'package_id': packageId.toString(),
+          'name': sherdpref!.getString('username')
         },
         payImage!);
     update();

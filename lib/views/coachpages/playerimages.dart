@@ -20,7 +20,7 @@ class PlayerImages extends StatelessWidget {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-                Get.to(ImageView(
+                Get.to(const ImageView(
                   path: "",
                 ));
               },

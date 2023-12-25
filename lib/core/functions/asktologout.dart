@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 askToLogOut(String title, String content) {
   return Get.defaultDialog(
-    contentPadding: EdgeInsets.all(10),
+    contentPadding: const EdgeInsets.all(10),
     backgroundColor: AppColors.detailsButtons,
     title: title,
     content: Text(

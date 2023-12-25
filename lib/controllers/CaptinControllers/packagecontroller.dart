@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, avoid_print
 
 import 'dart:convert';
 
@@ -56,7 +56,7 @@ class PackagesController extends GetxController {
       }
       print(isUpdate.toString());
       Get.toNamed(AppRoute.packageCRUD);
-      print("pack id ====> " + packageId.toString());
+      print("pack id ====> $packageId");
       update();
     } catch (e) {
       getxDialog('الباقات', 'حدث خطأ أثناء الانتقال الى تفاصيل الباقة');

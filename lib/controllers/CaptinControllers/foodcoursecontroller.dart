@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:fitnessapp/Utils/apilinks.dart';
 import 'package:fitnessapp/core/StaticLData/staticvar.dart';

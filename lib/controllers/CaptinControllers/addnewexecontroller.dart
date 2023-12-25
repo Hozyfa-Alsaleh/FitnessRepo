@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -15,6 +17,7 @@ import 'package:video_player/video_player.dart';
 class AddNewExeController extends GetxController {
   bool visible = false;
   late TextEditingController exerciseText;
+  // ignore: non_constant_identifier_names
   List<int> IDs = [];
 
   ///

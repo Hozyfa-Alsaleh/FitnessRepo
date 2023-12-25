@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:fitnessapp/Utils/appcolors.dart';
 import 'package:fitnessapp/approute.dart';
+import 'package:fitnessapp/controllers/CaptinControllers/homepagecontroller.dart';
+
 import 'package:fitnessapp/main.dart';
 import 'package:fitnessapp/widgets/coachpages/captinbuttons.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ class CaptinHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(CaptineHomePageController());
     return WillPopScope(
       onWillPop: () async {
         Get.defaultDialog(

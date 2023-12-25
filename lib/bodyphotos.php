@@ -36,6 +36,7 @@ if(isset($_GET['insert'])){
           mysqli_close($conn);
           echo json_encode($arr);
       }
+
 }
 else if(isset($_GET['fetch'])){
 

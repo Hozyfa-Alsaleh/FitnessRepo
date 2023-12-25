@@ -1,6 +1,9 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fitnessapp/Bindings/initialbindings.dart';
+import 'package:fitnessapp/approute.dart';
 import 'package:fitnessapp/core/StaticLData/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,16 +28,7 @@ void main(List<String> args) async {
   FirebaseMessaging.onBackgroundMessage(onbackgroundNotify);
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
   sherdpref = await SharedPreferences.getInstance();
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    if (message.notification != null) {
-      print("=============================ON FOREGROUND");
-      print(message.notification!.title);
-      print(message.notification!.body);
-      print("==============================");
-    }
-  });
 
   return runApp(const MyApp());
 }

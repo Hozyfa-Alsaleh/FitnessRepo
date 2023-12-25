@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:fitnessapp/Utils/apilinks.dart';
@@ -14,6 +16,7 @@ class RequestsController extends GetxController {
   List<Player> players = [];
   PackageModel? package;
   int playerid = 0;
+  String playername = "";
   List<PlayerDetails> playerInfo = [];
   String imagename = "";
   List<String> titles = [
@@ -59,7 +62,7 @@ class RequestsController extends GetxController {
 
   gotoRequestinfo(int index) {
     playerid = players[index].id!;
-
+    playername = players[index].name!;
     Get.toNamed(AppRoute.requestInfo);
     update();
   }
@@ -130,7 +133,8 @@ class RequestsController extends GetxController {
     ///
     var request = await http.post(Uri.parse(ApiLinks.acceptUser), body: {
       'acc_id': playerid.toString(),
-      'date_enable': DateTime.now().toString()
+      'date_enable': DateTime.now().toString(),
+      'name': playername
     });
     var response = await jsonDecode(request.body);
     if (response['status'] == 1) {
@@ -148,7 +152,7 @@ class RequestsController extends GetxController {
     ///Here the captin will refuse the player and drop him from data base
     ///
     var request = await http.post(Uri.parse(ApiLinks.rejectUser),
-        body: {'acc_id': playerid.toString()});
+        body: {'acc_id': playerid.toString(), 'name': playername});
     var response = await jsonDecode(request.body);
     if (response['status'] == 1) {
       getxDialog('', 'تم رفض الطلب');

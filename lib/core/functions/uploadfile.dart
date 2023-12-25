@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -18,7 +20,7 @@ postRequestWithFile(String url, Map data, File file) async {
   var request = http.MultipartRequest('POST', Uri.parse(url));
   var length = await file.length();
   var stream = http.ByteStream(file.openRead());
-  var res;
+
   var multipartFile =
       http.MultipartFile('file', stream, length, filename: basename(file.path));
   request.files.add(multipartFile);
@@ -29,7 +31,7 @@ postRequestWithFile(String url, Map data, File file) async {
 
   var response = await http.Response.fromStream(myrequest);
   if (response.statusCode == 200) {
-    res = jsonDecode(response.body);
+    var res = jsonDecode(response.body);
     if (res['status'] == 'تم الإشتراك') {
       Get.offAllNamed(AppRoute.PlayerProfile);
     }

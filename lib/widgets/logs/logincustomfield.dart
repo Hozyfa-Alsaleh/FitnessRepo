@@ -36,7 +36,7 @@ class CustomTextField extends StatelessWidget {
         ),
         suffixIcon: obsecure == true || obsecure == false
             ? Container(
-                margin: EdgeInsets.only(left: 12),
+                margin: const EdgeInsets.only(left: 12),
                 width: 50,
                 height: 30,
                 child: IconButton(

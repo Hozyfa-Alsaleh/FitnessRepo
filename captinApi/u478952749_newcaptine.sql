@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 25, 2023 at 01:00 PM
+-- Generation Time: Dec 30, 2023 at 10:34 PM
 -- Server version: 10.6.15-MariaDB-cll-lve
 -- PHP Version: 7.2.34
 
@@ -45,12 +45,9 @@ CREATE TABLE `accounts` (
 
 INSERT INTO `accounts` (`acc_id`, `name`, `nickname`, `email`, `password`, `phone`, `status`, `stopwatch`, `type`) VALUES
 (1, 'admin', 'adm', 'admin@gmail.com', 'admin123', '0991076973', 1, NULL, 'admin'),
-(3, 'Mualla', NULL, 'mualla@gmail.com', 'mualla123', '099100000', 0, NULL, 'user'),
-(4, 'saleh', NULL, 'saleh@gmail.com', '12345678', '', 0, NULL, 'user'),
-(5, 'Hozyfa', NULL, 'hozyfa.sm@gmail.com', '12345678', '09910769730000', 1, '0000-00-00', 'user'),
-(7, 'Ahmad', 'Abbas', 'ahmad@gmail.com', 'ahmad123', '+9639876532123', 1, '0000-00-00', 'user'),
-(8, 'Hozyfa', 'Al-Saleh', 'hozyfa@gmail.com', 'hozyfa123', '+9639874563211', 1, '2023-12-10', 'user'),
-(10, 'sleman', 'mhmad', 'sleman11@gmail.com', '123451234', '91234567899122', 1, '0000-00-00', 'user');
+(20, 'Ali', 'White', 'alialhusaini01@gmail.com', 'good99bad00', '07729716540000', 2, NULL, 'user'),
+(21, 'Ali', 'Alosh', 'alisuariz99ali@gmail.com', 'good99bad00', '9647729716540+', 0, NULL, 'user'),
+(22, 'yousf', 'duraed', 'yousfgym@gmail.com', 'yousfyousf', '+9647730249202', 2, NULL, 'user');
 
 -- --------------------------------------------------------
 
@@ -69,22 +66,8 @@ CREATE TABLE `bodyimages` (
 --
 
 INSERT INTO `bodyimages` (`body_id`, `acc_id`, `imgUrl`) VALUES
-(9, 5, 'IMG_20231204_152946.jpg'),
-(10, 5, 'IMG_20231204_152939.jpg'),
-(11, 4, 'IMG_20231204_152946.jpg'),
-(12, 4, 'IMG_20231204_152939.jpg'),
-(13, 4, 'IMG_20231204_152954.jpg'),
-(14, 4, 'IMG_20231213_044440.jpg'),
-(15, 7, 'IMG_20231204_152946.jpg'),
-(16, 7, 'IMG_20231204_152954.jpg'),
-(17, 10, 'FB_IMG_4969726832997845992.jpg'),
-(18, 10, 'FB_IMG_4969726832997845992.jpg'),
-(19, 10, 'FB_IMG_4969726832997845992.jpg'),
-(20, 11, 'Screenshot_20231222-185212.png'),
-(21, 11, 'IMG-20231221-WA0022.jpg'),
-(22, 11, 'IMG-20231221-WA0021.jpg'),
-(23, 5, 'IMG-20231221-WA0022.jpg'),
-(24, 5, 'IMG-20231221-WA0021.jpg');
+(54, 21, 'IMG_20231130_113555.jpg'),
+(55, 21, 'IMG_20231130_113619.jpg');
 
 -- --------------------------------------------------------
 
@@ -97,13 +80,6 @@ CREATE TABLE `contactinfo` (
   `barcodeurl` text NOT NULL,
   `phone` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-
---
--- Dumping data for table `contactinfo`
---
-
-INSERT INTO `contactinfo` (`con_id`, `barcodeurl`, `phone`) VALUES
-(6, 'FB_IMG_1703131674230.jpg', '933333333333');
 
 -- --------------------------------------------------------
 
@@ -142,19 +118,6 @@ CREATE TABLE `exercises` (
   `acc_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
---
--- Dumping data for table `exercises`
---
-
-INSERT INTO `exercises` (`exe_id`, `details`, `day_id`, `acc_id`) VALUES
-(2, 'new first course', 1, 5),
-(3, 'new second course', 1, 5),
-(4, 'new third course', 1, 5),
-(5, 'first for Monday', 2, 5),
-(6, 'first exe for ahmad', 1, 7),
-(8, 'التمرين الأول لليوم الأول لسليمان', 1, 10),
-(9, 'test for notify add exe', 1, 8);
-
 -- --------------------------------------------------------
 
 --
@@ -166,14 +129,6 @@ CREATE TABLE `food` (
   `acc_id` int(10) NOT NULL,
   `meal` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-
---
--- Dumping data for table `food`
---
-
-INSERT INTO `food` (`food_id`, `acc_id`, `meal`) VALUES
-(7, 7, 'First Food Course For Ahmad'),
-(8, 10, 'كول كول بطاطا لقلك');
 
 -- --------------------------------------------------------
 
@@ -204,11 +159,7 @@ CREATE TABLE `information` (
 --
 
 INSERT INTO `information` (`info_id`, `acc_id`, `weight`, `height`, `age`, `hall`, `area`, `sleephours`, `workhours`, `workstrees`, `gamehistory`, `target`, `usehormon`, `cannon`, `unlikedfood`) VALUES
-(27, 7, '63', '179', '22', 'third hall', 'homs', '3', '8', 'عالي', 'tow years', 'زيادة وزن وحجم', 'الخيار للمدرب', 'ddddd', 'fffffff'),
-(31, 10, '90', '180', '28', '1', 'homs', '9', '10', 'متوسط', 'سنة', 'خسارة وزن', 'لا', 'لا', 'لا'),
-(32, 10, '90', '180', '28', '1', 'homs', '9', '10', 'متوسط', 'سنة', 'خسارة وزن', 'لا', 'لا', 'لا'),
-(33, 10, '90', '180', '28', '1', 'homs', '9', '10', 'متوسط', 'سنة', 'خسارة وزن', 'لا', 'لا', 'لا'),
-(35, 5, '62', '183', '22', 'القاعة الاولى', 'حمص', '٧', '٢٣', 'عالي', 'منذ شهرين', 'زيادة وزن وحجم', 'لا', 'لا يوجد اطعمة', 'لايوجد');
+(55, 21, '83', '185', '19', 'ديزل ', 'بعقوبة', '8', '10', 'متوسط', '١٢شهر ', 'زيادة وزن وحجم', 'لا', 'لا يوجد ', 'لا يوجد ');
 
 -- --------------------------------------------------------
 
@@ -224,15 +175,6 @@ CREATE TABLE `notifications` (
   `notic_date` date DEFAULT NULL,
   `notic_time` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `notifications`
---
-
-INSERT INTO `notifications` (`notify_id`, `acc_id`, `notic_title`, `notice_text`, `notic_date`, `notic_time`) VALUES
-(1, 8, 'إشعار الإشتراك', 'للأسف تم رفض طلبك ', '2023-12-25', '02:10:00'),
-(2, 8, 'إشعار الإشتراك', 'تم قبول طلبك سيقوم الكابتن شعيب بإضافة الكورسات اللازمة', '2023-12-25', '02:36:00'),
-(3, 1, 'طلب إشتراك', 'المستخدم Hozyfa قام بإرسال طلب اشتراك', '2023-12-10', '03:15:00');
 
 -- --------------------------------------------------------
 
@@ -253,8 +195,7 @@ CREATE TABLE `package` (
 --
 
 INSERT INTO `package` (`package_id`, `name`, `time`, `price`, `details`) VALUES
-(1, 'باقة صغيرة', '30', '1000', 'هذه الباقة لا تحوي كورس'),
-(2, 'باقة متوسطة', '50', '15$', 'هذه الباقة المتوسطة');
+(4, '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -273,12 +214,7 @@ CREATE TABLE `profilephoto` (
 --
 
 INSERT INTO `profilephoto` (`profile_id`, `acc_id`, `imgUrl`) VALUES
-(2, 3, 'IMG_20231223_024529.jpg'),
-(5, 4, 'IMG_20231221_142508.jpg'),
-(8, 5, 'IMG_20231221_142508.jpg'),
-(10, 7, 'IMG_20231223_024523.jpg'),
-(11, 8, 'IMG_20231221_182130_369.jpg'),
-(12, 10, '1000014581.jpg');
+(17, 21, 'Snapchat-1107099938_edit_683351925845727.jpg');
 
 -- --------------------------------------------------------
 
@@ -293,6 +229,13 @@ CREATE TABLE `subscribe` (
   `imgurl` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
+--
+-- Dumping data for table `subscribe`
+--
+
+INSERT INTO `subscribe` (`subscribe_id`, `acc_id`, `package_id`, `imgurl`) VALUES
+(65, 21, 4, 'Screenshot_20231228_110818_com.instagram.android.jpg');
+
 -- --------------------------------------------------------
 
 --
@@ -304,14 +247,6 @@ CREATE TABLE `supplements` (
   `acc_id` int(10) NOT NULL,
   `supp` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-
---
--- Dumping data for table `supplements`
---
-
-INSERT INTO `supplements` (`supp_id`, `acc_id`, `supp`) VALUES
-(4, 7, 'First Hormon Course For Ahmad'),
-(5, 10, 'أخي لا مكملات ولا شي \nالكمال لله وحده');
 
 -- --------------------------------------------------------
 
@@ -325,16 +260,6 @@ CREATE TABLE `testlist` (
   `acc_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `testlist`
---
-
-INSERT INTO `testlist` (`img_id`, `image`, `acc_id`) VALUES
-(16, 'IMG_20231204_152946.jpg', 5),
-(17, 'IMG_20231204_152939.jpg', 5),
-(18, 'IMG_20231213_044440.jpg', 5),
-(19, 'IMG_20231204_152954.jpg', 5);
-
 -- --------------------------------------------------------
 
 --
@@ -346,17 +271,6 @@ CREATE TABLE `videos` (
   `videourl` text NOT NULL,
   `exe_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-
---
--- Dumping data for table `videos`
---
-
-INSERT INTO `videos` (`vid_id`, `videourl`, `exe_id`) VALUES
-(2, 'VID_20231216_025117.mp4', 5),
-(3, 'VID_20231216_025128.mp4', 5),
-(4, 'VID_20231216_025100.mp4', 5),
-(5, 'VID_20231216_025117.mp4', 6),
-(6, 'VID_20231216_025128.mp4', 6);
 
 --
 -- Indexes for dumped tables
@@ -464,19 +378,19 @@ ALTER TABLE `videos`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `acc_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `acc_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `bodyimages`
 --
 ALTER TABLE `bodyimages`
-  MODIFY `body_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `body_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `contactinfo`
 --
 ALTER TABLE `contactinfo`
-  MODIFY `con_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `con_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `days`
@@ -488,49 +402,49 @@ ALTER TABLE `days`
 -- AUTO_INCREMENT for table `exercises`
 --
 ALTER TABLE `exercises`
-  MODIFY `exe_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `exe_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `food`
 --
 ALTER TABLE `food`
-  MODIFY `food_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `food_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `information`
 --
 ALTER TABLE `information`
-  MODIFY `info_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `info_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `notify_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `notify_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
 
 --
 -- AUTO_INCREMENT for table `package`
 --
 ALTER TABLE `package`
-  MODIFY `package_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `package_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `profilephoto`
 --
 ALTER TABLE `profilephoto`
-  MODIFY `profile_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `profile_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `subscribe`
 --
 ALTER TABLE `subscribe`
-  MODIFY `subscribe_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `subscribe_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `supplements`
 --
 ALTER TABLE `supplements`
-  MODIFY `supp_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `supp_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `testlist`
@@ -542,7 +456,7 @@ ALTER TABLE `testlist`
 -- AUTO_INCREMENT for table `videos`
 --
 ALTER TABLE `videos`
-  MODIFY `vid_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `vid_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables

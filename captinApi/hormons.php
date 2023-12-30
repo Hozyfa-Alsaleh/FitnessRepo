@@ -21,6 +21,7 @@ else if(isset($_GET['update'])){
     $acc_id = filter('acc_id');
     $supp = filter('supp');
     $name = filter('name');
+    
     $stmt = $connect->prepare("UPDATE `supplements` SET `supp` = ? WHERE `acc_id` = ?");
     $stmt->execute(array($supp,$acc_id));
    $count =  $stmt->rowCount();

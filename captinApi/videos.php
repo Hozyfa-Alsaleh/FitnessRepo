@@ -4,6 +4,7 @@ include "connection.php";
 
 if(isset($_GET['insert'])){
     $ex_id = filter('exe_id');
+    $name = filter('name');
     uploadListOfFiles('file','videos/');
     $countFiles = count($_FILES['file']['name']);
     for($i =0; $i < $countFiles; $i++){
@@ -14,6 +15,7 @@ if(isset($_GET['insert'])){
         
         $count = $stmt->rowCount();
         if($count > 0){
+            sendGCM("تمارين","تم إضافة تمرين جديد","$name$acc_id","","");
             echo json_encode(array('status'=>'تم رفع الفيديوهات بنجاح'));
         }
         else{
@@ -24,6 +26,7 @@ if(isset($_GET['insert'])){
 else if(isset($_GET['fetch']))
 {
     $ex_id = filter('exe_id');
+    $topic = filter('topic');
     $stmt = $connect->prepare('SELECT * FROM `videos` WHERE `exe_id` = ?');
     $stmt->execute(array($ex_id));
     $count = $stmt->rowCount();

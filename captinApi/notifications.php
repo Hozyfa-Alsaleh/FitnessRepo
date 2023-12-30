@@ -5,13 +5,16 @@ if(isset($_GET['insert'])){
     $acc_id = filter('acc_id');
     $title = filter('title');
     $body = filter('body');
-    $time = filter('date');
-    $stmt = $connect->prepare("INSERT INTO `notifications` VALUES(NULL,:id,:ti,:bd,:da)");
+    $date = filter('date');
+    $time = filter('time');
+    
+    $stmt = $connect->prepare("INSERT INTO `notifications` VALUES(NULL,:id,:ti,:bd,:da,:tm)");
     $stmt->execute(array(
         'id'=>$acc_id,
         'ti'=>$title,
         'bd'=>$body,
-        'da'=>$time
+        'da'=>$date,
+        'tm'=>$time
     ));
     $count = $stmt->rowCount();
 

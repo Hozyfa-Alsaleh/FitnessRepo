@@ -2,7 +2,7 @@
 include "connection.php";
 
 if(isset($_GET['fetch'])){
-    $stmt = $connect->prepare('SELECT * FROM `accounts` join `profilephoto` on `status` = 0 AND profilephoto.acc_id = accounts.acc_id');
+    $stmt = $connect->prepare('SELECT accounts.acc_id,name,nickname,profilephoto.imgUrl FROM `accounts` Left Outer join `profilephoto` on accounts.acc_id = profilephoto.acc_id WHERE accounts.status = 0');
     $stmt->execute();
     $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $count = $stmt->rowCount();
@@ -51,6 +51,8 @@ else if(isset($_GET['accept'])){
 else if(isset($_GET['reject'])){
     $acc_id = filter('acc_id');
     $name = filter('name');
+    $stmt = $connect->prepare('UPDATE `accounts` SET `status` = 3 WHERE `acc_id` = ?');
+    $stmt->execute(array($acc_id));
     $stmt = $connect->prepare('DELETE FROM `subscribe` WHERE `acc_id` = ?');
     $stmt->execute(array($acc_id));
     $stmt = $connect->prepare('DELETE FROM `information` WHERE `acc_id` = ?');

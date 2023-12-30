@@ -95,8 +95,8 @@ function sendGCM($title, $message, $topic, $pageid, $pagename)
 
         ),
         'data' => array(
-            "pageid" => $pageid,
-            "pagename" => $pagename
+            "title" => $title,
+            "body" =>  $message,
         )
 
     );

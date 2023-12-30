@@ -3,7 +3,7 @@
 include "connection.php";
 
 if(isset($_GET['fetchAll'])){
-    $stmt = $connect->prepare("SELECT accounts.acc_id,`name`,`imgUrl` FROM `profilephoto` , `accounts` WHERE profilephoto.acc_id = accounts.acc_id AND accounts.status = 1 and `type`='user'");
+    $stmt = $connect->prepare("SELECT accounts.acc_id,name,nickname,profilephoto.imgUrl FROM `accounts` Left Outer join `profilephoto` on accounts.acc_id = profilephoto.acc_id WHERE accounts.status = 1 AND `type`='user'");
 $stmt->execute();
 $count = $stmt->rowCount();
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);

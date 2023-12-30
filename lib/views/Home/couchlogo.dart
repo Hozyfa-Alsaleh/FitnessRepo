@@ -48,9 +48,10 @@ class CouchLogo extends StatelessWidget {
                         topRight: Radius.circular(30),
                         topLeft: Radius.circular(30))),
                 width: width,
-                child: const Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
+                child: ListView(
+                  shrinkWrap: true,
+                  //mainAxisAlignment: MainAxisAlignment.end,
+                  children: const [
                     CoachDisc(
                       text: "-مدرب كمال أجسام وصحة بدنية",
                       fontSize: 20,

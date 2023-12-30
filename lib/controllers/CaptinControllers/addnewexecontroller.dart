@@ -16,6 +16,7 @@ import 'package:video_player/video_player.dart';
 
 class AddNewExeController extends GetxController {
   bool visible = false;
+  bool loading = false;
   late TextEditingController exerciseText;
   // ignore: non_constant_identifier_names
   List<int> IDs = [];
@@ -53,15 +54,21 @@ class AddNewExeController extends GetxController {
     update();
   }
 
+  double perc = 0.0;
   Future<void> addVideosToCurrentExe() async {
     if (videos == []) return;
+    loading = true;
+    update();
     if (await postRequestWithListFile(
             ApiLinks.insertVideos, {'exe_id': currentId.toString()}, videos) ==
         'تم رفع الفيديوهات بنجاح') {
+      loading = false;
       getxDialog('إضافة فيديوهات', 'تم رفع الفيديوهات بنجاح');
     } else {
+      loading = false;
       getxDialog('خطأ', 'حصل خطأ أثناء رفع الفيديوهات');
     }
+    update();
   }
 
   Future<void> updatexe() async {}
@@ -72,16 +79,18 @@ class AddNewExeController extends GetxController {
   List<XFile> pickedvideos = [];
   List<File> videos = [];
   List<String> names = [];
-
+  double sum = 0;
   pickMultiVideos() async {
     pickedvideos = await ImagePicker().pickMultipleMedia();
     if (pickedvideos == []) return;
+
     videos.clear();
     names.clear();
     for (var element in pickedvideos) {
       videos.add(File(element.path));
       names.add(element.path.split("/").last);
     }
+
     generateVideosControllers();
     update();
   }

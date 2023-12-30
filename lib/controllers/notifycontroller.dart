@@ -17,9 +17,9 @@ class NotifyController extends GetxController {
     if (response['status'] == 1) {
       if (initalList.isNotEmpty) {
         initalList.clear();
-        if (notificatonsList.isNotEmpty) {
-          notificatonsList.clear();
-        }
+      }
+      if (notificatonsList.isNotEmpty) {
+        notificatonsList.clear();
       }
       for (var element in response['data']) {
         initalList.add(MyNotification(
@@ -35,10 +35,5 @@ class NotifyController extends GetxController {
     } else {
       return [];
     }
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
   }
 }

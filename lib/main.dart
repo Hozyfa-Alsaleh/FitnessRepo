@@ -15,18 +15,22 @@ double? width;
 double? height;
 
 Future<void> onbackgroundNotify(RemoteMessage message) async {
-  if (message.notification != null) {
+  if (message.data != {}) {
     print("===================ON BACKGROUND");
-    print(message.notification!.title);
-    print(message.notification!.body);
+    print(
+      message.data['title'],
+    );
+    print(
+      message.data['body'],
+    );
     print("===================");
-    storNotificationsToDB(
-        sherdpref!.getString('userId').toString(),
-        message.notification!.title!,
-        message.notification!.body!,
-        DateTime.now().toString(),
-        TimeOfDay.now().toString(),
-        "insert");
+    // storNotificationsToDB(
+    //     sherdpref!.getString('userId').toString(),
+    //     message.data['title'],
+    //     message.data['body'],
+    //     DateTime.now().toString(),
+    //     TimeOfDay.now().toString(),
+    //     "insert");
   }
 }
 
@@ -58,6 +62,7 @@ class MyApp extends StatelessWidget {
         initialBinding: InitialBinding(),
         getPages: getpages,
         initialRoute: "/",
+        //home: const CustomeProgressbar(),
       ),
     );
   }

@@ -132,6 +132,9 @@ class Information extends StatelessWidget {
                                     : controller.imageName!,
                                 style: const TextStyle(color: Colors.black),
                               ),
+                              const SizedBox(
+                                height: 30,
+                              ),
 
                               ///----------PickImage Button
                               PickImageButton(
@@ -158,7 +161,7 @@ class Information extends StatelessWidget {
                                   alignment: Alignment.center,
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0),
-                                  width: MediaQuery.sizeOf(context).width / 1.2,
+                                  width: MediaQuery.sizeOf(context).width / 2.3,
                                   decoration: BoxDecoration(
                                       color: Colors.black,
                                       borderRadius: BorderRadius.circular(15),

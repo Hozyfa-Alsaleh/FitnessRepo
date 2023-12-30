@@ -60,8 +60,11 @@ class AdminExeController extends GetxController {
         await ImagePicker().pickVideo(source: ImageSource.gallery);
     if (pickedVideo == null) return;
     videoFile = File(pickedVideo.path);
+    var count = await videoFile!.length();
+    print("==============>> ${count.toString()}");
     videoName = videoFile!.path.split("/").last;
     videoNames[index] = videoName!;
+
     update();
   }
 

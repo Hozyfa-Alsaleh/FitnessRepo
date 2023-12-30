@@ -107,7 +107,9 @@ class Login extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  ForgetPassButton(),
+                                  Visibility(
+                                      visible: false,
+                                      child: ForgetPassButton()),
                                 ],
                               ),
                             ),

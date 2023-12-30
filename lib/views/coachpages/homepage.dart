@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fitnessapp/Utils/appcolors.dart';
 import 'package:fitnessapp/approute.dart';
 import 'package:fitnessapp/controllers/CaptinControllers/homepagecontroller.dart';
@@ -61,6 +62,7 @@ class CaptinHomePage extends StatelessWidget {
           toolbarHeight: 200,
           leading: IconButton(
             onPressed: () {
+              FirebaseMessaging.instance.unsubscribeFromTopic('captine');
               sherdpref!.clear();
               Get.offAllNamed(AppRoute.LOGIN);
             },
@@ -70,19 +72,20 @@ class CaptinHomePage extends StatelessWidget {
               color: Colors.black,
             ),
           ),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Get.offAll(() => const MyNotifyPage(
-                        route: AppRoute.captineHomePage,
-                      ));
-                },
-                icon: const Icon(
-                  Icons.notifications_active_rounded,
-                  color: Colors.black,
-                  size: 30,
-                ))
-          ],
+          //   actions: [
+          //     IconButton(
+          //         onPressed: () {
+          //           Get.offAll(() => const MyNotifyPage(
+          //                 route: AppRoute.captineHomePage,
+          //               ));
+          //         },
+          //         icon: const Icon(
+          //           Icons.notifications_active_rounded,
+          //           color: Colors.black,
+          //           size: 30,
+          //         ))
+          //   ],
+          // ),
         ),
         body: SizedBox(
           width: width,

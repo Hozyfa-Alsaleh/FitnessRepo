@@ -14,14 +14,16 @@ class UsingHormon extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
+          alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           decoration: BoxDecoration(
-              color: Colors.black,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(width: 2, color: Colors.black)),
+              border: Border.all(
+                  width: 3, color: const Color.fromARGB(255, 16, 85, 141))),
           child: const Text(
             "استخدام الهرمون",
-            style: TextStyle(color: Colors.white, fontSize: 30),
+            style: TextStyle(color: Colors.black, fontSize: 30),
           ),
         ),
         const SizedBox(

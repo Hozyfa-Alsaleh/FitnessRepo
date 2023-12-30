@@ -13,14 +13,19 @@ class TargetOfExercise extends StatelessWidget {
     return Column(
       children: [
         Container(
+          height: 70,
+          alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           decoration: BoxDecoration(
-            color: Colors.black,
+            color: Colors.white,
             borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+                color: const Color.fromARGB(255, 16, 85, 141), width: 3),
           ),
           child: const Text(
             "الهدف من التمرين",
-            style: TextStyle(color: Colors.white, fontSize: 30),
+            style: TextStyle(
+                color: Colors.black, fontSize: 30, fontFamily: 'Tajwal'),
           ),
         ),
         const SizedBox(

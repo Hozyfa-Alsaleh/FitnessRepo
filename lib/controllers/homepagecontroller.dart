@@ -31,8 +31,6 @@ class HomePageController extends GetxController {
         "${sherdpref!.getString('username')}${sherdpref!.getString('userId')}");
     requestNotificationPermissions();
     fcmconfigure();
-    print(
-        "${sherdpref!.getString('username')}${sherdpref!.getString('userId')}");
     super.onInit();
   }
 

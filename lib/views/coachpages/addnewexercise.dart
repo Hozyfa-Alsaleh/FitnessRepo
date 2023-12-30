@@ -1,6 +1,7 @@
 import 'package:fitnessapp/Utils/appcolors.dart';
 import 'package:fitnessapp/controllers/CaptinControllers/addnewexecontroller.dart';
 import 'package:fitnessapp/main.dart';
+import 'package:fitnessapp/views/testnotify.dart';
 import 'package:fitnessapp/widgets/coachpages/videoplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -86,44 +87,75 @@ class AddNewExercise extends StatelessWidget {
                           height: 50,
                         ),
                         Visibility(
+                            visible: controller.loading == true ? true : false,
+                            child: Container(
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: const LinearProgressIndicator(
+                                color: Colors.blue,
+                              ),
+                            )),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Visibility(
                           visible: controller.visible,
                           //visible: true,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              MaterialButton(
-                                color: Colors.black,
-                                onPressed: () {
-                                  controller.clearAllVideos();
-                                },
-                                child: const Text(
-                                  "إفراغ",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 25),
+                              Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                        color: Colors.blue, width: 3)),
+                                child: MaterialButton(
+                                  onPressed: () {
+                                    controller.clearAllVideos();
+                                  },
+                                  child: const Text(
+                                    "إفراغ",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 25,
+                                        fontFamily: 'Tajwal'),
+                                  ),
                                 ),
                               ),
-                              MaterialButton(
-                                color: Colors.black,
-                                onPressed: () {
-                                  controller.addVideosToCurrentExe();
-                                },
-                                child: const Text(
-                                  "إرسال",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 25),
-                                ),
-                              ),
-                              MaterialButton(
-                                color: Colors.black,
-                                onPressed: () {
-                                  controller.pickMultiVideos();
-                                },
-                                child: const Text(
-                                  "أرفق فيديو",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 25),
-                                ),
-                              ),
+                              Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      border: Border.all(
+                                          color: Colors.blue, width: 3)),
+                                  child: MaterialButton(
+                                    onPressed: () {
+                                      controller.pickMultiVideos();
+                                    },
+                                    child: const Text(
+                                      "أرفق فيديو",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: 'Tajwal',
+                                          fontSize: 25),
+                                    ),
+                                  )),
+                              Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      border: Border.all(
+                                          color: Colors.blue, width: 3)),
+                                  child: MaterialButton(
+                                    onPressed: () {
+                                      controller.addVideosToCurrentExe();
+                                    },
+                                    child: const Text(
+                                      "إرسال",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: 'Tajwal',
+                                          fontSize: 25),
+                                    ),
+                                  )),
                             ],
                           ),
                         ),

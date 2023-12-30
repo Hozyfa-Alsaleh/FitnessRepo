@@ -49,22 +49,24 @@ class PlayersController extends GetxController {
 
   ///Display the profile photo
   Future displayProfileImage() async {
-    //try {
-    var request = await http.post(Uri.parse(ApiLinks.profileimg),
-        body: {'acc_id': selectedUserId.toString()});
-    var response = await jsonDecode(request.body);
-    print(response);
-    if (response['status'] == 0) {
-      return;
-    } else {
-      for (var element in response['data']) {
-        imagename = "${ApiLinks.profileFolder}/${element['imgUrl'].toString()}";
+    try {
+      var request = await http.post(Uri.parse(ApiLinks.profileimg),
+          body: {'acc_id': selectedUserId.toString()});
+      var response = await jsonDecode(request.body);
+      print(response);
+      if (response['status'] == 0) {
+        return;
+      } else {
+        for (var element in response['data']) {
+          imagename =
+              "${ApiLinks.profileFolder}/${element['imgUrl'].toString()}";
+        }
       }
+      update();
+    } catch (e) {
+      getxDialog('حالة الاتصال', 'يبدو انك فقدت الاتصال بالانترنت');
+      print(e.toString());
     }
-    update();
-    // } catch (e) {
-    //   print(e.toString());
-    // }
     print(imagename);
   }
 

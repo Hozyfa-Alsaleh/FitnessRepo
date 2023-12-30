@@ -124,17 +124,17 @@ class PlayerProfile extends StatelessWidget {
                                         size: 30,
                                         color: Colors.black,
                                       )),
-                                  IconButton(
-                                      onPressed: () {
-                                        Get.offAll(() => const MyNotifyPage(
-                                              route: AppRoute.PlayerProfile,
-                                            ));
-                                      },
-                                      icon: const Icon(
-                                        Icons.notifications,
-                                        size: 30,
-                                        color: Colors.black,
-                                      )),
+                                  // IconButton(
+                                  //     onPressed: () {
+                                  //       Get.offAll(() => const MyNotifyPage(
+                                  //             route: AppRoute.PlayerProfile,
+                                  //           ));
+                                  //     },
+                                  //     icon: const Icon(
+                                  //       Icons.notifications,
+                                  //       size: 30,
+                                  //       color: Colors.black,
+                                  //     )),
                                 ],
                               ),
                               const SizedBox(

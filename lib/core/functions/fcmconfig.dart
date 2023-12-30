@@ -25,26 +25,30 @@ requestNotificationPermissions() async {
 
 fcmconfigure() {
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    if (message.notification != null) {
-      print("=============================ON FOREGROUND");
-      print(message.notification!.title);
-      print(message.notification!.body);
-      print("==============================");
-      Get.snackbar(message.notification!.title!, message.notification!.body!,
-          colorText: const Color.fromARGB(255, 255, 255, 255),
-          backgroundColor: const Color.fromARGB(141, 0, 0, 0),
-          duration: const Duration(seconds: 5));
+    if (message.data != {}) {
+      print("===================ON FOREGROUND");
+      print(
+        message.data['title'],
+      );
+      print(
+        message.data['body'],
+      );
+      print("===================");
+      // Get.snackbar(message.data['title'], message.data['body'],
+      //     colorText: const Color.fromARGB(255, 255, 255, 255),
+      //     backgroundColor: const Color.fromARGB(141, 0, 0, 0),
+      //     duration: const Duration(seconds: 5));
       NotificationsApi.showNotification(
-          title: message.notification!.title,
-          body: message.notification!.body,
-          payload: 'Hozyfa Alsaleh');
-      storNotificationsToDB(
-          sherdpref!.getString('userId').toString(),
-          message.notification!.title!,
-          message.notification!.body!,
-          DateTime.now().toString(),
-          "${TimeOfDay.now().hour}:${TimeOfDay.now().minute}:00",
-          "insert");
+          title: message.data['title'],
+          body: message.data['body'],
+          payload: 'Fitness App');
+      // storNotificationsToDB(
+      //     sherdpref!.getString('userId').toString(),
+      //     message.data['title'],
+      //     message.data['body'],
+      //     DateTime.now().toString(),
+      //     "${TimeOfDay.now().hour}:${TimeOfDay.now().minute}:00",
+      //     "insert");
     }
   });
 }
@@ -61,9 +65,7 @@ storNotificationsToDB(String id, String title, String body, String date,
         'time': time,
       });
   var response = await jsonDecode(request.body);
-  if (response['status'] == 1) {
-    Get.snackbar('', 'تم حفظ الاشعار بنجاح');
-  } else {
-    Get.snackbar('', 'خطأ');
+  if (response['status']) {
+    print("success");
   }
 }

@@ -54,7 +54,9 @@ class RequestsController extends GetxController {
           players.add(Player(
               id: element['acc_id'],
               name: element['name'],
-              imgurl: "${ApiLinks.profileFolder}/${element['imgUrl']}"));
+              imgurl: element['imgUrl'] != null
+                  ? "${ApiLinks.profileFolder}/${element['imgUrl']}"
+                  : ""));
         }
       }
     }

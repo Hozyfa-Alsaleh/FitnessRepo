@@ -65,12 +65,14 @@ class ManageProfileController extends GetxController {
       regpassword.text = response['data'][0]['password'];
       phone.text = response['data'][0]['phone'];
       sherdpref!.setString('username', response['data'][0]['name']);
-      if (response['data'][0]['status'] == 0) {
+      if (response['data'][0]['status'] == 3) {
         statusText = "تم رفض طلبك للأسف";
         bkcolor = const Color.fromARGB(255, 202, 32, 20);
       } else if (response['data'][0]['status'] == 1) {
         statusText = "حسابك مفعل الآن";
         bkcolor = Colors.green;
+      } else if (response['data'][0]['status'] == 0) {
+        statusText = "بانتظار الاستجابة لطلبك";
       }
       update();
     } else {

@@ -44,13 +44,13 @@ class PhysicsInfo extends StatelessWidget {
           children: [
             Expanded(
                 child: InfoTextField(
-              icon: Icons.monitor_weight,
-              fontsize: 17,
-              lable: "الوزن",
-              controller: weightCtrl,
-              validator: (val) =>
-                  validateInput(val!, 2, 3, TextInputType.number),
-            )),
+                    icon: Icons.monitor_weight,
+                    fontsize: 17,
+                    lable: "الوزن",
+                    controller: weightCtrl,
+                    validator: (val) {
+                      return validateInput(val!, 2, 3, TextInputType.number);
+                    })),
             Expanded(
                 child: InfoTextField(
               lable: "الطول",
@@ -61,6 +61,7 @@ class PhysicsInfo extends StatelessWidget {
             )),
             Expanded(
                 child: InfoTextField(
+              keyboardType: TextInputType.number,
               lable: "العمر",
               icon: Icons.numbers,
               controller: ageCtrl,
@@ -104,20 +105,30 @@ class PhysicsInfo extends StatelessWidget {
           children: [
             Expanded(
                 child: InfoTextField(
-              lable: "ساعات النوم",
-              icon: Icons.home_filled,
-              controller: sleepHoursCtrl,
-              validator: (val) =>
-                  validateInput(val!, 2, 10, TextInputType.text),
-            )),
+                    keyboardType: TextInputType.number,
+                    lable: "ساعات النوم",
+                    icon: Icons.home_filled,
+                    controller: sleepHoursCtrl,
+                    validator: (val) {
+                      if (int.parse(val!) > 24) {
+                        return "لا يجب أن تتجاوز ساعات النوم ال24 ساعة ";
+                      } else {
+                        return validateInput(val, 2, 10, TextInputType.text);
+                      }
+                    })),
             Expanded(
               child: InfoTextField(
-                lable: "ساعات العمل",
-                icon: Icons.location_city_rounded,
-                controller: workHoursCtrl,
-                validator: (val) =>
-                    validateInput(val!, 2, 10, TextInputType.text),
-              ),
+                  keyboardType: TextInputType.number,
+                  lable: "ساعات العمل",
+                  icon: Icons.location_city_rounded,
+                  controller: workHoursCtrl,
+                  validator: (val) {
+                    if (int.parse(val!) > 24) {
+                      return "لا يجب أن تكون ساعات العمل أكبر من 24";
+                    } else {
+                      return validateInput(val, 2, 10, TextInputType.text);
+                    }
+                  }),
             ),
           ],
         ),

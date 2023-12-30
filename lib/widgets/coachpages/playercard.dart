@@ -35,7 +35,7 @@ class PlayerCard extends StatelessWidget {
             height: 100,
             width: 70,
             child: CircleAvatar(
-              backgroundImage: NetworkImage(imgurl),
+              backgroundImage: imgurl != "" ? NetworkImage(imgurl) : null,
               backgroundColor: const Color.fromARGB(127, 1, 52, 110),
             ),
           ),

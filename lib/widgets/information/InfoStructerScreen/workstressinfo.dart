@@ -18,13 +18,14 @@ class WorkStressInfo extends StatelessWidget {
           height: 60,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-              color: const Color.fromARGB(192, 1, 52, 110),
+              color: Colors.white,
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(width: 2, color: Colors.black)),
+              border: Border.all(
+                  width: 3, color: const Color.fromARGB(255, 16, 85, 141))),
           child: const Text(
             "جهد العمل",
             style: TextStyle(
-                color: Colors.white, fontSize: 30, fontFamily: 'Tajwal'),
+                color: Colors.black, fontSize: 30, fontFamily: 'Tajwal'),
           ),
         ),
         const SizedBox(

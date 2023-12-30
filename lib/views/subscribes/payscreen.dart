@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:fitnessapp/Utils/appcolors.dart';
 import 'package:fitnessapp/approute.dart';
 import 'package:fitnessapp/controllers/infocontroller.dart';
+import 'package:fitnessapp/core/classes/requeststate.dart';
 import 'package:fitnessapp/main.dart';
 import 'package:fitnessapp/widgets/information/pickimagebutton.dart';
 import 'package:flutter/material.dart';
@@ -90,6 +91,9 @@ class PayScreen extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
+                      Visibility(
+                          visible: controller.load == false ? false : true,
+                          child: const CircularProgressIndicator())
                     ]),
               ),
             );

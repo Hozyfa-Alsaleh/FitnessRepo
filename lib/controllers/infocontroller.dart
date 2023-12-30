@@ -29,9 +29,9 @@ class InfoController extends GetxController {
   late TextEditingController historyWithgame;
   late TextEditingController infection;
   late TextEditingController excludedFoods;
-  Color workcolor = Colors.deepOrange.shade900;
-  Color exercisecolor = Colors.deepOrange.shade900;
-  Color hormoncolor = Colors.deepOrange.shade900;
+  Color workcolor = Colors.blue;
+  Color exercisecolor = Colors.blue;
+  Color hormoncolor = Colors.blue;
   String? imageName;
   String worktext = "";
   String exercisetext = "";
@@ -68,18 +68,18 @@ class InfoController extends GetxController {
   }
 
   selectedWorkButton() {
-    workcolor = Colors.red;
+    workcolor = Colors.blue;
     print(worktext);
     update();
   }
 
   selectedExerciseButton() {
-    exercisecolor = Colors.red;
+    exercisecolor = Colors.blue;
     update();
   }
 
   selectedHormonButton() {
-    hormoncolor = Colors.red;
+    hormoncolor = Colors.blue;
     update();
   }
 
@@ -117,6 +117,7 @@ class InfoController extends GetxController {
     for (var element in picked!) {
       images.add(File(element.path));
     }
+    imageName = images[0].path.split("/").last;
     update();
   }
 
@@ -173,7 +174,7 @@ class InfoController extends GetxController {
 
   ///
   ///Send The Subscribe Data
-  ///NEED FIX
+  bool load = false;
   sendSubscribeData() async {
     if (payImage == null) return;
     requestStatus = RequestStatus.loading;
@@ -186,6 +187,8 @@ class InfoController extends GetxController {
           'name': sherdpref!.getString('username')
         },
         payImage!);
+    requeststatus = RequestStatus.success;
+    load = false;
     update();
   }
 
@@ -195,6 +198,8 @@ class InfoController extends GetxController {
   ///to send it to the data base in the same time
   ///
   sendAllInformations() async {
+    load = true;
+    update();
     await sendinformation();
     await sendSubscribeData();
   }

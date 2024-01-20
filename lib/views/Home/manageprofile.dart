@@ -200,26 +200,18 @@ class ManageProfile extends StatelessWidget {
                               const SizedBox(
                                 height: 40,
                               ),
-                              // Row(
-                              //   mainAxisAlignment: MainAxisAlignment.center,
-                              //   children: [
-                              //     const Text(
-                              //       "لديك حساب بالفعل؟ ",
-                              //       style: TextStyle(
-                              //           color: Colors.white, fontSize: 23),
-                              //     ),
-                              //     InkWell(
-                              //       onTap: () {
-                              //         Get.offAllNamed(AppRoute.LOGIN);
-                              //       },
-                              //       child: const Text(
-                              //         "سجل الآن.",
-                              //         style: TextStyle(
-                              //             color: Colors.red, fontSize: 20),
-                              //       ),
-                              //     )
-                              //   ],
-                              // ),
+                              Container(
+                                alignment: Alignment.center,
+                                child: const Text(
+                                  "تم تطوير هذا البرنامج بواسطة فريق Pro Team \n للتواصل والدعم يرجى التواصل على هذا الرقم\n 963-994974729+",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: "Tajwal"),
+                                ),
+                              )
                             ],
                           ));
                     },

@@ -28,6 +28,10 @@ class Packages extends StatelessWidget {
               print(controller.isUpdate.toString());
               Get.toNamed(AppRoute.packageCRUD);
             },
+            goback: Icons.arrow_forward_ios,
+            backFun: () {
+              Get.offAllNamed(AppRoute.captineHomePage);
+            },
           ),
           body: FutureBuilder(
             future: controller.fetchPackages(),

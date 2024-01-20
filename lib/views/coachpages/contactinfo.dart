@@ -32,6 +32,17 @@ class ContactInfo extends StatelessWidget {
                 fontFamily: 'Tajwal'),
           ),
           centerTitle: true,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Get.offAllNamed(AppRoute.captineHomePage);
+                },
+                icon: Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.black,
+                  size: 27,
+                ))
+          ],
         ),
         body: GetBuilder<ContactInfoController>(
           builder: (controller) {

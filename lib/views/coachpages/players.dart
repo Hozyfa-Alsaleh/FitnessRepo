@@ -31,6 +31,17 @@ class MyPlayers extends StatelessWidget {
               ),
             ),
             centerTitle: true,
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Get.offAllNamed(AppRoute.captineHomePage);
+                  },
+                  icon: const Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black,
+                    size: 30,
+                  ))
+            ],
           ),
           backgroundColor: AppColors.scaffoldBackGroundColor,
           body: GetBuilder<PlayersController>(

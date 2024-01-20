@@ -48,23 +48,30 @@ class LoginController extends GetxController {
     var res =
         await testData.login(ApiLinks.login, username.text, password.text);
     reqStatus = handlingdata(res);
-
     if (RequestStatus.success == reqStatus) {
-      if (loginFormKey.currentState!.validate()) {
-        if (res['data']['acc_id'] == 1) {
-          sherdpref!.setString('userId', '1');
-          sherdpref!.setString('username', res['data']['name']);
-          sherdpref!.setBool('isLog', true);
-          Get.offAllNamed(AppRoute.captineHomePage);
-        } else {
-          sherdpref!.setString('userId', res['data']['acc_id'].toString());
-          sherdpref!.setString('username', res['data']['name']);
-          sherdpref!.setBool('isLog', true);
-          Get.offAllNamed(AppRoute.HOME);
+      if (res['status'] != "faild") {
+        if (loginFormKey.currentState!.validate()) {
+          if (res['data']['acc_id'] == 1) {
+            sherdpref!.setString('userId', '1');
+            sherdpref!.setString('username', res['data']['name']);
+            sherdpref!.setBool('isLog', true);
+            Get.offAllNamed(AppRoute.captineHomePage);
+          } else {
+            sherdpref!.setString('userId', res['data']['acc_id'].toString());
+            sherdpref!.setString('username', res['data']['name']);
+            sherdpref!.setBool('isLog', true);
+            Get.offAllNamed(AppRoute.HOME);
+          }
         }
+      } else {
+        getxDialog(
+            "", "خطأ في الايميل أو كلمة المرور \n أو انك لا تملك حساباً");
       }
     } else {
-      getxDialog("", "خطأ في الايميل أو كلمة المرور");
+      getxDialog("", " خطأ في الايميل أو كلمة المرور");
+
+      //getxDialog("", "لا يوجد حساب بهذه المعلومات");
+
       //getxDialog("", reqStatus.toString());
     }
     update();

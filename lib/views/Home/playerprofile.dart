@@ -22,6 +22,18 @@ class PlayerProfile extends StatelessWidget {
         return false;
       },
       child: Scaffold(
+          appBar: AppBar(
+            toolbarHeight: 35,
+            elevation: 0.0,
+            backgroundColor: Colors.transparent,
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Get.offAllNamed(AppRoute.HOME);
+                  },
+                  icon: Icon(Icons.arrow_forward_ios_rounded))
+            ],
+          ),
           backgroundColor: AppColors.scaffoldBackGroundColor,
           body: GetBuilder<PlayerProfileController>(
             builder: (controller) {
@@ -137,9 +149,9 @@ class PlayerProfile extends StatelessWidget {
                                   //     )),
                                 ],
                               ),
-                              const SizedBox(
-                                height: 6,
-                              ),
+                              // const SizedBox(
+                              //   height: 6,
+                              // ),
                               // const Text(
                               //   "تم ارسال المعلومات يرجي انتظار الكورس",
                               //   style:
@@ -149,33 +161,35 @@ class PlayerProfile extends StatelessWidget {
                                 thickness: 1,
                                 color: Colors.grey,
                               ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SwitchButtonPage(
-                                    onPressed: () {
-                                      controller.switchthePage(0);
-                                    },
-                                    text: "التفاصيل",
-                                    icon: Icons.list_rounded,
-                                    color: controller.detailsColor,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  SwitchButtonPage(
-                                    onPressed: () {
-                                      controller.switchthePage(1);
-                                      controller.fetchBodyImages();
-                                    },
-                                    text: "الصور",
-                                    icon: Icons.image,
-                                    color: controller.imagesColor,
-                                  )
-                                ],
+                              // const SizedBox(
+                              //   height: 8,
+                              // ),
+                              Expanded(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SwitchButtonPage(
+                                      onPressed: () {
+                                        controller.switchthePage(0);
+                                      },
+                                      text: "التفاصيل",
+                                      icon: Icons.list_rounded,
+                                      color: controller.detailsColor,
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    SwitchButtonPage(
+                                      onPressed: () {
+                                        controller.switchthePage(1);
+                                        controller.fetchBodyImages();
+                                      },
+                                      text: "الصور",
+                                      icon: Icons.image,
+                                      color: controller.imagesColor,
+                                    )
+                                  ],
+                                ),
                               ),
                             ],
                           ),

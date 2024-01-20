@@ -31,6 +31,17 @@ class PlayersRequests extends StatelessWidget {
                   fontWeight: FontWeight.bold),
             ),
             centerTitle: true,
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Get.offAllNamed(AppRoute.captineHomePage);
+                  },
+                  icon: const Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black,
+                    size: 27,
+                  ))
+            ],
           ),
           body: GetBuilder<RequestsController>(
             builder: (controller) {

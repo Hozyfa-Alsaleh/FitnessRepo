@@ -31,47 +31,100 @@ class AppSuppCourse extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                 ),
                 centerTitle: true,
-                leading: IconButton(
-                  onPressed: () {
-                    controller.deleteSuppCourse();
-                  },
-                  icon: const Icon(
-                    Icons.delete,
-                    size: 30,
-                    color: Colors.black,
-                  ),
-                ),
                 actions: [
                   IconButton(
                       onPressed: () {
-                        if (controller.isUpdate == false) {
-                          controller.insertNewSuppCourse();
-                        } else if (controller.isUpdate == true) {
-                          controller.updateSuppCourse();
-                        }
+                        Get.toNamed(AppRoute.suppcourse);
                       },
                       icon: const Icon(
-                        Icons.send,
-                        size: 30,
+                        Icons.arrow_forward_ios,
                         color: Colors.black,
+                        size: 25,
                       ))
                 ],
                 elevation: 0.0,
                 backgroundColor: Colors.transparent,
               ),
-              body: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                padding:
-                    EdgeInsets.symmetric(vertical: height! / 4, horizontal: 10),
-                child: FoodCard(
-                  icon: Icons.medical_information,
-                  text: controller.isUpdate == false
-                      ? "أضف الكورس"
-                      : "عدل الكورس",
-                  hint: "",
-                  controller: controller.supptext,
-                ),
-              )),
+              body: ListView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: EdgeInsets.symmetric(
+                      vertical: height! / 4, horizontal: 10),
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              if (controller.isUpdate == false) {
+                                controller.insertNewSuppCourse();
+                              } else if (controller.isUpdate == true) {
+                                controller.updateSuppCourse();
+                              }
+                            },
+                            child: Container(
+                              height: 50,
+                              margin: const EdgeInsets.only(bottom: 20),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                  border: Border.all(
+                                      width: 3,
+                                      color: const Color.fromARGB(
+                                          192, 1, 52, 110))),
+                              child: Text(
+                                controller.isUpdate == false
+                                    ? "إضافة"
+                                    : "تعديل",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: "Tajwal",
+                                    fontSize: 24),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              controller.deleteSuppCourse();
+                            },
+                            child: Container(
+                              height: 50,
+                              margin: const EdgeInsets.only(bottom: 20),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                  border: Border.all(
+                                      width: 3,
+                                      color: const Color.fromARGB(
+                                          192, 1, 52, 110))),
+                              child: const Text(
+                                "حذف",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: "Tajwal",
+                                    fontSize: 24),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    FoodCard(
+                      icon: Icons.medical_information,
+                      text: controller.isUpdate == false
+                          ? "أضف الكورس"
+                          : "عدل الكورس",
+                      hint: "",
+                      controller: controller.supptext,
+                    ),
+                  ])),
         );
       },
     );

@@ -5,12 +5,16 @@ class SharedAppBar extends StatelessWidget implements PreferredSizeWidget {
   final IconData addSend;
   final void Function()? delete;
   final String title;
+  final IconData? goback;
+  final void Function()? backFun;
   const SharedAppBar(
       {super.key,
       this.delete,
       required this.title,
       this.addOrSend,
-      required this.addSend});
+      required this.addSend,
+      this.goback,
+      this.backFun});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +45,16 @@ class SharedAppBar extends StatelessWidget implements PreferredSizeWidget {
               addSend,
               size: 34,
               color: Colors.black,
-            ))
+            )),
+        goback != null
+            ? IconButton(
+                onPressed: backFun,
+                icon: Icon(
+                  goback,
+                  color: Colors.black,
+                  size: 25,
+                ))
+            : const SizedBox()
       ],
     );
   }

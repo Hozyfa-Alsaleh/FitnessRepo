@@ -46,6 +46,10 @@ class PackageCRUD extends StatelessWidget {
                     controller.deletePackage();
                   }
                 },
+                goback: Icons.arrow_forward_ios,
+                backFun: () {
+                  Get.offAllNamed(AppRoute.CaptinePackages);
+                },
               ),
               body: SizedBox(
                 width: width,

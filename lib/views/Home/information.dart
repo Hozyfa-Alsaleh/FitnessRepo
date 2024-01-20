@@ -31,6 +31,14 @@ class Information extends StatelessWidget {
                     Icons.refresh,
                     color: Colors.black,
                   )),
+              IconButton(
+                  onPressed: () {
+                    Get.offAllNamed(AppRoute.PlayerProfile);
+                  },
+                  icon: const Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black,
+                  )),
             ],
             elevation: 0.0,
             backgroundColor: Colors.transparent,

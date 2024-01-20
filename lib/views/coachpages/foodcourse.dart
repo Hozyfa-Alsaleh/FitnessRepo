@@ -32,28 +32,15 @@ class AddFoodCourse extends StatelessWidget {
                     color: Colors.black, fontSize: 30, fontFamily: 'Tajwal'),
               ),
               centerTitle: true,
-              leading: IconButton(
-                onPressed: () {
-                  controller.deleteCourse();
-                },
-                icon: const Icon(
-                  Icons.delete_forever_rounded,
-                  size: 30,
-                  color: Colors.black,
-                ),
-              ),
               actions: [
                 IconButton(
                     onPressed: () {
-                      if (controller.isUpdate == false) {
-                        controller.addFoodCourse();
-                      } else if (controller.isUpdate == true) {
-                        controller.updateCourse();
-                      }
+                      Get.toNamed(AppRoute.displayFood);
                     },
                     icon: const Icon(
-                      Icons.send,
-                      size: 30,
+                      Icons.arrow_forward_ios,
+                      color: Colors.black,
+                      size: 26,
                     ))
               ],
             ),
@@ -67,6 +54,70 @@ class AddFoodCourse extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                if (controller.isUpdate == false) {
+                                  controller.addFoodCourse();
+                                } else if (controller.isUpdate == true) {
+                                  controller.updateCourse();
+                                }
+                              },
+                              child: Container(
+                                height: 50,
+                                margin: EdgeInsets.only(bottom: 20),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                        width: 3,
+                                        color: const Color.fromARGB(
+                                            192, 1, 52, 110))),
+                                child: const Text(
+                                  "إضافة",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: "Tajwal",
+                                      fontSize: 24),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                controller.deleteCourse();
+                              },
+                              child: Container(
+                                height: 50,
+                                margin: const EdgeInsets.only(bottom: 20),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                        width: 3,
+                                        color: const Color.fromARGB(
+                                            192, 1, 52, 110))),
+                                child: const Text(
+                                  "حذف",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: "Tajwal",
+                                      fontSize: 24),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                       FoodCard(
                         icon: Icons.food_bank_rounded,
                         text: controller.isUpdate == false

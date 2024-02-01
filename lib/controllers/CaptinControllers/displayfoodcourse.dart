@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:fitnessapp/Utils/apilinks.dart';
-import 'package:fitnessapp/core/StaticLData/staticvar.dart';
+import 'package:captainshoaib/Utils/apilinks.dart';
+import 'package:captainshoaib/core/StaticLData/staticvar.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 

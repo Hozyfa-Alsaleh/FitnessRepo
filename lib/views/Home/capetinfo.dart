@@ -1,5 +1,5 @@
-import 'package:fitnessapp/approute.dart';
-import 'package:fitnessapp/main.dart';
+import 'package:captainshoaib/approute.dart';
+import 'package:captainshoaib/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

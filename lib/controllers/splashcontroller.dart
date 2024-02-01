@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:fitnessapp/approute.dart';
+import 'package:captainshoaib/approute.dart';
 import 'package:get/get.dart';
 
 class SplashController extends GetxController {

@@ -1,11 +1,11 @@
-import 'package:fitnessapp/Utils/appcolors.dart';
-import 'package:fitnessapp/controllers/playerprofilecontroller.dart';
-import 'package:fitnessapp/approute.dart';
-import 'package:fitnessapp/main.dart';
-import 'package:fitnessapp/views/Home/imageviewer.dart';
-import 'package:fitnessapp/views/Home/manageprofile.dart';
-import 'package:fitnessapp/widgets/PlayerProfile/rowofinfo.dart';
-import 'package:fitnessapp/widgets/PlayerProfile/switchpagebutton.dart';
+import 'package:captainshoaib/Utils/appcolors.dart';
+import 'package:captainshoaib/controllers/playerprofilecontroller.dart';
+import 'package:captainshoaib/approute.dart';
+import 'package:captainshoaib/main.dart';
+import 'package:captainshoaib/views/Home/imageviewer.dart';
+import 'package:captainshoaib/views/Home/manageprofile.dart';
+import 'package:captainshoaib/widgets/PlayerProfile/rowofinfo.dart';
+import 'package:captainshoaib/widgets/PlayerProfile/switchpagebutton.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,6 +21,18 @@ class PlayerProfile extends StatelessWidget {
         return false;
       },
       child: Scaffold(
+          appBar: AppBar(
+            toolbarHeight: 35,
+            elevation: 0.0,
+            backgroundColor: Colors.transparent,
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Get.offAllNamed(AppRoute.HOME);
+                  },
+                  icon: Icon(Icons.arrow_forward_ios_rounded))
+            ],
+          ),
           backgroundColor: AppColors.scaffoldBackGroundColor,
           body: GetBuilder<PlayerProfileController>(
             builder: (controller) {
@@ -30,9 +42,7 @@ class PlayerProfile extends StatelessWidget {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
-                            //flex: 7,
-                            child: Padding(
+                        Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -69,8 +79,8 @@ class PlayerProfile extends StatelessWidget {
                                             ),
                                           )),
                                   Positioned(
-                                    bottom: 20,
-                                    right: 10,
+                                    bottom: 5,
+                                    right: 5,
                                     child: IconButton(
                                       onPressed: () {
                                         controller.pickeImage();
@@ -78,7 +88,7 @@ class PlayerProfile extends StatelessWidget {
                                       icon: const Icon(
                                         Icons.camera_alt,
                                         color: Colors.grey,
-                                        size: 55,
+                                        size: 45,
                                       ),
                                     ),
                                   )
@@ -136,9 +146,9 @@ class PlayerProfile extends StatelessWidget {
                                   //     )),
                                 ],
                               ),
-                              const SizedBox(
-                                height: 6,
-                              ),
+                              // const SizedBox(
+                              //   height: 6,
+                              // ),
                               // const Text(
                               //   "تم ارسال المعلومات يرجي انتظار الكورس",
                               //   style:
@@ -148,9 +158,9 @@ class PlayerProfile extends StatelessWidget {
                                 thickness: 1,
                                 color: Colors.grey,
                               ),
-                              const SizedBox(
-                                height: 8,
-                              ),
+                              // const SizedBox(
+                              //   height: 8,
+                              // ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -178,7 +188,7 @@ class PlayerProfile extends StatelessWidget {
                               ),
                             ],
                           ),
-                        )),
+                        ),
                         Expanded(
                             //flex: 7,
                             child: Container(
@@ -194,7 +204,8 @@ class PlayerProfile extends StatelessWidget {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
                                       return const Center(
-                                        child: CircularProgressIndicator(),
+                                        child: CircularProgressIndicator
+                                            .adaptive(),
                                       );
                                     } else if (controller
                                         .playerInfo.isNotEmpty) {

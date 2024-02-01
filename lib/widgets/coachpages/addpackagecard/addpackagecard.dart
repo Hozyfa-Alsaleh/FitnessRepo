@@ -1,5 +1,5 @@
-import 'package:fitnessapp/main.dart';
-import 'package:fitnessapp/widgets/coachpages/addpackagecard/fieldofcard.dart';
+import 'package:captainshoaib/main.dart';
+import 'package:captainshoaib/widgets/coachpages/addpackagecard/fieldofcard.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 

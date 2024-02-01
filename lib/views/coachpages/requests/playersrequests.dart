@@ -1,7 +1,7 @@
-import 'package:fitnessapp/approute.dart';
-import 'package:fitnessapp/controllers/CaptinControllers/requestscontrollers.dart';
-import 'package:fitnessapp/main.dart';
-import 'package:fitnessapp/widgets/coachpages/playercard.dart';
+import 'package:captainshoaib/approute.dart';
+import 'package:captainshoaib/controllers/CaptinControllers/requestscontrollers.dart';
+import 'package:captainshoaib/main.dart';
+import 'package:captainshoaib/widgets/coachpages/playercard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -31,6 +31,17 @@ class PlayersRequests extends StatelessWidget {
                   fontWeight: FontWeight.bold),
             ),
             centerTitle: true,
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Get.offAllNamed(AppRoute.captineHomePage);
+                  },
+                  icon: const Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black,
+                    size: 27,
+                  ))
+            ],
           ),
           body: GetBuilder<RequestsController>(
             builder: (controller) {
@@ -42,7 +53,7 @@ class PlayersRequests extends StatelessWidget {
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
-                          child: CircularProgressIndicator(),
+                          child: CircularProgressIndicator.adaptive(),
                         );
                       } else if (controller.players.isNotEmpty) {
                         return ListView.builder(

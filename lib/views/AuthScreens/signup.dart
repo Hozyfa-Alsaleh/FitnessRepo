@@ -1,8 +1,8 @@
-import 'package:fitnessapp/Utils/appcolors.dart';
-import 'package:fitnessapp/controllers/signupcontroller.dart';
-import 'package:fitnessapp/approute.dart';
-import 'package:fitnessapp/core/functions/validator.dart';
-import 'package:fitnessapp/widgets/logs/signuptextfield.dart';
+import 'package:captainshoaib/Utils/appcolors.dart';
+import 'package:captainshoaib/controllers/signupcontroller.dart';
+import 'package:captainshoaib/approute.dart';
+import 'package:captainshoaib/core/functions/validator.dart';
+import 'package:captainshoaib/widgets/logs/signuptextfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

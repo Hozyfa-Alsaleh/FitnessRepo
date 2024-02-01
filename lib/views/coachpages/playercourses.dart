@@ -1,6 +1,6 @@
-import 'package:fitnessapp/Utils/appcolors.dart';
-import 'package:fitnessapp/main.dart';
-import 'package:fitnessapp/widgets/coachpages/coursecard.dart';
+import 'package:captainshoaib/Utils/appcolors.dart';
+import 'package:captainshoaib/main.dart';
+import 'package:captainshoaib/widgets/coachpages/coursecard.dart';
 import 'package:flutter/material.dart';
 
 class PlayerCourses extends StatelessWidget {

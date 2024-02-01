@@ -1,12 +1,12 @@
-import 'package:fitnessapp/Utils/appcolors.dart';
-import 'package:fitnessapp/approute.dart';
-import 'package:fitnessapp/controllers/infocontroller.dart';
-import 'package:fitnessapp/widgets/information/InfoStructerScreen/physicinfo.dart';
-import 'package:fitnessapp/widgets/information/InfoStructerScreen/playercondition.dart';
-import 'package:fitnessapp/widgets/information/InfoStructerScreen/targetofexercise.dart';
-import 'package:fitnessapp/widgets/information/InfoStructerScreen/usinghormon.dart';
-import 'package:fitnessapp/widgets/information/InfoStructerScreen/workstressinfo.dart';
-import 'package:fitnessapp/widgets/information/pickimagebutton.dart';
+import 'package:captainshoaib/Utils/appcolors.dart';
+import 'package:captainshoaib/approute.dart';
+import 'package:captainshoaib/controllers/infocontroller.dart';
+import 'package:captainshoaib/widgets/information/InfoStructerScreen/physicinfo.dart';
+import 'package:captainshoaib/widgets/information/InfoStructerScreen/playercondition.dart';
+import 'package:captainshoaib/widgets/information/InfoStructerScreen/targetofexercise.dart';
+import 'package:captainshoaib/widgets/information/InfoStructerScreen/usinghormon.dart';
+import 'package:captainshoaib/widgets/information/InfoStructerScreen/workstressinfo.dart';
+import 'package:captainshoaib/widgets/information/pickimagebutton.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -29,6 +29,14 @@ class Information extends StatelessWidget {
                   onPressed: ctrl.resetInfo,
                   icon: const Icon(
                     Icons.refresh,
+                    color: Colors.black,
+                  )),
+              IconButton(
+                  onPressed: () {
+                    Get.offAllNamed(AppRoute.PlayerProfile);
+                  },
+                  icon: const Icon(
+                    Icons.arrow_forward_ios,
                     color: Colors.black,
                   )),
             ],

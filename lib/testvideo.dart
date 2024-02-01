@@ -1,7 +1,7 @@
 // ignore_for_file: camel_case_types
 
-import 'package:fitnessapp/controllers/videocontroller.dart';
-import 'package:fitnessapp/main.dart';
+import 'package:captainshoaib/controllers/videocontroller.dart';
+import 'package:captainshoaib/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';

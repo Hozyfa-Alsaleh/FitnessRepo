@@ -3,15 +3,16 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:fitnessapp/Utils/apilinks.dart';
-import 'package:fitnessapp/core/StaticLData/staticvar.dart';
-import 'package:fitnessapp/core/functions/getxdialog.dart';
-import 'package:fitnessapp/core/functions/uploadfile.dart';
-import 'package:fitnessapp/main.dart';
+import 'package:captainshoaib/Utils/apilinks.dart';
+import 'package:captainshoaib/core/StaticLData/staticvar.dart';
+import 'package:captainshoaib/core/functions/getxdialog.dart';
+import 'package:captainshoaib/core/functions/uploadfile.dart';
+import 'package:captainshoaib/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:video_player/video_player.dart';
 
 class AddNewExeController extends GetxController {
@@ -80,18 +81,34 @@ class AddNewExeController extends GetxController {
   List<File> videos = [];
   List<String> names = [];
   double sum = 0;
-  pickMultiVideos() async {
-    pickedvideos = await ImagePicker().pickMultipleMedia();
-    if (pickedvideos == []) return;
+  //!Mark: mhamad updated this
 
-    videos.clear();
-    names.clear();
-    for (var element in pickedvideos) {
-      videos.add(File(element.path));
-      names.add(element.path.split("/").last);
+  void pickMultiVideos() async {
+    var status = await Permission.videos.request();
+
+    if (status == null || status.isDenied) {
+      print('Permission denied');
+      return;
     }
 
-    generateVideosControllers();
+    try {
+      pickedvideos = await ImagePicker().pickMultipleMedia();
+
+      if (pickedvideos == null || pickedvideos.isEmpty) return;
+
+      videos.clear();
+      names.clear();
+
+      for (var element in pickedvideos) {
+        videos.add(File(element.path));
+        names.add(element.path.split("/").last);
+      }
+
+      generateVideosControllers();
+    } catch (e) {
+      print('Error picking or processing videos: $e');
+    }
+
     update();
   }
 

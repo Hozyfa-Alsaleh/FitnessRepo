@@ -1,5 +1,5 @@
-import 'package:fitnessapp/core/classes/requeststate.dart';
-import 'package:fitnessapp/core/classes/testdata.dart';
+import 'package:captainshoaib/core/classes/requeststate.dart';
+import 'package:captainshoaib/core/classes/testdata.dart';
 import 'package:get/get.dart';
 
 TestData testData = TestData(Get.find());

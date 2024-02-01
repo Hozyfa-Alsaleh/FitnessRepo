@@ -2,19 +2,20 @@
 
 import 'dart:convert';
 import 'dart:io';
-import 'package:fitnessapp/Utils/apilinks.dart';
-import 'package:fitnessapp/approute.dart';
-import 'package:fitnessapp/core/StaticLData/staticvar.dart';
-import 'package:fitnessapp/core/functions/getxdialog.dart';
-import 'package:fitnessapp/main.dart';
-import 'package:fitnessapp/models/exercies.dart';
-import 'package:fitnessapp/models/videos.dart';
-import 'package:fitnessapp/views/coachpages/exedetails.dart';
+import 'package:captainshoaib/Utils/apilinks.dart';
+import 'package:captainshoaib/approute.dart';
+import 'package:captainshoaib/core/StaticLData/staticvar.dart';
+import 'package:captainshoaib/core/functions/getxdialog.dart';
+import 'package:captainshoaib/main.dart';
+import 'package:captainshoaib/models/exercies.dart';
+import 'package:captainshoaib/models/videos.dart';
+import 'package:captainshoaib/views/coachpages/exedetails.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:permission_handler/permission_handler.dart';
 import 'package:video_player/video_player.dart';
 
 class AdminExeController extends GetxController {
@@ -55,15 +56,32 @@ class AdminExeController extends GetxController {
   TextEditingController editExe = TextEditingController();
 
   ///---------------------Picked Video------------------///
-  pickExerciseVideo(int index) async {
-    var pickedVideo =
-        await ImagePicker().pickVideo(source: ImageSource.gallery);
-    if (pickedVideo == null) return;
-    videoFile = File(pickedVideo.path);
-    var count = await videoFile!.length();
-    print("==============>> ${count.toString()}");
-    videoName = videoFile!.path.split("/").last;
-    videoNames[index] = videoName!;
+  ///  //!Mark: mhamad updated this
+
+  void pickExerciseVideo(int index) async {
+    // Check if permission is granted
+    var status = await Permission.videos.request();
+
+    if (status == null || status.isDenied) {
+      print('Permission denied');
+      return;
+    }
+
+    try {
+      var pickedVideo = await ImagePicker().pickVideo(
+        source: ImageSource.gallery,
+      );
+
+      if (pickedVideo == null) return;
+
+      videoFile = File(pickedVideo.path);
+      var count = await videoFile!.length();
+      print("==============>> ${count.toString()}");
+      videoName = videoFile!.path.split("/").last;
+      videoNames[index] = videoName!;
+    } catch (e) {
+      print('Error picking or processing video: $e');
+    }
 
     update();
   }

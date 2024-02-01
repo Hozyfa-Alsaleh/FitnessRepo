@@ -1,12 +1,12 @@
 // ignore_for_file: avoid_print
-import 'package:fitnessapp/Utils/apilinks.dart';
-import 'package:fitnessapp/approute.dart';
-import 'package:fitnessapp/core/StaticLData/staticvar.dart';
-import 'package:fitnessapp/core/classes/crud.dart';
-import 'package:fitnessapp/core/classes/requeststate.dart';
-import 'package:fitnessapp/core/functions/getxdialog.dart';
-import 'package:fitnessapp/core/functions/handlingdata.dart';
-import 'package:fitnessapp/main.dart';
+import 'package:captainshoaib/Utils/apilinks.dart';
+import 'package:captainshoaib/approute.dart';
+import 'package:captainshoaib/core/StaticLData/staticvar.dart';
+import 'package:captainshoaib/core/classes/crud.dart';
+import 'package:captainshoaib/core/classes/requeststate.dart';
+import 'package:captainshoaib/core/functions/getxdialog.dart';
+import 'package:captainshoaib/core/functions/handlingdata.dart';
+import 'package:captainshoaib/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -48,23 +48,30 @@ class LoginController extends GetxController {
     var res =
         await testData.login(ApiLinks.login, username.text, password.text);
     reqStatus = handlingdata(res);
-
     if (RequestStatus.success == reqStatus) {
-      if (loginFormKey.currentState!.validate()) {
-        if (res['data']['acc_id'] == 1) {
-          sherdpref!.setString('userId', '1');
-          sherdpref!.setString('username', res['data']['name']);
-          sherdpref!.setBool('isLog', true);
-          Get.offAllNamed(AppRoute.captineHomePage);
-        } else {
-          sherdpref!.setString('userId', res['data']['acc_id'].toString());
-          sherdpref!.setString('username', res['data']['name']);
-          sherdpref!.setBool('isLog', true);
-          Get.offAllNamed(AppRoute.HOME);
+      if (res['status'] != "faild") {
+        if (loginFormKey.currentState!.validate()) {
+          if (res['data']['acc_id'] == 1) {
+            sherdpref!.setString('userId', '1');
+            sherdpref!.setString('username', res['data']['name']);
+            sherdpref!.setBool('isLog', true);
+            Get.offAllNamed(AppRoute.captineHomePage);
+          } else {
+            sherdpref!.setString('userId', res['data']['acc_id'].toString());
+            sherdpref!.setString('username', res['data']['name']);
+            sherdpref!.setBool('isLog', true);
+            Get.offAllNamed(AppRoute.HOME);
+          }
         }
+      } else {
+        getxDialog(
+            "", "خطأ في الايميل أو كلمة المرور \n أو انك لا تملك حساباً");
       }
     } else {
-      getxDialog("", "خطأ في الايميل أو كلمة المرور");
+      getxDialog("", " خطأ في الايميل أو كلمة المرور");
+
+      //getxDialog("", "لا يوجد حساب بهذه المعلومات");
+
       //getxDialog("", reqStatus.toString());
     }
     update();

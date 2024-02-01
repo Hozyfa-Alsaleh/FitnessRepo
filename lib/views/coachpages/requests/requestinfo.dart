@@ -1,9 +1,9 @@
-import 'package:fitnessapp/Utils/appcolors.dart';
-import 'package:fitnessapp/approute.dart';
-import 'package:fitnessapp/controllers/CaptinControllers/requestscontrollers.dart';
-import 'package:fitnessapp/main.dart';
-import 'package:fitnessapp/widgets/PlayerProfile/rowofinfo.dart';
-import 'package:fitnessapp/widgets/information/packagecard.dart';
+import 'package:captainshoaib/Utils/appcolors.dart';
+import 'package:captainshoaib/approute.dart';
+import 'package:captainshoaib/controllers/CaptinControllers/requestscontrollers.dart';
+import 'package:captainshoaib/main.dart';
+import 'package:captainshoaib/widgets/PlayerProfile/rowofinfo.dart';
+import 'package:captainshoaib/widgets/information/packagecard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -42,7 +42,7 @@ class RequestInfo extends StatelessWidget {
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
-                          child: CircularProgressIndicator(),
+                          child: CircularProgressIndicator.adaptive(),
                         );
                       } else if (controller.playerInfo.isNotEmpty) {
                         return ListView.builder(
@@ -117,7 +117,7 @@ class RequestInfo extends StatelessWidget {
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
-                          child: CircularProgressIndicator(),
+                          child: CircularProgressIndicator.adaptive(),
                         );
                       } else if (controller.package != null) {
                         return Column(

@@ -1,14 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:fitnessapp/Utils/apilinks.dart';
-import 'package:fitnessapp/core/classes/requeststate.dart';
-import 'package:fitnessapp/core/functions/getxdialog.dart';
-import 'package:fitnessapp/core/functions/uploadfile.dart';
+import 'package:captainshoaib/Utils/apilinks.dart';
+import 'package:captainshoaib/core/classes/requeststate.dart';
+import 'package:captainshoaib/core/functions/getxdialog.dart';
+import 'package:captainshoaib/core/functions/uploadfile.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:permission_handler/permission_handler.dart';
 
 class ContactInfoController extends GetxController {
   late TextEditingController phone;
@@ -18,14 +20,35 @@ class ContactInfoController extends GetxController {
   bool isUpdate = false;
   String? previousImage;
   RequestStatus requestState = RequestStatus.holding;
-  pickBarcodeImage() async {
-    var pickedBarcode =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedBarcode == null) return;
-    barcode = File(pickedBarcode.path);
-    if (imagePath != null) {
-      imagePath = null;
+  //!Mark: mhamad updated this
+  void pickBarcodeImage() async {
+    var status = await Permission.photos.request();
+
+    if (status == null || status.isDenied) {
+      if (kDebugMode) {
+        print('Permission denied');
+      }
+      return;
     }
+
+    try {
+      var pickedBarcode = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+      );
+
+      if (pickedBarcode == null) return;
+
+      barcode = File(pickedBarcode.path);
+
+      if (imagePath != null) {
+        imagePath = null;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error picking or processing barcode image: $e');
+      }
+    }
+
     update();
   }
 

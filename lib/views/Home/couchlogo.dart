@@ -1,5 +1,7 @@
-import 'package:fitnessapp/main.dart';
+import 'package:captainshoaib/main.dart';
+import 'package:captainshoaib/views/Home/appinformation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CouchLogo extends StatelessWidget {
   const CouchLogo({super.key});
@@ -9,14 +11,25 @@ class CouchLogo extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 7, 48, 99),
       appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: Colors.transparent,
-        title: const Text(
-          "Shooeb fitness trainer",
-          style: TextStyle(color: Colors.white, fontSize: 30),
-        ),
-        centerTitle: true,
-      ),
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          title: const Text(
+            "Shooeb fitness trainer",
+            style: TextStyle(color: Colors.white, fontSize: 30),
+          ),
+          centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: () {
+                Get.offAll(() => const AppInformation());
+              },
+              icon: const Icon(
+                Icons.info_outline,
+                color: Colors.white,
+                size: 30,
+              ),
+            ),
+          ]),
       body: SizedBox(
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,

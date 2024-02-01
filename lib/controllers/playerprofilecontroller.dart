@@ -2,19 +2,20 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:fitnessapp/Utils/apilinks.dart';
-import 'package:fitnessapp/approute.dart';
-import 'package:fitnessapp/core/StaticLData/staticvar.dart';
-import 'package:fitnessapp/core/classes/requeststate.dart';
-import 'package:fitnessapp/core/functions/getxdialog.dart';
-import 'package:fitnessapp/core/functions/handlingdata.dart';
-import 'package:fitnessapp/core/functions/uploadfile.dart';
-import 'package:fitnessapp/main.dart';
-import 'package:fitnessapp/models/playerdetails.dart';
+import 'package:captainshoaib/Utils/apilinks.dart';
+import 'package:captainshoaib/approute.dart';
+import 'package:captainshoaib/core/StaticLData/staticvar.dart';
+import 'package:captainshoaib/core/classes/requeststate.dart';
+import 'package:captainshoaib/core/functions/getxdialog.dart';
+import 'package:captainshoaib/core/functions/handlingdata.dart';
+import 'package:captainshoaib/core/functions/uploadfile.dart';
+import 'package:captainshoaib/main.dart';
+import 'package:captainshoaib/models/playerdetails.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:permission_handler/permission_handler.dart';
 
 class PlayerProfileController extends GetxController {
   int currentIndex = 0;
@@ -44,27 +45,44 @@ class PlayerProfileController extends GetxController {
     "أطعمة لايرغب بتناولها",
   ];
   bool updatepro = false;
-  Future<void> pickeImage() async {
-    //try {
-    var image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      pickedImage = File(image.path);
-      String newimagename = pickedImage!.path.split("/").last;
+  //!Mark: mhamad updated this
 
-      await postRequestWithFile(
+  Future<void> pickeImage() async {
+    // Check if permission is granted
+    var status = await Permission.photos.request();
+
+    if (status == null || status.isDenied) {
+      // Handle the case where the user denied access to photos
+      print('Permission denied kkkk');
+      // You may want to show a dialog or message to inform the user
+      return;
+    }
+
+    try {
+      var image = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+      if (image != null) {
+        pickedImage = File(image.path);
+        String newImageName = pickedImage!.path.split("/").last;
+
+        await postRequestWithFile(
           updatepro == false
               ? ApiLinks.insertProfileImg
               : ApiLinks.updateProfileImg,
           {
             'acc_id': sherdpref!.getString('userId').toString(),
-            'imgUrl': updatepro == false ? newimagename : previousImg
+            'imgUrl': updatepro == false ? newImageName : previousImg
           },
-          pickedImage!);
-      displayProfileImage();
+          pickedImage!,
+        );
+
+        displayProfileImage();
+      }
+    } catch (e) {
+      print('Error picking or uploading image: $e');
+      // Handle the error, you may want to show a dialog or message to inform the user
     }
-    // } catch (e) {
-    //   print(e.toString());
-    // }
+
     update();
   }
 

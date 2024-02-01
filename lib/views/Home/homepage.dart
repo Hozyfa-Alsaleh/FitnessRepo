@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:fitnessapp/Utils/appcolors.dart';
-import 'package:fitnessapp/controllers/homepagecontroller.dart';
-import 'package:fitnessapp/views/Home/couchlogo.dart';
-import 'package:fitnessapp/views/Home/exercisespage.dart';
-import 'package:fitnessapp/views/Home/playerprofile.dart';
+import 'package:captainshoaib/Utils/appcolors.dart';
+import 'package:captainshoaib/controllers/homepagecontroller.dart';
+import 'package:captainshoaib/views/Home/couchlogo.dart';
+import 'package:captainshoaib/views/Home/exercisespage.dart';
+import 'package:captainshoaib/views/Home/playerprofile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';

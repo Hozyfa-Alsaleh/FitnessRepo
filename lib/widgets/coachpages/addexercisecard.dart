@@ -1,4 +1,4 @@
-import 'package:fitnessapp/main.dart';
+import 'package:captainshoaib/main.dart';
 import 'package:flutter/material.dart';
 
 class ExerciseCard extends StatelessWidget {

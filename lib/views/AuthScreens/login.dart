@@ -1,13 +1,13 @@
-import 'package:fitnessapp/controllers/logincontroller.dart';
-import 'package:fitnessapp/core/StaticLData/appimageslinks.dart';
-import 'package:fitnessapp/approute.dart';
-import 'package:fitnessapp/core/classes/requeststate.dart';
-import 'package:fitnessapp/core/functions/asktologout.dart';
-import 'package:fitnessapp/core/functions/validator.dart';
-import 'package:fitnessapp/main.dart';
-import 'package:fitnessapp/widgets/logs/loginbutton.dart';
-import 'package:fitnessapp/widgets/logs/logincustomfield.dart';
-import 'package:fitnessapp/widgets/logs/resetpassbutton.dart';
+import 'package:captainshoaib/controllers/logincontroller.dart';
+import 'package:captainshoaib/core/StaticLData/appimageslinks.dart';
+import 'package:captainshoaib/approute.dart';
+import 'package:captainshoaib/core/classes/requeststate.dart';
+import 'package:captainshoaib/core/functions/asktologout.dart';
+import 'package:captainshoaib/core/functions/validator.dart';
+import 'package:captainshoaib/main.dart';
+import 'package:captainshoaib/widgets/logs/loginbutton.dart';
+import 'package:captainshoaib/widgets/logs/logincustomfield.dart';
+import 'package:captainshoaib/widgets/logs/resetpassbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -120,14 +120,15 @@ class Login extends StatelessWidget {
                               onTap: () {
                                 Get.offAllNamed(AppRoute.SIGNUP);
                               },
-                              child: Row(
+                              child: const Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Container(
-                                    width: width! / 2.8,
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 30),
+                                    // width: width! / 2.8,
                                     //color: Colors.amber,
-                                    alignment: Alignment.centerRight,
-                                    child: const Text(
+                                    // alignment: Alignment.centerRight,
+                                    child: Text(
                                       "إنشاء حساب",
                                       textAlign: TextAlign.right,
                                       style: TextStyle(

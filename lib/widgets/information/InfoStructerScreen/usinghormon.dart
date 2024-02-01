@@ -1,5 +1,5 @@
-import 'package:fitnessapp/controllers/infocontroller.dart';
-import 'package:fitnessapp/widgets/information/workbutton.dart';
+import 'package:captainshoaib/controllers/infocontroller.dart';
+import 'package:captainshoaib/widgets/information/workbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

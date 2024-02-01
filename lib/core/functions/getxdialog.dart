@@ -1,4 +1,4 @@
-import 'package:fitnessapp/Utils/appcolors.dart';
+import 'package:captainshoaib/Utils/appcolors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

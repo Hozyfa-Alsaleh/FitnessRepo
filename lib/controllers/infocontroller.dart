@@ -2,19 +2,20 @@
 
 import 'dart:convert';
 import 'dart:io';
-import 'package:fitnessapp/Utils/apilinks.dart';
-import 'package:fitnessapp/approute.dart';
-import 'package:fitnessapp/core/StaticLData/staticvar.dart';
-import 'package:fitnessapp/core/classes/requeststate.dart';
-import 'package:fitnessapp/core/functions/getxdialog.dart';
-import 'package:fitnessapp/core/functions/handlingdata.dart';
-import 'package:fitnessapp/core/functions/uploadfile.dart';
-import 'package:fitnessapp/main.dart';
-import 'package:fitnessapp/models/package.dart';
+import 'package:captainshoaib/Utils/apilinks.dart';
+import 'package:captainshoaib/approute.dart';
+import 'package:captainshoaib/core/StaticLData/staticvar.dart';
+import 'package:captainshoaib/core/classes/requeststate.dart';
+import 'package:captainshoaib/core/functions/getxdialog.dart';
+import 'package:captainshoaib/core/functions/handlingdata.dart';
+import 'package:captainshoaib/core/functions/uploadfile.dart';
+import 'package:captainshoaib/main.dart';
+import 'package:captainshoaib/models/package.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:permission_handler/permission_handler.dart';
 
 class InfoController extends GetxController {
   late GlobalKey<FormState> infoFormKey;
@@ -103,21 +104,40 @@ class InfoController extends GetxController {
     super.onInit();
   }
 
+//!Mark: mhamad updated this
   ///
   ///Pick Image For Player Body
   ///
   List<XFile>? picked;
   List<File> images = [];
-  pickImage() async {
-    picked = await ImagePicker().pickMultipleMedia();
-    if (picked!.isEmpty) return;
-    if (images.isNotEmpty) {
-      images.clear();
+  void pickImage() async {
+    var status = await Permission.photos.request();
+
+    if (status == null || status.isDenied) {
+      print('Permission denied');
+      return;
     }
-    for (var element in picked!) {
-      images.add(File(element.path));
+
+    try {
+      picked = await ImagePicker().pickMultipleMedia(
+        imageQuality: 50,
+      );
+
+      if (picked == null || picked!.isEmpty) return;
+
+      if (images.isNotEmpty) {
+        images.clear();
+      }
+
+      for (var element in picked!) {
+        images.add(File(element.path));
+      }
+
+      imageName = images[0].path.split("/").last;
+    } catch (e) {
+      print('Error picking images: $e');
     }
-    imageName = images[0].path.split("/").last;
+
     update();
   }
 

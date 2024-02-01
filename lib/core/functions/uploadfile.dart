@@ -4,8 +4,8 @@ import 'dart:convert';
 import 'dart:io';
 
 //import 'package:dartz/dartz_unsafe.dart';
-import 'package:fitnessapp/approute.dart';
-import 'package:fitnessapp/core/functions/getxdialog.dart';
+import 'package:captainshoaib/approute.dart';
+import 'package:captainshoaib/core/functions/getxdialog.dart';
 import 'package:get/get.dart';
 //import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;

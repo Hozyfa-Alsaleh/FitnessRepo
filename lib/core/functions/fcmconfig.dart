@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:fitnessapp/Utils/apilinks.dart';
-import 'package:fitnessapp/core/classes/mynotifications.dart';
+import 'package:captainshoaib/Utils/apilinks.dart';
+import 'package:captainshoaib/core/classes/mynotifications.dart';
 import 'package:http/http.dart' as http;
 
 requestNotificationPermissions() async {

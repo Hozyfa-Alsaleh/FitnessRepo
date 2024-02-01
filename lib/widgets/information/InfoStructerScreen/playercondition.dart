@@ -1,4 +1,4 @@
-import 'package:fitnessapp/widgets/information/infotextfield.dart';
+import 'package:captainshoaib/widgets/information/infotextfield.dart';
 import 'package:flutter/material.dart';
 
 class PlayerConditionNotes extends StatelessWidget {

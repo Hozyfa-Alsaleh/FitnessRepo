@@ -1,8 +1,8 @@
-import 'package:fitnessapp/Utils/appcolors.dart';
-import 'package:fitnessapp/approute.dart';
-import 'package:fitnessapp/controllers/CaptinControllers/playerscontroller.dart';
-import 'package:fitnessapp/main.dart';
-import 'package:fitnessapp/widgets/coachpages/playercard.dart';
+import 'package:captainshoaib/Utils/appcolors.dart';
+import 'package:captainshoaib/approute.dart';
+import 'package:captainshoaib/controllers/CaptinControllers/playerscontroller.dart';
+import 'package:captainshoaib/main.dart';
+import 'package:captainshoaib/widgets/coachpages/playercard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -31,6 +31,17 @@ class MyPlayers extends StatelessWidget {
               ),
             ),
             centerTitle: true,
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Get.offAllNamed(AppRoute.captineHomePage);
+                  },
+                  icon: const Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black,
+                    size: 30,
+                  ))
+            ],
           ),
           backgroundColor: AppColors.scaffoldBackGroundColor,
           body: GetBuilder<PlayersController>(
@@ -43,7 +54,7 @@ class MyPlayers extends StatelessWidget {
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
-                          child: CircularProgressIndicator(),
+                          child: CircularProgressIndicator.adaptive(),
                         );
                       } else if (snapshot.hasData) {
                         return ListView.builder(

@@ -1,8 +1,8 @@
-import 'package:fitnessapp/Utils/appcolors.dart';
-import 'package:fitnessapp/approute.dart';
-import 'package:fitnessapp/controllers/infocontroller.dart';
-import 'package:fitnessapp/core/classes/requeststate.dart';
-import 'package:fitnessapp/main.dart';
+import 'package:captainshoaib/Utils/appcolors.dart';
+import 'package:captainshoaib/approute.dart';
+import 'package:captainshoaib/controllers/infocontroller.dart';
+import 'package:captainshoaib/core/classes/requeststate.dart';
+import 'package:captainshoaib/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -75,7 +75,8 @@ class ContactInformation extends StatelessWidget {
                       ),
                       controller.requeststatus == RequestStatus.loading
                           ? const SizedBox(
-                              width: 50, child: CircularProgressIndicator())
+                              width: 50,
+                              child: CircularProgressIndicator.adaptive())
                           : Text(
                               controller.phone,
                               textAlign: TextAlign.center,

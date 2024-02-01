@@ -66,7 +66,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '981757263719',
     projectId: 'fitnessapp-5f45f',
     storageBucket: 'fitnessapp-5f45f.appspot.com',
-    iosBundleId: 'com.example.fitnessapp',
+    iosBundleId: 'com.example.captainshoaib',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -75,6 +75,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '981757263719',
     projectId: 'fitnessapp-5f45f',
     storageBucket: 'fitnessapp-5f45f.appspot.com',
-    iosBundleId: 'com.example.fitnessapp.RunnerTests',
+    iosBundleId: 'com.example.captainshoaib.RunnerTests',
   );
 }

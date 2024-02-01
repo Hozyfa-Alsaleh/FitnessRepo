@@ -1,8 +1,9 @@
-import 'package:fitnessapp/Utils/appcolors.dart';
-import 'package:fitnessapp/approute.dart';
-import 'package:fitnessapp/controllers/CaptinControllers/contactinfocontroller.dart';
-import 'package:fitnessapp/core/classes/requeststate.dart';
-import 'package:fitnessapp/main.dart';
+import 'package:captainshoaib/Utils/appcolors.dart';
+import 'package:captainshoaib/approute.dart';
+import 'package:captainshoaib/controllers/CaptinControllers/contactinfocontroller.dart';
+import 'package:captainshoaib/core/classes/requeststate.dart';
+import 'package:captainshoaib/main.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -32,6 +33,17 @@ class ContactInfo extends StatelessWidget {
                 fontFamily: 'Tajwal'),
           ),
           centerTitle: true,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Get.offAllNamed(AppRoute.captineHomePage);
+                },
+                icon: Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.black,
+                  size: 27,
+                ))
+          ],
         ),
         body: GetBuilder<ContactInfoController>(
           builder: (controller) {
@@ -154,7 +166,7 @@ class ContactInfo extends StatelessWidget {
                         width: width! / 2,
                         height: 60,
                         child: controller.requestState == RequestStatus.loading
-                            ? const CircularProgressIndicator()
+                            ? const CupertinoActivityIndicator()
                             : Text(
                                 controller.isUpdate == false
                                     ? "إرسال المعلومات"

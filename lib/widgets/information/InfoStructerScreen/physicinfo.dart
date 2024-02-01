@@ -1,5 +1,5 @@
-import 'package:fitnessapp/core/functions/validator.dart';
-import 'package:fitnessapp/widgets/information/infotextfield.dart';
+import 'package:captainshoaib/core/functions/validator.dart';
+import 'package:captainshoaib/widgets/information/infotextfield.dart';
 import 'package:flutter/material.dart';
 
 class PhysicsInfo extends StatelessWidget {

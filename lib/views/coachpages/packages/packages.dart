@@ -1,10 +1,10 @@
 // ignore_for_file: avoid_print
 
-import 'package:fitnessapp/Utils/appcolors.dart';
-import 'package:fitnessapp/appbar.dart';
-import 'package:fitnessapp/approute.dart';
-import 'package:fitnessapp/controllers/CaptinControllers/packagecontroller.dart';
-import 'package:fitnessapp/widgets/information/packagecard.dart';
+import 'package:captainshoaib/Utils/appcolors.dart';
+import 'package:captainshoaib/appbar.dart';
+import 'package:captainshoaib/approute.dart';
+import 'package:captainshoaib/controllers/CaptinControllers/packagecontroller.dart';
+import 'package:captainshoaib/widgets/information/packagecard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,13 +28,17 @@ class Packages extends StatelessWidget {
               print(controller.isUpdate.toString());
               Get.toNamed(AppRoute.packageCRUD);
             },
+            goback: Icons.arrow_forward_ios,
+            backFun: () {
+              Get.offAllNamed(AppRoute.captineHomePage);
+            },
           ),
           body: FutureBuilder(
             future: controller.fetchPackages(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator.adaptive(),
                 );
               } else if (controller.packages.isNotEmpty) {
                 return ListView.builder(

@@ -1,10 +1,10 @@
-import 'package:fitnessapp/Utils/appcolors.dart';
-import 'package:fitnessapp/appbar.dart';
-import 'package:fitnessapp/approute.dart';
-import 'package:fitnessapp/controllers/CaptinControllers/packagecontroller.dart';
-import 'package:fitnessapp/core/functions/getxdialog.dart';
-import 'package:fitnessapp/main.dart';
-import 'package:fitnessapp/widgets/coachpages/addpackagecard/addpackagecard.dart';
+import 'package:captainshoaib/Utils/appcolors.dart';
+import 'package:captainshoaib/appbar.dart';
+import 'package:captainshoaib/approute.dart';
+import 'package:captainshoaib/controllers/CaptinControllers/packagecontroller.dart';
+import 'package:captainshoaib/core/functions/getxdialog.dart';
+import 'package:captainshoaib/main.dart';
+import 'package:captainshoaib/widgets/coachpages/addpackagecard/addpackagecard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -45,6 +45,10 @@ class PackageCRUD extends StatelessWidget {
                   } else {
                     controller.deletePackage();
                   }
+                },
+                goback: Icons.arrow_forward_ios,
+                backFun: () {
+                  Get.offAllNamed(AppRoute.CaptinePackages);
                 },
               ),
               body: SizedBox(

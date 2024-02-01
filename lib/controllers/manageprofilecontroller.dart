@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:fitnessapp/Utils/apilinks.dart';
-import 'package:fitnessapp/core/functions/getxdialog.dart';
-import 'package:fitnessapp/main.dart';
+import 'package:captainshoaib/Utils/apilinks.dart';
+import 'package:captainshoaib/core/functions/getxdialog.dart';
+import 'package:captainshoaib/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;

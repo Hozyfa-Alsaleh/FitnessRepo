@@ -1,5 +1,5 @@
-import 'package:fitnessapp/controllers/splashcontroller.dart';
-import 'package:fitnessapp/core/StaticLData/appimageslinks.dart';
+import 'package:captainshoaib/controllers/splashcontroller.dart';
+import 'package:captainshoaib/core/StaticLData/appimageslinks.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

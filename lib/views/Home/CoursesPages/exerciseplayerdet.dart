@@ -1,7 +1,7 @@
-import 'package:fitnessapp/Utils/appcolors.dart';
-import 'package:fitnessapp/approute.dart';
-import 'package:fitnessapp/controllers/PlayerCoursesControllers/fetchplayerexe.dart';
-import 'package:fitnessapp/widgets/coachpages/videoplayer.dart';
+import 'package:captainshoaib/Utils/appcolors.dart';
+import 'package:captainshoaib/approute.dart';
+import 'package:captainshoaib/controllers/PlayerCoursesControllers/fetchplayerexe.dart';
+import 'package:captainshoaib/widgets/coachpages/videoplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

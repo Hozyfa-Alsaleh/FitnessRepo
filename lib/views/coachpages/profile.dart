@@ -1,10 +1,10 @@
-import 'package:fitnessapp/Utils/appcolors.dart';
-import 'package:fitnessapp/approute.dart';
-import 'package:fitnessapp/controllers/CaptinControllers/playerscontroller.dart';
-import 'package:fitnessapp/core/StaticLData/staticvar.dart';
+import 'package:captainshoaib/Utils/appcolors.dart';
+import 'package:captainshoaib/approute.dart';
+import 'package:captainshoaib/controllers/CaptinControllers/playerscontroller.dart';
+import 'package:captainshoaib/core/StaticLData/staticvar.dart';
 
-import 'package:fitnessapp/main.dart';
-import 'package:fitnessapp/widgets/coachpages/captinbuttons.dart';
+import 'package:captainshoaib/main.dart';
+import 'package:captainshoaib/widgets/coachpages/captinbuttons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

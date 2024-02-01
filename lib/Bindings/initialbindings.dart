@@ -1,4 +1,4 @@
-import 'package:fitnessapp/core/classes/crud.dart';
+import 'package:captainshoaib/core/classes/crud.dart';
 import 'package:get/instance_manager.dart';
 
 class InitialBinding extends Bindings {

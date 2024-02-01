@@ -1,7 +1,7 @@
-import 'package:fitnessapp/approute.dart';
-import 'package:fitnessapp/controllers/CaptinControllers/playerscontroller.dart';
-import 'package:fitnessapp/main.dart';
-import 'package:fitnessapp/widgets/PlayerProfile/rowofinfo.dart';
+import 'package:captainshoaib/approute.dart';
+import 'package:captainshoaib/controllers/CaptinControllers/playerscontroller.dart';
+import 'package:captainshoaib/main.dart';
+import 'package:captainshoaib/widgets/PlayerProfile/rowofinfo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -39,7 +39,7 @@ class PlayerDetailes extends StatelessWidget {
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
-                        child: CircularProgressIndicator(),
+                        child: CircularProgressIndicator.adaptive(),
                       );
                     } else if (snapshot.hasData) {
                       return ListView.builder(

@@ -1,6 +1,6 @@
-import 'package:fitnessapp/Utils/appcolors.dart';
-import 'package:fitnessapp/approute.dart';
-import 'package:fitnessapp/controllers/PlayerCoursesControllers/fetchplayerexe.dart';
+import 'package:captainshoaib/Utils/appcolors.dart';
+import 'package:captainshoaib/controllers/PlayerCoursesControllers/fetchplayerexe.dart';
+import 'package:captainshoaib/views/Home/exercisespage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +12,7 @@ class DayExercise extends StatelessWidget {
     Get.put(FetchPlayerExeCtrl());
     return WillPopScope(
       onWillPop: () async {
-        Get.offAllNamed(AppRoute.HOME);
+        Get.offAll(() => const Exercises());
         return false;
       },
       child: GetBuilder<FetchPlayerExeCtrl>(
@@ -38,7 +38,7 @@ class DayExercise extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator.adaptive(),
                   );
                 } else if (snapshot.hasData) {
                   return ListView.builder(

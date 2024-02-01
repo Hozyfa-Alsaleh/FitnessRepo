@@ -1,5 +1,5 @@
-import 'package:fitnessapp/controllers/notifycontroller.dart';
-import 'package:fitnessapp/main.dart';
+import 'package:captainshoaib/controllers/notifycontroller.dart';
+import 'package:captainshoaib/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -41,7 +41,7 @@ class MyNotifyPage extends StatelessWidget {
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
-                          child: CircularProgressIndicator(),
+                          child: CircularProgressIndicator.adaptive(),
                         );
                       } else if (controller.notificatonsList.isNotEmpty) {
                         return ListView.builder(

@@ -55,18 +55,6 @@ class AppInformation extends StatelessWidget {
                     color: Colors.black, fontFamily: 'Tajwal', fontSize: 28),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                "تم تطوير هذا البرنامج بواسطة فريق \nPro Team \n للتواصل مع الفريق والدعم يرجى التواصل على هذا الرقم\n 963-994974729+",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Tajwal"),
-              ),
             ]),
       ),
     );

@@ -201,17 +201,56 @@ class ManageProfile extends StatelessWidget {
                                 height: 40,
                               ),
                               Container(
-                                alignment: Alignment.center,
-                                child: const Text(
-                                  "تم تطوير هذا البرنامج بواسطة فريق Pro Team \n للتواصل والدعم يرجى التواصل على هذا الرقم\n 963-994974729+",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: "Tajwal"),
+                                width: MediaQuery.sizeOf(context).width,
+                                decoration: const BoxDecoration(
+                                    color: AppColors.buttonsColor,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(30))),
+                                child: MaterialButton(
+                                  onPressed:(){
+                                    Get.defaultDialog(
+                        backgroundColor: const Color.fromARGB(255, 14, 82, 138),
+                        title: "",
+                        content: const Text(
+                          "سيتم حذف حسابك نهائياً هل تريد المتابعة؟",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                        cancel: IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: const Icon(Icons.cancel, color: Colors.white),
+                        ),
+                        confirm: IconButton(
+                          onPressed: () {
+                            controller.deleteUser();
+                          },
+                          icon: const Icon(Icons.done, color: Colors.white),
+                        ),
+                      )
+                                  }
+                                  child: const Text(
+                                    "حذف حسابي",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 30,
+                                        fontFamily: "Tajwal"),
+                                  ),
                                 ),
-                              )
+                              ),
+                              // Container(
+                              //   alignment: Alignment.center,
+                              //   child: const Text(
+                              //     "تم تطوير هذا البرنامج بواسطة فريق Pro Team \n للتواصل والدعم يرجى التواصل على هذا الرقم\n 963-994974729+",
+                              //     textAlign: TextAlign.center,
+                              //     style: TextStyle(
+                              //         color: Colors.black,
+                              //         fontSize: 19,
+                              //         fontWeight: FontWeight.bold,
+                              //         fontFamily: "Tajwal"),
+                              //   ),
+                              // )
                             ],
                           ));
                     },

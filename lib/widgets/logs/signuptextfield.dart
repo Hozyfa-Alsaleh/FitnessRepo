@@ -28,7 +28,7 @@ class SignUpTextField extends StatelessWidget {
       controller: controller,
       textDirection: TextDirection.rtl,
       style: const TextStyle(fontSize: 25, color: Colors.white),
-      keyboardType: keyboardType,
+      //keyboardType: keyboardType,
       validator: validator,
       decoration: InputDecoration(
         hintText: hint,

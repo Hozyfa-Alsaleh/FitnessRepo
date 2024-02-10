@@ -6,6 +6,7 @@ import 'package:fitnessapp/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:fitnessapp/approute.dart';
 
 class ManageProfileController extends GetxController {
   bool secure = true;
@@ -28,17 +29,19 @@ class ManageProfileController extends GetxController {
     confirmSecure = !confirmSecure;
     update();
   }
+
   Future<void> deleteUser() async {
     var request = await http.post(Uri.parse(ApiLinks.deletePlayer),
-        body: {'acc_id':sherdpref!.getString('userId')});
+        body: {'acc_id': sherdpref!.getString('userId')});
     var response = await jsonDecode(request.body);
     if (response['status'] == 1) {
-     sherdpref!.clear();
-     Get.offAllNamed(AppRoute.Splash);
+      sherdpref!.clear();
+      Get.offAllNamed(AppRoute.Splash);
     } else {
       getxDialog('حذف حسابي', 'حدث خطأ خلال إزالة الحساب');
     }
   }
+
   Future<void> updateMyAccountInfo() async {
     var request = await http
         .post(Uri.parse("${ApiLinks.proteam}/manageprofile.php?update"), body: {

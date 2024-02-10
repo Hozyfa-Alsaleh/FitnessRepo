@@ -207,29 +207,33 @@ class ManageProfile extends StatelessWidget {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(30))),
                                 child: MaterialButton(
-                                  onPressed:(){
+                                  onPressed: () {
                                     Get.defaultDialog(
-                        backgroundColor: const Color.fromARGB(255, 14, 82, 138),
-                        title: "",
-                        content: const Text(
-                          "سيتم حذف حسابك نهائياً هل تريد المتابعة؟",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                        cancel: IconButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          icon: const Icon(Icons.cancel, color: Colors.white),
-                        ),
-                        confirm: IconButton(
-                          onPressed: () {
-                            controller.deleteUser();
-                          },
-                          icon: const Icon(Icons.done, color: Colors.white),
-                        ),
-                      )
-                                  }
+                                      backgroundColor: const Color.fromARGB(
+                                          255, 14, 82, 138),
+                                      title: "",
+                                      content: const Text(
+                                        "سيتم حذف حسابك نهائياً هل تريد المتابعة؟",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 18),
+                                      ),
+                                      cancel: IconButton(
+                                        onPressed: () {
+                                          Get.back();
+                                        },
+                                        icon: const Icon(Icons.cancel,
+                                            color: Colors.white),
+                                      ),
+                                      confirm: IconButton(
+                                        onPressed: () {
+                                          controller.deleteUser();
+                                        },
+                                        icon: const Icon(Icons.done,
+                                            color: Colors.white),
+                                      ),
+                                    );
+                                  },
                                   child: const Text(
                                     "حذف حسابي",
                                     style: TextStyle(

@@ -4,7 +4,7 @@
 <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <application
         android:usesCleartextTraffic="true"
-        android:label="Shooeb fitness"
+        android:label="Captain Shoaib"
         android:name="${applicationName}"
         android:icon="@mipmap/newicon">
         <activity

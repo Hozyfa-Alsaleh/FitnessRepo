@@ -37,7 +37,7 @@ class ContactInfo extends StatelessWidget {
                 onPressed: () {
                   Get.offAllNamed(AppRoute.captineHomePage);
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.black,
                   size: 27,

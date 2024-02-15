@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'dart:convert';
 import 'package:fitnessapp/Utils/apilinks.dart';
 import 'package:fitnessapp/main.dart';
@@ -38,12 +36,9 @@ class ExercisesController extends GetxController {
     var request = await http.post(Uri.parse(ApiLinks.foodFetch),
         body: {'acc_id': sherdpref!.getString('userId')});
     var response = await jsonDecode(request.body);
-
-    print(response);
     if (response['status'] == 1) {
       meal = response['data']['meal'].toString();
       update();
-      print('success');
     }
     //} catch (e) {}
   }
@@ -56,7 +51,6 @@ class ExercisesController extends GetxController {
     if (response['status'] == 1) {
       if (response['data'] != null) {
         hormon = response['data']['supp'].toString();
-        print('success');
       }
     }
   }

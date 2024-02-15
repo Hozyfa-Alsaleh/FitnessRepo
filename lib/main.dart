@@ -4,7 +4,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fitnessapp/Bindings/initialbindings.dart';
 import 'package:fitnessapp/core/StaticLData/routes.dart';
-import 'package:fitnessapp/core/functions/fcmconfig.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';

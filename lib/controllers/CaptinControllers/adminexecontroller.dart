@@ -128,13 +128,23 @@ class AdminExeController extends GetxController {
     // print(response);
     // print(response['data'][0]['video']);
     if (response['status'] == 1) {
-      videos.clear();
-      for (var element in response['data']) {
-        videos.add(Videos(
-            id: element['vid_id'],
-            url: "${ApiLinks.video}/${element['videourl']}",
-            exeId: element['exe_id']));
+      if (videos.isNotEmpty) {
+        videos.clear();
+        for (var element in response['data']) {
+          videos.add(Videos(
+              id: element['vid_id'],
+              url: "${ApiLinks.video}/${element['videourl']}",
+              exeId: element['exe_id']));
+        }
+      } else {
+        for (var element in response['data']) {
+          videos.add(Videos(
+              id: element['vid_id'],
+              url: "${ApiLinks.video}/${element['videourl']}",
+              exeId: element['exe_id']));
+        }
       }
+
       generateVideosControllers();
       currentExercise = exercieses[i].details;
       currentExeId = exercieses[i].id;
@@ -234,17 +244,31 @@ class AdminExeController extends GetxController {
     ///Generate Videos Controllers
     ///
     ///
+    if (videosControllers.isNotEmpty) {
+      videosControllers.clear();
+      for (int i = 0; i < videos.length; i++) {
+        videosControllers.add(VideoPlayerController.networkUrl(
+          Uri.parse(videos[i].url),
+        )..initialize().then((_) {
+            update();
+            // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+          }));
 
-    for (int i = 0; i < videos.length; i++) {
-      videosControllers.add(VideoPlayerController.networkUrl(
-        Uri.parse(videos[i].url),
-      )..initialize().then((_) {
-          update();
-          // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        }));
+        icons = List.generate(videos.length, (index) => Icons.play_circle);
+      }
+    } else {
+      for (int i = 0; i < videos.length; i++) {
+        videosControllers.add(VideoPlayerController.networkUrl(
+          Uri.parse(videos[i].url),
+        )..initialize().then((_) {
+            update();
+            // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+          }));
 
-      icons = List.generate(videos.length, (index) => Icons.play_circle);
+        icons = List.generate(videos.length, (index) => Icons.play_circle);
+      }
     }
+
     print(videosControllers);
     print(videosControllers[0].value.rotationCorrection);
   }
@@ -299,11 +323,10 @@ class AdminExeController extends GetxController {
     update();
   }
 
-  @override
-  void onClose() {
+  Future<void> disposeVideos() async {
     for (var element in videosControllers) {
       element.dispose();
     }
-    super.onClose();
+    update();
   }
 }

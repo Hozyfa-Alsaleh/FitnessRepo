@@ -1,6 +1,6 @@
 import 'package:fitnessapp/Utils/appcolors.dart';
-import 'package:fitnessapp/approute.dart';
 import 'package:fitnessapp/controllers/PlayerCoursesControllers/fetchplayerexe.dart';
+import 'package:fitnessapp/views/Home/CoursesPages/exepage.dart';
 import 'package:fitnessapp/views/Home/exercisespage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,6 +17,7 @@ class DayExercise extends StatelessWidget {
         return false;
       },
       child: GetBuilder<FetchPlayerExeCtrl>(
+        init: FetchPlayerExeCtrl(),
         builder: (controller) {
           return Scaffold(
             backgroundColor: AppColors.scaffoldBackGroundColor,
@@ -32,6 +33,12 @@ class DayExercise extends StatelessWidget {
                     color: Colors.black,
                     fontSize: 30,
                     fontWeight: FontWeight.bold),
+              ),
+              leading: IconButton(
+                onPressed: () {
+                  Get.offAll(() => const Exercises());
+                },
+                icon: const Icon(Icons.arrow_back_ios),
               ),
             ),
             body: FutureBuilder(

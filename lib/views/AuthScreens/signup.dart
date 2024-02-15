@@ -102,6 +102,7 @@ class SignUp extends StatelessWidget {
                                 height: 50,
                               ),
                               SignUpTextField(
+                                  textDirection: TextDirection.ltr,
                                   hint: "000 000 0000 964+",
                                   label: "رقم الهاتف",
                                   // obsecure: false,

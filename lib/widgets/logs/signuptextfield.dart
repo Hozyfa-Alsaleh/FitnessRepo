@@ -7,6 +7,7 @@ class SignUpTextField extends StatelessWidget {
   final bool? obsecure;
   final IconData icon;
   final TextInputType? keyboardType;
+  final TextDirection? textDirection;
   final void Function()? onPressed;
   final String? Function(String?)? validator;
   final String? hint;
@@ -19,14 +20,15 @@ class SignUpTextField extends StatelessWidget {
       this.keyboardType,
       this.onPressed,
       this.validator,
-      this.hint});
+      this.hint,
+      this.textDirection});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       obscureText: obsecure == null || obsecure == false ? false : true,
       controller: controller,
-      textDirection: TextDirection.rtl,
+      textDirection: textDirection ?? TextDirection.rtl,
       style: const TextStyle(fontSize: 25, color: Colors.white),
       //keyboardType: keyboardType,
       validator: validator,

@@ -4,7 +4,6 @@ import 'package:fitnessapp/approute.dart';
 import 'package:fitnessapp/main.dart';
 import 'package:fitnessapp/views/Home/imageviewer.dart';
 import 'package:fitnessapp/views/Home/manageprofile.dart';
-import 'package:fitnessapp/views/Home/notifications.dart';
 import 'package:fitnessapp/widgets/PlayerProfile/rowofinfo.dart';
 import 'package:fitnessapp/widgets/PlayerProfile/switchpagebutton.dart';
 import 'package:flutter/material.dart';
@@ -82,8 +81,8 @@ class PlayerProfile extends StatelessWidget {
                                             ),
                                           )),
                                   Positioned(
-                                    bottom: 20,
-                                    right: 10,
+                                    top: height! / 7,
+                                    right: width! / 500,
                                     child: IconButton(
                                       onPressed: () {
                                         controller.pickeImage();
@@ -116,6 +115,7 @@ class PlayerProfile extends StatelessWidget {
                                       )),
                                   IconButton(
                                       onPressed: () {
+                                        //Get.offAllNamed(AppRoute.packages);
                                         Get.offAllNamed(AppRoute.PlayerInfo);
                                       },
                                       icon: const Icon(

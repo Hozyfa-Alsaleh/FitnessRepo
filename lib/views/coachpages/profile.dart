@@ -71,150 +71,160 @@ class CoachProfile extends StatelessWidget {
               ],
             ),
             backgroundColor: AppColors.scaffoldBackGroundColor,
-            body: SizedBox(
-              width: width,
-              height: height,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10, right: 10, left: 10),
-                child: Column(children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        controller.imagename != ""
-                            ? SizedBox(
-                                width: MediaQuery.sizeOf(context).width / 2.5,
-                                height: MediaQuery.sizeOf(context).height / 4.5,
-                                child: CircleAvatar(
-                                  backgroundImage: NetworkImage(
-                                    controller.imagename,
-                                  ),
-                                ))
-                            : SizedBox(
-                                width: MediaQuery.sizeOf(context).width / 2.5,
-                                height: MediaQuery.sizeOf(context).height / 4.5,
-                                child: const CircleAvatar(
-                                  backgroundColor: Colors.black,
-                                  child: Icon(
-                                    Icons.person,
-                                    size: 100,
-                                  ),
-                                )),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+            body: ListView(
+              children: [
+                SizedBox(
+                  width: width,
+                  height: height,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(top: 10, right: 10, left: 10),
+                    child: Column(children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              selectedUserName,
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 30),
+                            controller.imagename != ""
+                                ? SizedBox(
+                                    width:
+                                        MediaQuery.sizeOf(context).width / 2.5,
+                                    height:
+                                        MediaQuery.sizeOf(context).height / 4.5,
+                                    child: CircleAvatar(
+                                      backgroundImage: NetworkImage(
+                                        controller.imagename,
+                                      ),
+                                    ))
+                                : SizedBox(
+                                    width:
+                                        MediaQuery.sizeOf(context).width / 2.5,
+                                    height:
+                                        MediaQuery.sizeOf(context).height / 4.5,
+                                    child: const CircleAvatar(
+                                      backgroundColor: Colors.black,
+                                      child: Icon(
+                                        Icons.person,
+                                        size: 100,
+                                      ),
+                                    )),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  selectedUserName,
+                                  style: const TextStyle(
+                                      color: Colors.black, fontSize: 30),
+                                ),
+                              ],
+                            ),
+                            const Divider(
+                              thickness: 1.7,
+                              color: Colors.black,
                             ),
                           ],
                         ),
-                        const Divider(
-                          thickness: 1.7,
-                          color: Colors.black,
-                        ),
-                      ],
-                    ),
+                      ),
+                      ListView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        children: [
+                          CaptinButtons(
+                            onPressed: () {
+                              controller.getplayerdetails();
+                              Get.toNamed(AppRoute.playerdetails_C);
+                            },
+                            text: "التفاصيل",
+                            icon: Icons.list_rounded,
+                            color: AppColors.buttonsColor,
+                          ),
+                          CaptinButtons(
+                            onPressed: () async {
+                              //await controller.fetchBodyImages();
+                              Get.toNamed(AppRoute.palyerImages_C);
+                            },
+                            text: "الصور",
+                            icon: Icons.image,
+                            color: AppColors.detailsButtons,
+                          ),
+                          CaptinButtons(
+                            onPressed: () {
+                              Get.toNamed(AppRoute.adminExe);
+                            },
+                            text: "التمارين",
+                            icon: Icons.fitness_center_rounded,
+                            color: AppColors.buttonsColor,
+                          ),
+                          CaptinButtons(
+                            onPressed: () {
+                              Get.toNamed(AppRoute.displayFood);
+                            },
+                            text: "الغذاء",
+                            icon: Icons.food_bank_rounded,
+                            color: AppColors.detailsButtons,
+                          ),
+                          CaptinButtons(
+                            onPressed: () {
+                              Get.toNamed(AppRoute.suppcourse);
+                            },
+                            text: "المكملات",
+                            icon: Icons.health_and_safety_rounded,
+                            color: AppColors.detailsButtons,
+                          ),
+                        ],
+                      )
+                      // ListView(
+                      //   shrinkWrap: true,
+                      //   children: [
+                      //     CaptinButtons(
+                      //       onPressed: () {
+                      //         controller.getplayerdetails();
+                      //         Get.toNamed(AppRoute.playerdetails_C);
+                      //       },
+                      //       text: "التفاصيل",
+                      //       icon: Icons.list_rounded,
+                      //       color: AppColors.detailsButtons,
+                      //     ),
+                      //     const SizedBox(
+                      //       width: 10,
+                      //     ),
+                      //     CaptinButtons(
+                      //       onPressed: () {
+                      //         // controller.goToThePage(AppRoute.palyerImages_C);
+                      //       },
+                      //       text: "الصور",
+                      //       icon: Icons.image,
+                      //       color: AppColors.detailsButtons,
+                      //     ),
+                      //     CaptinButtons(
+                      //       onPressed: () {
+                      //         Get.offAllNamed(AppRoute.adminExe);
+                      //       },
+                      //       text: "التمارين",
+                      //       icon: Icons.fitness_center_rounded,
+                      //       color: AppColors.detailsButtons,
+                      //     ),
+                      //     CaptinButtons(
+                      //       onPressed: () {
+                      //         Get.offAllNamed(AppRoute.foodcourse);
+                      //       },
+                      //       text: "الغذاء",
+                      //       icon: Icons.food_bank_rounded,
+                      //       color: AppColors.detailsButtons,
+                      //     ),
+                      //     CaptinButtons(
+                      //       onPressed: () {},
+                      //       text: "المكملات",
+                      //       icon: Icons.health_and_safety_rounded,
+                      //       color: AppColors.detailsButtons,
+                      //     ),
+                      //   ],
+                      // )
+                    ]),
                   ),
-                  ListView(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    children: [
-                      CaptinButtons(
-                        onPressed: () {
-                          controller.getplayerdetails();
-                          Get.toNamed(AppRoute.playerdetails_C);
-                        },
-                        text: "التفاصيل",
-                        icon: Icons.list_rounded,
-                        color: AppColors.buttonsColor,
-                      ),
-                      // CaptinButtons(
-                      //   onPressed: () {
-                      //     // controller.goToThePage(AppRoute.palyerImages_C);
-                      //   },
-                      //   text: "الصور",
-                      //   icon: Icons.image,
-                      //   color: AppColors.detailsButtons,
-                      // ),
-                      CaptinButtons(
-                        onPressed: () {
-                          Get.toNamed(AppRoute.adminExe);
-                        },
-                        text: "التمارين",
-                        icon: Icons.fitness_center_rounded,
-                        color: AppColors.buttonsColor,
-                      ),
-                      CaptinButtons(
-                        onPressed: () {
-                          Get.toNamed(AppRoute.displayFood);
-                        },
-                        text: "الغذاء",
-                        icon: Icons.food_bank_rounded,
-                        color: AppColors.detailsButtons,
-                      ),
-                      CaptinButtons(
-                        onPressed: () {
-                          Get.toNamed(AppRoute.suppcourse);
-                        },
-                        text: "المكملات",
-                        icon: Icons.health_and_safety_rounded,
-                        color: AppColors.detailsButtons,
-                      ),
-                    ],
-                  )
-                  // ListView(
-                  //   shrinkWrap: true,
-                  //   children: [
-                  //     CaptinButtons(
-                  //       onPressed: () {
-                  //         controller.getplayerdetails();
-                  //         Get.toNamed(AppRoute.playerdetails_C);
-                  //       },
-                  //       text: "التفاصيل",
-                  //       icon: Icons.list_rounded,
-                  //       color: AppColors.detailsButtons,
-                  //     ),
-                  //     const SizedBox(
-                  //       width: 10,
-                  //     ),
-                  //     CaptinButtons(
-                  //       onPressed: () {
-                  //         // controller.goToThePage(AppRoute.palyerImages_C);
-                  //       },
-                  //       text: "الصور",
-                  //       icon: Icons.image,
-                  //       color: AppColors.detailsButtons,
-                  //     ),
-                  //     CaptinButtons(
-                  //       onPressed: () {
-                  //         Get.offAllNamed(AppRoute.adminExe);
-                  //       },
-                  //       text: "التمارين",
-                  //       icon: Icons.fitness_center_rounded,
-                  //       color: AppColors.detailsButtons,
-                  //     ),
-                  //     CaptinButtons(
-                  //       onPressed: () {
-                  //         Get.offAllNamed(AppRoute.foodcourse);
-                  //       },
-                  //       text: "الغذاء",
-                  //       icon: Icons.food_bank_rounded,
-                  //       color: AppColors.detailsButtons,
-                  //     ),
-                  //     CaptinButtons(
-                  //       onPressed: () {},
-                  //       text: "المكملات",
-                  //       icon: Icons.health_and_safety_rounded,
-                  //       color: AppColors.detailsButtons,
-                  //     ),
-                  //   ],
-                  // )
-                ]),
-              ),
+                ),
+              ],
             ));
       },
     ));

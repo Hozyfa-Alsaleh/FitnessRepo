@@ -99,7 +99,8 @@ class Exercises extends StatelessWidget {
                         ///
                         // ignore: avoid_unnecessary_containers
                         const PlayerExercies(),
-                        ////
+
+                        ///
                         ///
                         ///
                         // ignore: avoid_unnecessary_containers

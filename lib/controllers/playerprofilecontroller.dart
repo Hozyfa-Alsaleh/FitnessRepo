@@ -172,8 +172,8 @@ class PlayerProfileController extends GetxController {
   }
 
   logout() {
-    FirebaseMessaging.instance.unsubscribeFromTopic(
-        "${sherdpref!.getString('username')}${sherdpref!.getString('userId')}");
+    FirebaseMessaging.instance
+        .unsubscribeFromTopic("user${sherdpref!.getString('userId')}");
     sherdpref!.clear();
     Get.offAllNamed(AppRoute.Splash);
   }

@@ -7,7 +7,7 @@ import 'package:fitnessapp/controllers/CaptinControllers/homepagecontroller.dart
 
 import 'package:fitnessapp/main.dart';
 import 'package:fitnessapp/views/Home/manageprofile.dart';
-import 'package:fitnessapp/views/Home/notifications.dart';
+
 import 'package:fitnessapp/widgets/coachpages/captinbuttons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

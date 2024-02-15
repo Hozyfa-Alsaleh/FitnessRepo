@@ -46,7 +46,6 @@ class FetchPlayerExeCtrl extends GetxController {
         sherdpref!.getString('userId').toString(), daynum);
     requestStatus = handlingdata(request);
 
-    print(data);
     if (requestStatus == RequestStatus.success) {
       if (request['status'] == 1) {
         if (data.isNotEmpty) {
@@ -81,14 +80,25 @@ class FetchPlayerExeCtrl extends GetxController {
     var response = await jsonDecode(request.body);
 
     if (response['status'] == 1) {
-      print(response);
-      for (var element in response['data']) {
-        videosM.add(
-          Videos(
-              id: element['vid_id'],
-              exeId: element['exe_id'],
-              url: "${ApiLinks.video}/${element['videourl']}"),
-        );
+      if (videosM.isNotEmpty) {
+        videosM.clear();
+        for (var element in response['data']) {
+          videosM.add(
+            Videos(
+                id: element['vid_id'],
+                exeId: element['exe_id'],
+                url: "${ApiLinks.video}/${element['videourl']}"),
+          );
+        }
+      } else {
+        for (var element in response['data']) {
+          videosM.add(
+            Videos(
+                id: element['vid_id'],
+                exeId: element['exe_id'],
+                url: "${ApiLinks.video}/${element['videourl']}"),
+          );
+        }
       }
       generateVideosControllers();
       print("success");
@@ -100,20 +110,36 @@ class FetchPlayerExeCtrl extends GetxController {
 
   int count = 0;
   void generateVideosControllers() {
-    for (int i = 0; i < videosM.length; i++) {
-      videosControllers.add(VideoPlayerController.networkUrl(
-        Uri.parse(videosM[i].url),
-      )..initialize().then((_) {
-          update();
-          // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        }));
-      icons = List.generate(videosM.length, (index) => Icons.play_circle);
+    if (videosControllers.isNotEmpty) {
+      videosControllers.clear();
+      for (int i = 0; i < videosM.length; i++) {
+        videosControllers.add(VideoPlayerController.networkUrl(
+          Uri.parse(videosM[i].url),
+        )..initialize().then((_) {
+            update();
+            // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+          }));
+        icons = List.generate(videosM.length, (index) => Icons.play_circle);
+      }
+    } else {
+      for (int i = 0; i < videosM.length; i++) {
+        videosControllers.add(VideoPlayerController.networkUrl(
+          Uri.parse(videosM[i].url),
+        )..initialize().then((_) {
+            update();
+            // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+          }));
+        icons = List.generate(videosM.length, (index) => Icons.play_circle);
+      }
     }
+
+    update();
   }
 
   bool valuee = false;
   @override
   void onInit() {
+    update();
     // getExercises();
     super.onInit();
   }
@@ -150,12 +176,11 @@ class FetchPlayerExeCtrl extends GetxController {
     update();
   }
 
-  @override
-  void onClose() {
+  Future<void> disposeVideos() async {
     for (var element in videosControllers) {
       element.dispose();
     }
-    super.onClose();
+    print('Disoposed');
   }
 
   gotodetails(int index) {
@@ -163,7 +188,7 @@ class FetchPlayerExeCtrl extends GetxController {
     getvideosforexe(data[index].id.toString());
     currentExeText = data[index].details;
     update();
-    Get.to(() => const ExercisePlayerDet());
+    Get.off(() => const ExercisePlayerDet());
     update();
   }
 

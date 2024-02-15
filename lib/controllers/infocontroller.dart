@@ -123,7 +123,7 @@ class InfoController extends GetxController {
 
   ///
   ///Send the player information to the database
-  ///NEED FIX
+  ///
   Future<void> sendinformation() async {
     if (exercisetext == "" || hormontext == "" || worktext == "") {
       getxDialog("لم يتم الاختيار", "لم تقم باختيار بعض الخيارات");
@@ -174,10 +174,13 @@ class InfoController extends GetxController {
 
   ///
   ///Send The Subscribe Data
+  RequestStatus statusRequest = RequestStatus.holding;
+
   bool load = false;
   sendSubscribeData() async {
     if (payImage == null) return;
     requestStatus = RequestStatus.loading;
+    statusRequest = RequestStatus.loading;
     // try {
     postRequestWithFile(
         ApiLinks.subscribe,
@@ -188,6 +191,7 @@ class InfoController extends GetxController {
         },
         payImage!);
     requeststatus = RequestStatus.success;
+    statusRequest = RequestStatus.holding;
     load = false;
     update();
   }

@@ -49,7 +49,7 @@ class PackageCard extends StatelessWidget {
               style: const TextStyle(color: Colors.white, fontSize: 24),
             ),
             Text(
-              'سعر الباقة: $price د.ع',
+              'سعر الباقة: $price\$',
               style: const TextStyle(color: Colors.white, fontSize: 24),
             ),
             Text(

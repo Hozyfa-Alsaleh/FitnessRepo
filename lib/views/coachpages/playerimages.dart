@@ -1,4 +1,5 @@
 import 'package:fitnessapp/Utils/appcolors.dart';
+import 'package:fitnessapp/controllers/CaptinControllers/playerscontroller.dart';
 import 'package:fitnessapp/views/Home/imageviewer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,34 +9,54 @@ class PlayerImages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: AppColors.scaffoldBackGroundColor,
-        appBar: AppBar(
-          elevation: 0.0,
-          backgroundColor: Colors.transparent,
-        ),
-        body: ListView.builder(
-          padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 10),
-          itemCount: 3,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                Get.to(const ImageView(
-                  path: "",
-                ));
-              },
-              child: Container(
-                margin: const EdgeInsets.only(bottom: 20),
-                width: MediaQuery.sizeOf(context).width,
-                height: 300,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: const DecorationImage(
-                        image: AssetImage("assets/images/weightlifting.jpeg"),
-                        fit: BoxFit.cover)),
-              ),
-            );
-          },
-        ));
+    return GetBuilder<PlayersController>(builder: (controller) {
+      return Scaffold(
+          backgroundColor: AppColors.scaffoldBackGroundColor,
+          appBar: AppBar(
+            elevation: 0.0,
+            backgroundColor: Colors.transparent,
+          ),
+          body: FutureBuilder(
+            future: controller.fetchBodyImages(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (controller.bodyPaths.isNotEmpty) {
+                return ListView.builder(
+                  padding: const EdgeInsets.all(8),
+                  itemCount: controller.bodyPaths.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Get.to(ImageView(
+                          path: controller.bodyPaths[index],
+                        ));
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 20),
+                        width: MediaQuery.sizeOf(context).width,
+                        height: 200,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    controller.bodyPaths[index].toString()),
+                                fit: BoxFit.cover)),
+                      ),
+                    );
+                  },
+                );
+              } else {
+                return const Text(
+                  "لا يوجد صور لهذا اللاعب",
+                  style: TextStyle(
+                      fontSize: 24, fontFamily: 'Tajwal', color: Colors.black),
+                );
+              }
+            },
+          ));
+    });
   }
 }

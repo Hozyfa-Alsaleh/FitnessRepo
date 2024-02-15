@@ -7,6 +7,8 @@ import 'package:fitnessapp/core/StaticLData/staticvar.dart';
 import 'package:fitnessapp/core/classes/requeststate.dart';
 import 'package:fitnessapp/core/functions/getxdialog.dart';
 import 'package:fitnessapp/core/functions/handlingdata.dart';
+import 'package:fitnessapp/main.dart';
+import 'package:fitnessapp/models/package.dart';
 import 'package:fitnessapp/models/player.dart';
 import 'package:fitnessapp/models/playerdetails.dart';
 import 'package:get/get.dart';
@@ -155,6 +157,86 @@ class PlayersController extends GetxController {
       Get.offAllNamed(AppRoute.players_C);
     } else {
       getxDialog('حذف متدرب', 'حدث خطأ خلال إزالة المتدرب');
+    }
+  }
+
+//Fetch Player Images
+  List<String> bodyPaths = [];
+  fetchBodyImages() async {
+    var request = await http.post(
+        Uri.parse("${ApiLinks.proteam}/bodyimg.php?fetch"),
+        body: {'acc_id': selectedUserId.toString()});
+    var response = await jsonDecode(request.body);
+    print(response);
+    if (response['status'] == 1) {
+      if (bodyPaths.isNotEmpty) {
+        bodyPaths.clear();
+      }
+      for (var element in response['data']) {
+        bodyPaths.add("${ApiLinks.proteam}/body/${element['imgUrl']}");
+      }
+      print('success');
+    } else {
+      print('faild');
+    }
+    //update();
+  }
+
+  ///
+  ///Method for get all packages
+  ///
+  // List<PackageModel> packages = [];
+  // Future getAllPackages() async {
+  //   // try {
+  //   requestStatus = RequestStatus.loading;
+  //   var request = await testData.getpackages(ApiLinks.packages);
+  //   requestStatus = handlingdata(request);
+
+  //   if (requestStatus == RequestStatus.success) {
+  //     if (request['status'] == 1) {
+  //       if (packages.isNotEmpty) {
+  //         packages.clear();
+  //       }
+  //       for (var element in request['data']) {
+  //         packages.add(PackageModel(
+  //             id: element['package_id'],
+  //             name: element['name'],
+  //             time: element['time'],
+  //             price: element['price'],
+  //             details: element['details']));
+  //       }
+  //     }
+  //     return packages;
+  //   } else if (requestStatus == RequestStatus.offline) {
+  //     return getxDialog('', 'أنت غير متصل بالانترنت');
+  //   } else {
+  //     return [];
+  //   }
+  //   //update();
+
+  //   // } catch (e) {
+  //   //   print(e.toString());
+  //   //   return [];
+  //   // }
+  // }
+  PackageModel? package;
+  Future getSubscribeOfUser() async {
+    var request = await http.post(Uri.parse(ApiLinks.fetchUser),
+        body: {'acc_id': selectedUserId.toString()});
+    var response = await jsonDecode(request.body);
+
+    if (response['status'] == 1) {
+      if (response['data'] != null) {
+        package = PackageModel(
+            id: response['data']['id'],
+            name: response['data']['name'],
+            time: response['data']['time'],
+            price: response['data']['price'],
+            details: response['data']['details']);
+      }
+      print('success');
+    } else {
+      print('faild');
     }
   }
 

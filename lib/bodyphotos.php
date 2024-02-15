@@ -21,7 +21,7 @@ if(isset($_GET['insert'])){
           }
       }
       if($r){
-  
+ // sendGCM("إشعار الإشتراك","تم رفض طلبك بسبب `$raeson`,")
           $arr = array("status"=>1);
   
           for ($i=0; $i < count($base64); $i++) { 

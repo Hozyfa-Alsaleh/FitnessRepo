@@ -1,7 +1,6 @@
 import 'package:fitnessapp/Utils/appcolors.dart';
 import 'package:fitnessapp/controllers/CaptinControllers/addnewexecontroller.dart';
 import 'package:fitnessapp/main.dart';
-import 'package:fitnessapp/views/testnotify.dart';
 import 'package:fitnessapp/widgets/coachpages/videoplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -39,8 +39,6 @@ else if(isset($_GET['accept'])){
     $count = $stmt->rowCount();
     
     if($count > 0){
-        $deletS = $connect->prepare('DELETE FROM `subscribe` WHERE `acc_id` = ?');
-        $deletS->execute(array($acc_id));
         sendGCM("إشعار الإشتراك","تم قبول طلبك سيقوم الكابتن شعيب بإضافة الكورسات اللازمة","$name$acc_id","","");
         echo json_encode(array('status'=>1));
     }
@@ -51,15 +49,19 @@ else if(isset($_GET['accept'])){
 else if(isset($_GET['reject'])){
     $acc_id = filter('acc_id');
     $name = filter('name');
+    $reason = filter('reasone');
     $stmt = $connect->prepare('UPDATE `accounts` SET `status` = 3 WHERE `acc_id` = ?');
     $stmt->execute(array($acc_id));
     $stmt = $connect->prepare('DELETE FROM `subscribe` WHERE `acc_id` = ?');
     $stmt->execute(array($acc_id));
     $stmt = $connect->prepare('DELETE FROM `information` WHERE `acc_id` = ?');
     $stmt->execute(array($acc_id));
+    $stmt = $connect->prepare('DELETE FROM `bodyimages` WHERE `acc_id` = ?');
+    $stmt->execute(array($acc_id));
+    
     $count = $stmt->rowCount();
     if($count > 0){
-        sendGCM("إشعار الإشتراك","للأسف تم رفض طلبك ","$name$acc_id","","");
+        sendGCM("إشعار الإشتراك","تم رفض طلبك بسبب $reason","$name$acc_id","","");
         echo json_encode(array('status'=>1));
     }
     else{

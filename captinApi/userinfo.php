@@ -38,6 +38,7 @@ else{
 
 }
 else if(isset($_GET['update'])){
+    $name = filter('name');
     $acc_id= filter('acc_id');
     $weight = filter('weight');
     $height = filter('height');
@@ -77,6 +78,8 @@ else if(isset($_GET['update'])){
     
     
     if($count>0){
+        
+        sendGCM("تعديل المعلومات","قام المستخدم $name بتعديل معلوماته","captine","","");
         $arr = array('status'=> 'Informations updated successfully');
         echo json_encode($arr);
     }

@@ -5,18 +5,18 @@ include "connection.php";
 
 if(isset($_GET['insert'])){
     $details = filter('details');
-    $day_id = filter('day_id');
+    $day = filter('day_id');
     $acc_id = filter('acc_id');
     $name = filter('name');
     $stmt = $connect->prepare("INSERT INTO `exercises` VALUES (:id,:det,:d,:acc)");
-    $stmt->execute(array('id'=>NULL,'det'=>$details,'d'=>$day_id,'acc'=>$acc_id));
+    $stmt->execute(array('id'=>NULL,'det'=>$details,'d'=>$day,'acc'=>$acc_id));
     $count = $stmt->rowCount();
     if($count > 0)
     {
         $fetch = $connect->prepare("SELECT * FROM `exercises` WHERE `acc_id` = ?");
         $fetch->execute(array($acc_id));
         $exes = $fetch->fetchAll(PDO::FETCH_ASSOC);
-        sendGCM("تمارين","تم إضافة تمرين جديد","$name$acc_id","","");
+        sendGCM("إضافة التمارين","تم إضافة تمرين جديد الى اليوم رقم $day","user$acc_id","","");
         $arr = array('status' => 'exercise added','data'=>$exes);
         echo json_encode($arr);
     }
@@ -30,11 +30,14 @@ else if(isset($_GET['update'])){
     $day_id = filter('day_id');
     $acc_id = filter('acc_id');
     $name = filter('name');
-    $stmt = $connect->prepare("UPDATE `exercises` SET `details` = ? , `day_id` = ? WHERE `acc_id` = ? ");
-    $stmt->execute(array($details,$day_id,$acc_id));
-    sendGCM("تمارين","تم تحديث تمرين في اليوم رقم $day_id","$name$acc_id","","");
+    $exe_id = filter('exe_id');
+    $oldname = filter('oldname');
+    $stmt = $connect->prepare("UPDATE `exercises` SET `details` = ? , `day_id` = ? WHERE `acc_id` = ? AND `exe_id` = ? ");
+    $stmt->execute(array($details,$day_id,$acc_id,$exe_id));
+    sendGCM("تمارين","تم تحديث تمرين في اليوم رقم $day_id","user$acc_id","","");
     $count = $stmt->rowCount();   
     if($count > 0){
+        sendGCM("تعديل الكورس","قام الكابتن بتعديل الكورس \"$oldname\" ليصبح \"$details\"في اليوم رقم $day_id","user$acc_id","","");
         $arr = array('status' => 'exercise updated');
         echo json_encode($arr);
     }
@@ -45,15 +48,20 @@ else if(isset($_GET['update'])){
 }
 else if(isset($_GET['delete'])){
     $acc_id = filter('acc_id');
-    $stmt = $connect->prepare("DELETE FROM `exercises` WHERE `acc_id` = ?");
-    $stmt->execute(array($acc_id));
+    $exe_id = filter('exe_id');
+    $details = filter('details');
+    $day_id = filter('day_id');
+    
+    $stmt = $connect->prepare("DELETE FROM `exercises` WHERE `acc_id` = ? AND `exe_id` = ?");
+    $stmt->execute(array($acc_id,$exe_id));
     $count = $stmt->rowCount();
     if($count > 0){
-        $arr = array('status'=>'Exercise deleted');
+        sendGCM("حذف الكورس","قام الكابتن بحذف كورس ال\"$details\" من اليوم رقم $day_id","user$acc_id","","");
+        $arr = array('status'=>1);
         echo json_encode($arr);
     }
     else{
-        $arr = array('status'=>'Faild to delete exercise');
+        $arr = array('status'=>0);
         echo json_encode($arr);
     }
 }

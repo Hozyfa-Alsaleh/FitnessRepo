@@ -20,8 +20,10 @@ class FetchPlayerExeCtrl extends GetxController {
   String videoUrl = "";
   List<VideoPlayerController> videosControllers = [];
   List<ExerciesModel> data = [];
+  List<ExerciesModel> allData = [];
   List<IconData> icons = [];
   String currentExeText = "";
+  late TextEditingController searchbar;
   List<String> days = [
     'اليوم الأول',
     "اليوم الثاني",
@@ -45,6 +47,7 @@ class FetchPlayerExeCtrl extends GetxController {
     var request = await testData.getAllExercisesForPlayer(ApiLinks.fetchExeUser,
         sherdpref!.getString('userId').toString(), daynum);
     requestStatus = handlingdata(request);
+    if (searchbar.text.isNotEmpty) return;
 
     if (requestStatus == RequestStatus.success) {
       if (request['status'] == 1) {
@@ -60,6 +63,11 @@ class FetchPlayerExeCtrl extends GetxController {
             ),
           );
         }
+        if (allData.isNotEmpty) {
+          allData.clear();
+        }
+        allData.addAll(data.reversed);
+
         //print(request['data'][0]['id']);
         return request['data'];
       } else {
@@ -139,7 +147,9 @@ class FetchPlayerExeCtrl extends GetxController {
   bool valuee = false;
   @override
   void onInit() {
+    searchbar = TextEditingController();
     update();
+
     // getExercises();
     super.onInit();
   }
@@ -185,8 +195,8 @@ class FetchPlayerExeCtrl extends GetxController {
 
   gotodetails(int index) {
     getExercises();
-    getvideosforexe(data[index].id.toString());
-    currentExeText = data[index].details;
+    getvideosforexe(allData[index].id.toString());
+    currentExeText = allData[index].details;
     update();
     Get.off(() => const ExercisePlayerDet());
     update();
@@ -200,5 +210,24 @@ class FetchPlayerExeCtrl extends GetxController {
     } else {
       print("Faild");
     }
+  }
+
+  ///Search about the exercise
+  void searchAboutExercise(String value) {
+    if (allData.isNotEmpty) {
+      allData.clear();
+    }
+    if (value.isNotEmpty) {
+      List<ExerciesModel> filterdList =
+          data.where((element) => element.details.contains(value)).toList();
+      allData.addAll(filterdList.reversed);
+    }
+
+    update();
+  }
+
+  void clearSearchBar() {
+    searchbar.clear();
+    update();
   }
 }

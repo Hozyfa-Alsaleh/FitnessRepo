@@ -42,7 +42,6 @@ class AdminExercises extends StatelessWidget {
               return SizedBox(
                 width: width,
                 child: ListView.builder(
-                  //shrinkWrap: true,
                   physics: const AlwaysScrollableScrollPhysics(),
                   padding: const EdgeInsets.symmetric(horizontal: 7),
                   itemCount: 7,
@@ -52,6 +51,7 @@ class AdminExercises extends StatelessWidget {
                         sherdpref!.setInt('dayId', index + 1);
                         print(sherdpref!.getInt('dayId'));
                         controller.fetchExerciseForDay(index + 1);
+                        Get.toNamed(AppRoute.displayExe);
                       },
                       child: Container(
                         margin: const EdgeInsets.only(bottom: 20),

@@ -59,14 +59,21 @@ class AddNewExercise extends StatelessWidget {
                                 style: const TextStyle(
                                     fontSize: 22, color: Colors.black),
                                 decoration: InputDecoration(
-                                  suffixIcon: IconButton(
-                                      onPressed: () {
-                                        controller.addnewexercise();
-                                      },
-                                      icon: const Icon(
-                                        Icons.send_rounded,
-                                        color: Colors.black,
-                                      )),
+                                  suffixIcon: controller.exeloading == false
+                                      ? Visibility(
+                                          visible: controller.sent == true
+                                              ? false
+                                              : true,
+                                          child: IconButton(
+                                              onPressed: () {
+                                                controller.addnewexercise();
+                                              },
+                                              icon: const Icon(
+                                                Icons.send_rounded,
+                                                color: Colors.black,
+                                              )),
+                                        )
+                                      : const CircularProgressIndicator(),
                                   hintText: "اكتب وصف التمرين",
                                   hintStyle: const TextStyle(
                                       fontFamily: 'Tajwal',

@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:fitnessapp/Utils/appcolors.dart';
 import 'package:fitnessapp/approute.dart';
 import 'package:fitnessapp/controllers/infocontroller.dart';
+import 'package:fitnessapp/main.dart';
+import 'package:fitnessapp/views/Home/infoimageviewer.dart';
 import 'package:fitnessapp/widgets/information/InfoStructerScreen/physicinfo.dart';
 import 'package:fitnessapp/widgets/information/InfoStructerScreen/playercondition.dart';
 import 'package:fitnessapp/widgets/information/InfoStructerScreen/targetofexercise.dart';
@@ -26,12 +30,6 @@ class Information extends StatelessWidget {
           appBar: AppBar(
             actions: [
               IconButton(
-                  onPressed: ctrl.resetInfo,
-                  icon: const Icon(
-                    Icons.refresh,
-                    color: Colors.black,
-                  )),
-              IconButton(
                   onPressed: () {
                     Get.offAllNamed(AppRoute.PlayerProfile);
                   },
@@ -50,12 +48,11 @@ class Information extends StatelessWidget {
             ),
             centerTitle: true,
             leading: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.edit,
-                color: Colors.black,
-              ),
-            ),
+                onPressed: ctrl.resetInfo,
+                icon: const Icon(
+                  Icons.refresh,
+                  color: Colors.black,
+                )),
           ),
           body: GetBuilder<InfoController>(builder: (controller) {
             return SizedBox(
@@ -130,58 +127,186 @@ class Information extends StatelessWidget {
                               const SizedBox(
                                 height: 20,
                               ),
+                              Visibility(
+                                visible:
+                                    controller.isUpdate == true ? true : false,
+                                child: InkWell(
+                                  onTap: () {
+                                    //Update just Info
+                                    controller.updatePlayerInfo();
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 15),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
+                                    width: width,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(15),
+                                        border: Border.all(
+                                            width: 3,
+                                            color: AppColors.buttonsColor)),
+                                    child: const Text(
+                                      "تعديل المعلومات",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: 'Tajwal',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 25),
+                                    ),
+                                  ),
+                                ),
+                              ),
                               const Divider(color: Colors.grey),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(
-                                controller.imageName == null
-                                    ? "لا يوجد صورة"
-                                    : controller.imageName!,
-                                style: const TextStyle(color: Colors.black),
+                              GetBuilder<InfoController>(builder: (controller) {
+                                return Row(
+                                  mainAxisAlignment: controller.images.isEmpty
+                                      ? MainAxisAlignment.start
+                                      : MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      "الصور :",
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Tajwal',
+                                          color: Colors.black),
+                                    ),
+                                    Visibility(
+                                      visible: controller.images.isEmpty
+                                          ? false
+                                          : true,
+                                      child: IconButton(
+                                        onPressed: () {
+                                          //Update just Images
+                                          controller.updateJustImages();
+                                        },
+                                        icon: const Icon(
+                                          Icons.edit_rounded,
+                                          size: 30,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }),
+                              Visibility(
+                                visible:
+                                    controller.imageName == null ? false : true,
+                                child: GetBuilder<InfoController>(
+                                    builder: (controller) {
+                                  return SizedBox(
+                                    width: width,
+                                    height: height! / 4.5,
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      itemCount: controller.images.length,
+                                      itemBuilder: (context, index) {
+                                        return GestureDetector(
+                                            onTap: () {
+                                              Get.to(InfoImageView(
+                                                  path: controller
+                                                      .images[index].path));
+                                            },
+                                            child: Container(
+                                              width: width! / 2,
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                              decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                      255, 179, 175, 175),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20)),
+                                              child: Image.file(
+                                                File(controller
+                                                    .images[index].path),
+                                                fit: BoxFit.contain,
+                                              ),
+                                            ));
+                                      },
+                                    ),
+                                  );
+                                }),
                               ),
                               const SizedBox(
                                 height: 30,
                               ),
 
                               ///----------PickImage Button
-                              PickImageButton(
-                                  text: "إرفاق الصور",
-                                  onPressed: () {
-                                    controller.pickImage();
-                                  }),
+                              GetBuilder<InfoController>(builder: (controller) {
+                                return Row(
+                                  mainAxisAlignment:
+                                      controller.imageName == null
+                                          ? MainAxisAlignment.center
+                                          : MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    PickImageButton(
+                                        text: "إرفاق الصور",
+                                        onPressed: () {
+                                          controller.pickImage();
+                                        }),
+                                    Visibility(
+                                      visible: controller.imageName == null
+                                          ? false
+                                          : true,
+                                      child: PickImageButton(
+                                          text: "حذف الصور",
+                                          onPressed: () {
+                                            controller.deleteCurrentPic();
+                                          }),
+                                    )
+                                  ],
+                                );
+                              }),
                               const SizedBox(
                                 height: 15,
                               ),
 
                               ///----------------Send Information Button
 
-                              InkWell(
-                                onTap: () {
-                                  if (controller.isUpdate == false) {
+                              Visibility(
+                                visible:
+                                    controller.isUpdate == false ? true : false,
+                                child: InkWell(
+                                  onTap: () {
+                                    // if (controller.isUpdate == false) {
                                     controller.goToPackags();
-                                  } else {
-                                    controller.updatePlayerInfo();
-                                  }
-                                  //controller.goToPackags();
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
-                                  width: MediaQuery.sizeOf(context).width / 2.3,
-                                  decoration: BoxDecoration(
-                                      color: Colors.black,
-                                      borderRadius: BorderRadius.circular(15),
-                                      border: Border.all(
-                                          width: 2,
-                                          color: AppColors.buttonsColor)),
-                                  child: Text(
-                                    controller.isUpdate == false
-                                        ? "التالي"
-                                        : "تعديل",
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 25),
+                                    // } else {
+                                    //   controller.updatePlayerInfo();
+                                    // }
+                                    //controller.goToPackags();
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 15),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
+                                    width: width,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(15),
+                                        border: Border.all(
+                                            width: 3,
+                                            color: AppColors.buttonsColor)),
+                                    child: const Text(
+                                      "التالي",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: 'Tajwal',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 25),
+                                    ),
                                   ),
                                 ),
                               ),

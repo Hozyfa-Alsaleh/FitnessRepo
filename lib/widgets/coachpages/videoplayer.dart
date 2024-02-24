@@ -26,7 +26,7 @@ class CustomeVideoPlayer extends StatelessWidget {
         ? Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                color: Color.fromARGB(255, 69, 122, 148)),
+                color: const Color.fromARGB(255, 69, 122, 148)),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(

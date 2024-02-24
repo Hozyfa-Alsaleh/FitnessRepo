@@ -49,10 +49,14 @@ class PlayerImages extends StatelessWidget {
                   },
                 );
               } else {
-                return const Text(
-                  "لا يوجد صور لهذا اللاعب",
-                  style: TextStyle(
-                      fontSize: 24, fontFamily: 'Tajwal', color: Colors.black),
+                return const Center(
+                  child: Text(
+                    "لا يوجد صور لهذا اللاعب",
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontFamily: 'Tajwal',
+                        color: Colors.black),
+                  ),
                 );
               }
             },

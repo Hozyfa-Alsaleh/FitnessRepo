@@ -111,13 +111,19 @@ class InfoController extends GetxController {
   pickImage() async {
     picked = await ImagePicker().pickMultipleMedia();
     if (picked!.isEmpty) return;
-    if (images.isNotEmpty) {
-      images.clear();
-    }
+    // if (images.isNotEmpty) {
+    //   images.clear();
+    // }
     for (var element in picked!) {
       images.add(File(element.path));
     }
     imageName = images[0].path.split("/").last;
+    update();
+  }
+
+  deleteCurrentPic() {
+    images.clear();
+    imageName = null;
     update();
   }
 
@@ -314,6 +320,7 @@ class InfoController extends GetxController {
     //   getxDialog('الصور', 'لم تقم باختيار صور');
     // } else {
     var request = await http.post(Uri.parse(ApiLinks.updateinfo), body: {
+      'name': sherdpref!.getString('username').toString(),
       'acc_id': sherdpref!.getString('userId').toString(),
       'weight': weight.text,
       'height': height.text,
@@ -331,24 +338,28 @@ class InfoController extends GetxController {
     });
     print(jsonEncode(oldImages));
     print(images);
-    if (images.isNotEmpty) {
-      postRequestWithListFile(
-          ApiLinks.bodyimgsUpdate,
-          {
-            'old': jsonEncode(oldImages),
-            'acc_id': sherdpref!.getString('userId').toString()
-          },
-          images);
-    }
-
     var response = await jsonDecode(request.body);
-    if (response['status'] == 'Informations updated successfully') {
+    if (response['status'] == "Informations updated successfully") {
       getxDialog('تعديل البيانات', 'تم تعديل البيانات بنجاح');
       isUpdate = true;
     } else {
-      getxDialog('تعديل البيانات', 'حدث خطأ في تحديث البيانات');
+      getxDialog('تعديل البيانات',
+          'حدث خطأ في تحديث البيانات يجب الا ترسل ذات البيانات الموجودة');
     }
 
+    update();
+  }
+
+  Future<void> updateJustImages() async {
+    if (images.isNotEmpty) {
+      if (await postRequestWithListFile(ApiLinks.bodyimgsUpdate,
+              {'acc_id': sherdpref!.getString('userId').toString()}, images) ==
+          1) {
+        getxDialog('تعديل الصور', 'تم إضافة صور جديدة للصور القديمة');
+      }
+    } else {
+      getxDialog('', 'يرجى إرفاق صور');
+    }
     update();
   }
 

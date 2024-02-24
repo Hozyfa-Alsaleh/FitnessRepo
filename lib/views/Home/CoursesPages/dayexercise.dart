@@ -1,9 +1,11 @@
 import 'package:fitnessapp/Utils/appcolors.dart';
 import 'package:fitnessapp/controllers/PlayerCoursesControllers/fetchplayerexe.dart';
-import 'package:fitnessapp/views/Home/CoursesPages/exepage.dart';
+import 'package:fitnessapp/main.dart';
 import 'package:fitnessapp/views/Home/exercisespage.dart';
+import 'package:fitnessapp/widgets/searchbarwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DayExercise extends StatelessWidget {
   const DayExercise({super.key});
@@ -22,25 +24,32 @@ class DayExercise extends StatelessWidget {
           return Scaffold(
             backgroundColor: AppColors.scaffoldBackGroundColor,
             appBar: AppBar(
-              elevation: 0.0,
-              backgroundColor: Colors.transparent,
-              centerTitle: true,
-              toolbarHeight: 90,
-              title: const Text(
-                "التمارين",
-                style: TextStyle(
-                    fontFamily: "Tajwal",
-                    color: Colors.black,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold),
-              ),
-              leading: IconButton(
-                onPressed: () {
-                  Get.offAll(() => const Exercises());
-                },
-                icon: const Icon(Icons.arrow_back_ios),
-              ),
-            ),
+                elevation: 0.0,
+                backgroundColor: Colors.transparent,
+                centerTitle: true,
+                toolbarHeight: 90,
+                title: const Text(
+                  "التمارين",
+                  style: TextStyle(
+                      fontFamily: "Tajwal",
+                      color: Colors.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold),
+                ),
+                leading: IconButton(
+                  onPressed: () {
+                    Get.offAll(() => const Exercises());
+                  },
+                  icon: const Icon(Icons.arrow_back_ios),
+                ),
+                bottom: SearchBarWidget(
+                  controller: controller.searchbar,
+                  hint: "ابحث عن تمرين",
+                  onPressed: controller.clearSearchBar,
+                  onChanged: (value) {
+                    controller.searchAboutExercise(value);
+                  },
+                )),
             body: FutureBuilder(
               future: controller.getExercises(),
               builder: (context, snapshot) {
@@ -48,10 +57,11 @@ class DayExercise extends StatelessWidget {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (snapshot.hasData) {
+                } else if (controller.allData.isNotEmpty) {
                   return ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    itemCount: controller.data.length,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
+                    itemCount: controller.allData.length,
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
@@ -73,7 +83,7 @@ class DayExercise extends StatelessWidget {
                             ),
                             contentPadding: const EdgeInsets.all(20),
                             title: Text(
-                              controller.data[index].details,
+                              controller.allData[index].details,
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 24,

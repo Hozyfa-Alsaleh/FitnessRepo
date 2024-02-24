@@ -3,12 +3,13 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:fitnessapp/Utils/apilinks.dart';
-import 'package:fitnessapp/approute.dart';
 import 'package:fitnessapp/core/StaticLData/staticvar.dart';
 import 'package:fitnessapp/core/functions/getxdialog.dart';
+import 'package:fitnessapp/core/functions/uploadfile.dart';
 import 'package:fitnessapp/main.dart';
 import 'package:fitnessapp/models/exercies.dart';
 import 'package:fitnessapp/models/videos.dart';
+import 'package:fitnessapp/views/coachpages/displayexercise.dart';
 import 'package:fitnessapp/views/coachpages/exedetails.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,11 +33,13 @@ class AdminExeController extends GetxController {
   String? cardVideoName;
   String details = "";
   String currentExercise = "";
+  int currentindex = 0;
   int currentExeId = 0;
   Color lineColor = const Color.fromARGB(255, 10, 76, 131);
   File? videoFile;
   List<String> videoNames = ['null'];
   List<ExerciesModel> exercieses = [];
+  List<ExerciesModel> allExercises = [];
   List<Videos> videos = [];
   List<Color> lineColorsList = [];
   List<String> daysname = [
@@ -53,6 +56,7 @@ class AdminExeController extends GetxController {
   List data = [];
   List<IconData> icons = [];
   TextEditingController editExe = TextEditingController();
+  late TextEditingController searchbar;
 
   ///---------------------Picked Video------------------///
   pickExerciseVideo(int index) async {
@@ -93,7 +97,54 @@ class AdminExeController extends GetxController {
     update();
   }
 
-  Future<void> deleteExeCourse() async {}
+  backToExercisesPage() {
+    disposeVideos();
+    videos.clear();
+    newvideo = null;
+    pickedvideos = null;
+    newvideos.clear();
+    newvideosforexe.clear();
+    Get.to(const DisplayExercise());
+    update();
+  }
+
+  ///Delete whole Exercise Method
+  Future<void> deleteExeCourse() async {
+    var request = await http.post(Uri.parse(ApiLinks.exedelete), body: {
+      'exe_id': currentExeId.toString(),
+      'acc_id': selectedUserId.toString(),
+      'details': currentExercise.toString(),
+      'day_id': dayId.toString()
+    });
+    var response = await jsonDecode(request.body);
+    if (response['status'] == 1) {
+      backToExercisesPage();
+    } else {
+      getxDialog('حذف التمرين', 'حدث خطأ أثناء حذف التمريمن');
+    }
+  }
+
+  ///Delete Video Method
+  Future<void> deleteVideo(int vidId, int index) async {
+    int vidnum = index + 1;
+    var request = await http.post(Uri.parse(ApiLinks.deleteVideos), body: {
+      'vid_id': vidId.toString(),
+      'details': currentExercise,
+      'vidnum': vidnum.toString(),
+      'acc_id': selectedUserId.toString(),
+      'day_id': dayId.toString()
+    });
+    var response = await jsonDecode(request.body);
+    if (response['status'] == 1) {
+      getxDialog("حذف الفيديو", "تم حذف الفيديو بنجاح");
+    } else {
+      getxDialog('خطأ', 'حدث خطأ أثناء حذف الفيديو ');
+    }
+    videos.removeAt(index);
+    videosControllers.removeAt(index);
+    backToExercisesPage();
+    update();
+  }
 
   Future<void> updateExeCourse() async {
     var request = await http
@@ -101,7 +152,9 @@ class AdminExeController extends GetxController {
       'details': editExe.text,
       'acc_id': selectedUserId.toString(),
       'day_id': sherdpref!.getInt('dayId').toString(),
-      'name': selectedUserName
+      'name': selectedUserName,
+      'exe_id': currentExeId.toString(),
+      'oldname': currentExercise.toString()
     });
     var response = await jsonDecode(request.body);
     if (response['status'] == "exercise updated") {
@@ -111,6 +164,118 @@ class AdminExeController extends GetxController {
     } else {
       getxDialog('تعديل الكورس ', 'حدث خطأ ما');
     }
+    update();
+  }
+
+  ///
+  ///=----------------Update Videos--------------///
+  ///
+  getVideosInfo(int index) {
+    pickMultiVideos(index);
+    update();
+  }
+
+  bool loading = false;
+
+  ///-------------------------------------------------------///
+  ///-----------------------Picked Methods------------------///
+  ///-------------------------------------------------------///
+  XFile? pickedvideos;
+  List<XFile> newvideos = [];
+  List<File> newvideosforexe = [];
+  File? newvideo;
+  String? names;
+  double sum = 0;
+  int currentIndexVideo = -1;
+  pickMultiVideos(int index) async {
+    if (index > -1) {
+      pickedvideos = await ImagePicker().pickVideo(source: ImageSource.gallery);
+      if (pickedvideos == null) return;
+      newvideo = File(pickedvideos!.path);
+      videosControllers[index] = VideoPlayerController.file(
+        newvideo!,
+      )..initialize().then((_) {
+          update();
+          // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+        });
+      currentIndexVideo = index;
+      print("------------> $currentIndexVideo");
+    } else {
+      newvideos = await ImagePicker().pickMultipleMedia();
+      if (newvideos.isEmpty) return;
+      for (var element in newvideos) {
+        newvideosforexe.add(File(element.path));
+        videosControllers.add(VideoPlayerController.file(File(element.path))
+          ..initialize().then((value) => update()));
+        videos.add(Videos(exeId: currentExeId));
+        icons.add(Icons.play_circle);
+      }
+
+      update();
+    }
+    update();
+  }
+
+  //
+  //New Videos for exesit exercise
+  bool newSending = false;
+  Future<void> addNewVideosToCurrentExe() async {
+    if (videos == []) return;
+    newSending = true;
+    update();
+    if (await postRequestWithListFile(
+            ApiLinks.insertVideos,
+            {
+              'exe_id': currentExeId.toString(),
+              'details': currentExercise,
+              'day_id': dayId.toString(),
+              'acc_id': selectedUserId.toString()
+            },
+            newvideosforexe) ==
+        'تم رفع الفيديوهات بنجاح') {
+      newSending = false;
+      getxDialog('إضافة فيديوهات', 'تم رفع الفيديوهات بنجاح');
+      newvideos.clear();
+      newvideosforexe.clear();
+      fetchCurrentExercise(currentindex, currentExeId);
+      update();
+    } else {
+      newSending = false;
+      getxDialog('خطأ', 'حصل خطأ أثناء رفع الفيديوهات');
+    }
+    update();
+  }
+
+  Future<void> updatexe(int vidId, int index) async {
+    if (videos == []) return;
+    if (vidId != videos[currentIndexVideo].id) {
+      getxDialog('',
+          'انت تقوم بإرسال بيانات الفيديو رقم ${currentIndexVideo + 1} عبر فيديو آخر');
+    } else {
+      loading = true;
+      update();
+
+      // updateRequestWithListFile(
+      //     ApiLinks.updateVideos, {'vid_id': vidId}, newvideo!);
+      if (await updateRequestWithListFile(
+              ApiLinks.updateVideos,
+              {
+                'vid_id': vidId.toString(),
+                'details': currentExercise,
+                'day_id': dayId.toString(),
+                'vidnum': (index + 1).toString(),
+                'acc_id': selectedUserId.toString()
+              },
+              newvideo!) ==
+          1) {
+        loading = false;
+        getxDialog('تحديث الفيديوهات', "تم تحديث الفيديوهات");
+      } else {
+        loading = false;
+        getxDialog('خطأ', 'حدث خطأ أثناء تعديل الفيديوهات');
+      }
+    }
+
     update();
   }
 
@@ -146,14 +311,15 @@ class AdminExeController extends GetxController {
       }
 
       generateVideosControllers();
-      currentExercise = exercieses[i].details;
-      currentExeId = exercieses[i].id;
+      currentExercise = allExercises[i].details;
+      currentExeId = allExercises[i].id;
       editExe.text = currentExercise;
+      currentindex = i;
       print(currentExeId);
       Get.to(() => const ExeDetails());
     } else {
-      currentExercise = exercieses[i].details;
-      currentExeId = exercieses[i].id;
+      currentExercise = allExercises[i].details;
+      currentExeId = allExercises[i].id;
       editExe.text = currentExercise;
       Get.to(() => const ExeDetails());
       getxDialog("", "There are no videos");
@@ -171,6 +337,7 @@ class AdminExeController extends GetxController {
     var response = await jsonDecode(request.body);
     print(response);
     if (response['status'] == 1) {
+      if (searchbar.text.isNotEmpty) return;
       if (exercieses.isNotEmpty) {
         exercieses.clear();
       }
@@ -178,11 +345,19 @@ class AdminExeController extends GetxController {
         exercieses.add(
             ExerciesModel(id: element['exe_id'], details: element['details']));
       }
-      dayId = index;
-      Get.toNamed(AppRoute.displayExe);
-    } else {
-      Get.toNamed(AppRoute.displayExe);
+      dayId = sherdpref!.getInt('dayId')!;
 
+      if (allExercises.isNotEmpty) {
+        allExercises.clear();
+      }
+      allExercises.addAll(exercieses.reversed);
+
+      //Get.toNamed(AppRoute.displayExe);
+      return response['data'];
+    } else {
+      /// Get.toNamed(AppRoute.displayExe);
+      exercieses.clear();
+      allExercises.clear();
       return null;
     }
   }
@@ -190,6 +365,7 @@ class AdminExeController extends GetxController {
   @override
   void onInit() {
     //fetchExeCourse();
+    searchbar = TextEditingController();
     dayname = TextEditingController();
     videoNames = List.generate(
         count == 0 ? 7 : count, (index) => "لا يوجد فيديو إلى الآن");
@@ -247,12 +423,14 @@ class AdminExeController extends GetxController {
     if (videosControllers.isNotEmpty) {
       videosControllers.clear();
       for (int i = 0; i < videos.length; i++) {
-        videosControllers.add(VideoPlayerController.networkUrl(
-          Uri.parse(videos[i].url),
-        )..initialize().then((_) {
-            update();
-            // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-          }));
+        videosControllers.add(
+          VideoPlayerController.networkUrl(
+            Uri.parse(videos[i].url),
+          )..initialize().then((_) {
+              update();
+              // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+            }),
+        );
 
         icons = List.generate(videos.length, (index) => Icons.play_circle);
       }
@@ -327,6 +505,25 @@ class AdminExeController extends GetxController {
     for (var element in videosControllers) {
       element.dispose();
     }
+    update();
+  }
+
+  void searchAboutExercise(String value) {
+    if (allExercises.isNotEmpty) {
+      allExercises.clear();
+    }
+    if (value.isNotEmpty) {
+      List<ExerciesModel> filterdList = exercieses
+          .where((element) => element.details.contains(value))
+          .toList();
+      allExercises.addAll(filterdList.reversed);
+    }
+
+    update();
+  }
+
+  void clearSearchBar() {
+    searchbar.clear();
     update();
   }
 }

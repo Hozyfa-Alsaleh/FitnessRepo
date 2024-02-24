@@ -17,6 +17,8 @@ import 'package:video_player/video_player.dart';
 class AddNewExeController extends GetxController {
   bool visible = false;
   bool loading = false;
+  bool exeloading = false;
+
   late TextEditingController exerciseText;
   // ignore: non_constant_identifier_names
   List<int> IDs = [];
@@ -33,23 +35,34 @@ class AddNewExeController extends GetxController {
   ///------------------------Insert Methods--------------------///
   ///----------------------------------------------------------///
   String currentId = '0';
+  bool sent = false;
   Future<void> addnewexercise() async {
-    var request = await http.post(Uri.parse(ApiLinks.addExercise), body: {
-      'acc_id': selectedUserId.toString(),
-      'day_id': sherdpref!.getInt('dayId').toString(),
-      'details': exerciseText.text,
-      'name': selectedUserName
-    });
-    var response = await jsonDecode(request.body);
-    if (response['status'] == 'exercise added') {
-      visible = true;
-      for (var element in response['data']) {
-        IDs.add(element['exe_id']);
-      }
-      currentId = IDs.last.toString();
-      print(currentId);
+    if (exerciseText.text.isEmpty) {
+      getxDialog('', 'الرجاء ادخال وصف للتمرين');
     } else {
-      getxDialog("", "Something error");
+      exeloading = true;
+      update();
+      var request = await http.post(Uri.parse(ApiLinks.addExercise), body: {
+        'acc_id': selectedUserId.toString(),
+        'day_id': sherdpref!.getInt('dayId').toString(),
+        'details': exerciseText.text,
+        'name': selectedUserName
+      });
+      var response = await jsonDecode(request.body);
+      if (response['status'] == 'exercise added') {
+        visible = true;
+        for (var element in response['data']) {
+          IDs.add(element['exe_id']);
+        }
+        currentId = IDs.last.toString();
+        print(currentId);
+        exeloading = false;
+        sent = true;
+      } else {
+        exeloading = false;
+        sent = false;
+        getxDialog("", "Something error");
+      }
     }
     update();
   }
@@ -71,8 +84,6 @@ class AddNewExeController extends GetxController {
     update();
   }
 
-  Future<void> updatexe() async {}
-
   ///-------------------------------------------------------///
   ///-----------------------Picked Methods------------------///
   ///-------------------------------------------------------///
@@ -84,8 +95,8 @@ class AddNewExeController extends GetxController {
     pickedvideos = await ImagePicker().pickMultipleMedia();
     if (pickedvideos == []) return;
 
-    videos.clear();
-    names.clear();
+    // videos.clear();
+    // names.clear();
     for (var element in pickedvideos) {
       videos.add(File(element.path));
       names.add(element.path.split("/").last);

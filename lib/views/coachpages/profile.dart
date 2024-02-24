@@ -4,6 +4,7 @@ import 'package:fitnessapp/controllers/CaptinControllers/playerscontroller.dart'
 import 'package:fitnessapp/core/StaticLData/staticvar.dart';
 
 import 'package:fitnessapp/main.dart';
+import 'package:fitnessapp/views/coachpages/manageplayerprofile.dart';
 import 'package:fitnessapp/widgets/coachpages/captinbuttons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -112,6 +113,17 @@ class CoachProfile extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+                                IconButton(
+                                    onPressed: () {
+                                      Get.offAll(() =>
+                                          const ManagePlayerProfile(
+                                              route: AppRoute.profile_C,
+                                              type: "user"));
+                                    },
+                                    icon: const Icon(
+                                      Icons.info_outlined,
+                                      size: 40,
+                                    )),
                                 Text(
                                   selectedUserName,
                                   style: const TextStyle(

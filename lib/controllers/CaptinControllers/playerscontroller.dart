@@ -7,17 +7,18 @@ import 'package:fitnessapp/core/StaticLData/staticvar.dart';
 import 'package:fitnessapp/core/classes/requeststate.dart';
 import 'package:fitnessapp/core/functions/getxdialog.dart';
 import 'package:fitnessapp/core/functions/handlingdata.dart';
-import 'package:fitnessapp/main.dart';
 import 'package:fitnessapp/models/package.dart';
 import 'package:fitnessapp/models/player.dart';
 import 'package:fitnessapp/models/playerdetails.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class PlayersController extends GetxController {
   List<Player> player = [];
   List<PlayerDetails> playerdet = [];
-
+  List<Player> allPlayers = [];
+  late TextEditingController searchbar;
   String profilePic = "";
   String imagename = "";
   Future getAllPlayers() async {
@@ -28,15 +29,22 @@ class PlayersController extends GetxController {
     if (requestStatus == RequestStatus.success) {
       if (response['status'] == 1) {
         print(response);
-        if (player.isEmpty) {
-          for (var element in response['data']) {
-            player.add(Player(
-                id: element['acc_id'],
-                name: element['name'],
-                imgurl:
-                    "${ApiLinks.profileFolder}/${element['imgUrl'].toString()}"));
-          }
+        if (searchbar.text.isNotEmpty) return;
+        if (player.isNotEmpty) {
+          player.clear();
         }
+
+        for (var element in response['data']) {
+          player.add(Player(
+              id: element['acc_id'],
+              name: element['name'],
+              imgurl:
+                  "${ApiLinks.profileFolder}/${element['imgUrl'].toString()}"));
+        }
+        if (allPlayers.isNotEmpty) {
+          allPlayers.clear();
+        }
+        allPlayers.addAll(player);
         return player;
       } else {
         return null;
@@ -240,8 +248,28 @@ class PlayersController extends GetxController {
     }
   }
 
+  ///Search about the player
+  void searchAboutPlayer(String value) {
+    if (allPlayers.isNotEmpty) {
+      allPlayers.clear();
+    }
+    if (value.isNotEmpty) {
+      List<Player> filterdList =
+          player.where((element) => element.name!.contains(value)).toList();
+      allPlayers.addAll(filterdList.reversed);
+    }
+
+    update();
+  }
+
+  void clearSearchBar() {
+    searchbar.clear();
+    update();
+  }
+
   @override
   void onInit() {
+    searchbar = TextEditingController();
     displayProfileImage();
     // displayProfile();
     super.onInit();

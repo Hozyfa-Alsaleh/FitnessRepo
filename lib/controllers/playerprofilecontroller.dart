@@ -161,12 +161,40 @@ class PlayerProfileController extends GetxController {
     var response = await jsonDecode(request.body);
     print(response);
     if (response['status'] == 1) {
-      for (var element in response['data']) {
-        bodyPaths.add("${ApiLinks.proteam}/body/${element['imgUrl']}");
+      if (bodyPaths.isNotEmpty) {
+        bodyPaths.clear();
+        for (var element in response['data']) {
+          bodyPaths.add("${ApiLinks.proteam}/body/${element['imgUrl']}");
+        }
+      } else {
+        for (var element in response['data']) {
+          bodyPaths.add("${ApiLinks.proteam}/body/${element['imgUrl']}");
+        }
       }
+
       print('success');
+      return bodyPaths;
     } else {
+      //update();
       print('faild');
+      return null;
+    }
+  }
+
+  deleteBodyImagesUpdate() {
+    deleteBodyImages();
+    update();
+  }
+
+  Future<void> deleteBodyImages() async {
+    var request = await http.post(Uri.parse(ApiLinks.deleteBodyImages),
+        body: {'acc_id': sherdpref!.getString('userId')});
+    var response = await jsonDecode(request.body);
+    if (response['status'] == 1) {
+      bodyPaths.clear();
+      getxDialog('', 'تم حذف الصور بنجاح');
+    } else {
+      getxDialog('', 'حدث خطأ أثناء حذف الصور');
     }
     update();
   }

@@ -30,7 +30,7 @@ class DisplayVideo extends StatelessWidget {
               width: width,
               height: height,
               child: CustomeVideoPlayer(
-                //person: "admin",
+                person: "admin",
                 vidController: controller.videosControllers[index],
                 icon: controller.icons[index],
                 fullScreen: () {

@@ -54,7 +54,7 @@ class Exercises extends StatelessWidget {
                         children: [
                           CustomButton(
                             text: "الكورس",
-                            onPreesed: () {
+                            onPressed: () {
                               controller.switchPage(0);
                             },
                             color: controller.courseColor,
@@ -64,7 +64,7 @@ class Exercises extends StatelessWidget {
                           ),
                           CustomButton(
                             text: "الغذاء",
-                            onPreesed: () {
+                            onPressed: () {
                               controller.switchPage(1);
                             },
                             color: controller.foodColor,
@@ -74,7 +74,7 @@ class Exercises extends StatelessWidget {
                           ),
                           CustomButton(
                             text: "المكملات",
-                            onPreesed: () {
+                            onPressed: () {
                               controller.switchPage(2);
                             },
                             color: controller.hormonColor,
@@ -99,7 +99,8 @@ class Exercises extends StatelessWidget {
                         ///
                         // ignore: avoid_unnecessary_containers
                         const PlayerExercies(),
-                        ////
+
+                        ///
                         ///
                         ///
                         // ignore: avoid_unnecessary_containers
@@ -137,7 +138,7 @@ class Exercises extends StatelessWidget {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
                               return const Center(
-                                child: CircularProgressIndicator.adaptive(),
+                                child: CircularProgressIndicator(),
                               );
                             } else if (controller.hormon != "") {
                               return SingleChildScrollView(

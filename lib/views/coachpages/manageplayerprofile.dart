@@ -1,6 +1,5 @@
-import 'package:captainshoaib/Utils/appcolors.dart';
 import 'package:captainshoaib/approute.dart';
-import 'package:captainshoaib/controllers/manageprofilecontroller.dart';
+import 'package:captainshoaib/controllers/CaptinControllers/captainpalyerprofilemanage.dart';
 import 'package:captainshoaib/core/functions/validator.dart';
 
 import 'package:captainshoaib/widgets/logs/settingstextfileds.dart';
@@ -8,15 +7,16 @@ import 'package:captainshoaib/widgets/logs/settingstextfileds.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ManageProfile extends StatelessWidget {
+class ManagePlayerProfile extends StatelessWidget {
   final String route;
   final String type;
 
-  const ManageProfile({super.key, required this.route, required this.type});
+  const ManagePlayerProfile(
+      {super.key, required this.route, required this.type});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ManageProfileController());
+    Get.put(CaptinPlayerProfileManage());
     return WillPopScope(
       onWillPop: () async {
         Get.offAllNamed(route);
@@ -55,7 +55,7 @@ class ManageProfile extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 children: [
-                  GetBuilder<ManageProfileController>(
+                  GetBuilder<CaptinPlayerProfileManage>(
                     builder: (controller) {
                       return Form(
                           key: controller.settingKey,
@@ -180,69 +180,69 @@ class ManageProfile extends StatelessWidget {
                               //       val!, 8, 20, TextInputType.visiblePassword),
                               // ),
 
-                              Container(
-                                width: MediaQuery.sizeOf(context).width,
-                                decoration: const BoxDecoration(
-                                    color: AppColors.buttonsColor,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(30))),
-                                child: MaterialButton(
-                                  onPressed: controller.updateMyAccountInfo,
-                                  child: const Text(
-                                    "تحديث",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 30,
-                                        fontFamily: "Cairo-Regular"),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 40,
-                              ),
-                              Container(
-                                width: MediaQuery.sizeOf(context).width,
-                                decoration: const BoxDecoration(
-                                    color: AppColors.buttonsColor,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(30))),
-                                child: MaterialButton(
-                                  onPressed: () {
-                                    Get.defaultDialog(
-                                      backgroundColor: const Color.fromARGB(
-                                          255, 14, 82, 138),
-                                      title: "",
-                                      content: const Text(
-                                        "سيتم حذف حسابك نهائياً هل تريد المتابعة؟",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 18),
-                                      ),
-                                      cancel: IconButton(
-                                        onPressed: () {
-                                          Get.back();
-                                        },
-                                        icon: const Icon(Icons.cancel,
-                                            color: Colors.white),
-                                      ),
-                                      confirm: IconButton(
-                                        onPressed: () {
-                                          controller.deleteUser();
-                                        },
-                                        icon: const Icon(Icons.done,
-                                            color: Colors.white),
-                                      ),
-                                    );
-                                  },
-                                  child: const Text(
-                                    "حذف حسابي",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 30,
-                                        fontFamily: "Tajwal"),
-                                  ),
-                                ),
-                              ),
+                              // Container(
+                              //   width: MediaQuery.sizeOf(context).width,
+                              //   decoration: const BoxDecoration(
+                              //       color: AppColors.buttonsColor,
+                              //       borderRadius:
+                              //           BorderRadius.all(Radius.circular(30))),
+                              //   child: MaterialButton(
+                              //     onPressed: controller.updateMyAccountInfo,
+                              //     child: const Text(
+                              //       "تحديث",
+                              //       style: TextStyle(
+                              //           color: Colors.white,
+                              //           fontSize: 30,
+                              //           fontFamily: "Cairo-Regular"),
+                              //     ),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 40,
+                              // ),
+                              // Container(
+                              //   width: MediaQuery.sizeOf(context).width,
+                              //   decoration: const BoxDecoration(
+                              //       color: AppColors.buttonsColor,
+                              //       borderRadius:
+                              //           BorderRadius.all(Radius.circular(30))),
+                              //   child: MaterialButton(
+                              //     onPressed: () {
+                              //       Get.defaultDialog(
+                              //         backgroundColor: const Color.fromARGB(
+                              //             255, 14, 82, 138),
+                              //         title: "",
+                              //         content: const Text(
+                              //           "سيتم حذف حسابك نهائياً هل تريد المتابعة؟",
+                              //           textAlign: TextAlign.center,
+                              //           style: TextStyle(
+                              //               color: Colors.white, fontSize: 18),
+                              //         ),
+                              //         cancel: IconButton(
+                              //           onPressed: () {
+                              //             Get.back();
+                              //           },
+                              //           icon: const Icon(Icons.cancel,
+                              //               color: Colors.white),
+                              //         ),
+                              //         confirm: IconButton(
+                              //           onPressed: () {
+                              //             controller.deleteUser();
+                              //           },
+                              //           icon: const Icon(Icons.done,
+                              //               color: Colors.white),
+                              //         ),
+                              //       );
+                              //     },
+                              //     child: const Text(
+                              //       "حذف حسابي",
+                              //       style: TextStyle(
+                              //           color: Colors.white,
+                              //           fontSize: 30,
+                              //           fontFamily: "Tajwal"),
+                              //     ),
+                              //   ),
+                              // ),
                               // Container(
                               //   alignment: Alignment.center,
                               //   child: const Text(

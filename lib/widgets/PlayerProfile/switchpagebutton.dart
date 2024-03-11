@@ -5,24 +5,27 @@ class SwitchButtonPage extends StatelessWidget {
   final IconData icon;
   final void Function()? onPressed;
   final Color? color;
-  const SwitchButtonPage(
-      {super.key,
-      required this.text,
-      required this.icon,
-      this.onPressed,
-      this.color});
+
+  const SwitchButtonPage({
+    Key? key,
+    required this.text,
+    required this.icon,
+    this.onPressed,
+    this.color,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        alignment: Alignment.center,
-        margin: const EdgeInsets.symmetric(vertical: 20),
-        decoration: BoxDecoration(
+      child: GestureDetector(
+        onTap: onPressed,
+        child: Container(
+          alignment: Alignment.center,
+          margin: const EdgeInsets.symmetric(vertical: 20),
+          decoration: BoxDecoration(
             color: color ?? const Color.fromARGB(127, 1, 51, 110),
-            borderRadius: BorderRadius.circular(20)),
-        child: MaterialButton(
-          onPressed: onPressed,
+            borderRadius: BorderRadius.circular(20),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

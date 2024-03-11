@@ -27,8 +27,8 @@ class HomePageController extends GetxController {
     pc = PageController(initialPage: 1);
 
     ///Subscribe USER WITH TOPIC
-    FirebaseMessaging.instance.subscribeToTopic(
-        "${sherdpref!.getString('username')}${sherdpref!.getString('userId')}");
+    FirebaseMessaging.instance
+        .subscribeToTopic("user${sherdpref!.getString('userId')}");
     requestNotificationPermissions();
     fcmconfigure();
     super.onInit();

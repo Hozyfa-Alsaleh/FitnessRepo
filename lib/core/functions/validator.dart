@@ -7,10 +7,6 @@ validateInput(String val, int min, int max, TextInputType type) {
       if (!GetUtils.isEmail(val)) {
         return "الرجاء ادخال ايميل صحيح";
       }
-    } else if (type == TextInputType.name) {
-      if (!GetUtils.isUsername(val)) {
-        return "لرجاء كتابة الاسم بشكل صحيح";
-      }
     }
     if (type == TextInputType.visiblePassword) {
       if (val.length < min) {

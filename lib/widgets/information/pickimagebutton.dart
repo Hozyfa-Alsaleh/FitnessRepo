@@ -1,29 +1,52 @@
 import 'package:captainshoaib/Utils/appcolors.dart';
 import 'package:flutter/material.dart';
 
-class PickImageButton extends StatelessWidget {
+class CustomButton extends StatelessWidget {
   final void Function()? onPressed;
-  final String text;
-  const PickImageButton(
-      {super.key, required this.onPressed, required this.text});
+  final Widget child;
+
+  const CustomButton({Key? key, required this.onPressed, required this.child})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      // width: MediaQuery.sizeOf(context).width / 2,
-      height: 50,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ButtonStyle(
-            elevation: const MaterialStatePropertyAll(7),
-            shape: MaterialStatePropertyAll(ContinuousRectangleBorder(
-                side: const BorderSide(color: AppColors.border, width: 3),
-                borderRadius: BorderRadius.circular(25))),
-            backgroundColor: const MaterialStatePropertyAll(Colors.white)),
-        child: Text(
-          text,
-          style: const TextStyle(
-              fontSize: 26, color: Colors.black, fontFamily: 'Tajwal'),
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        height: 50,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          border: Border.all(color: AppColors.border, width: 3),
+          color: Colors.white,
+        ),
+        child: Center(
+          child: child,
+        ),
+      ),
+    );
+  }
+}
+
+class PickImageButton extends StatelessWidget {
+  final void Function()? onPressed;
+  final String text;
+
+  const PickImageButton({
+    Key? key,
+    required this.onPressed,
+    required this.text,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomButton(
+      onPressed: onPressed,
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 26,
+          color: Colors.black,
+          fontFamily: 'Tajwal',
         ),
       ),
     );

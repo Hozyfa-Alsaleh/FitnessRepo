@@ -31,14 +31,16 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>We need access to your photo library for picking images.</string>
+	
 	<key>NSCameraUsageDescription</key>
 	<string>We require access to your camera to take photos within the app.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>We need access to your microphone to record audio for video capture.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>We need access to your photo library to select images for upload.</string>
+<string>We need access to your photo library to select images for upload and for the coach to assess your physical condition for personalized exercise recommendations.</string>
+<key>NSPhotoLibraryAddUsageDescription</key>
+<string>We need access to your photo library to select images for upload and for the coach to assess your physical condition for personalized exercise recommendations.</string>
+
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

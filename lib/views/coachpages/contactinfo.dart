@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+
 class ContactInfo extends StatelessWidget {
   const ContactInfo({super.key});
 
@@ -38,7 +39,7 @@ class ContactInfo extends StatelessWidget {
                 onPressed: () {
                   Get.offAllNamed(AppRoute.captineHomePage);
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.black,
                   size: 27,
@@ -166,7 +167,7 @@ class ContactInfo extends StatelessWidget {
                         width: width! / 2,
                         height: 60,
                         child: controller.requestState == RequestStatus.loading
-                            ? const CupertinoActivityIndicator()
+                            ? const CircularProgressIndicator()
                             : Text(
                                 controller.isUpdate == false
                                     ? "إرسال المعلومات"

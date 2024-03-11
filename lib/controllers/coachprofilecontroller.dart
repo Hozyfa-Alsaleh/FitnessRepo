@@ -15,7 +15,7 @@ class CoachProfileController extends GetxController {
 //!Mark: mhamad updated this
 
   ///Pick Imagee for player photo
- Future<void> pickeImageProfile() async {
+Future<void> pickeImageProfile() async {
   var status = await Permission.photos.request();
 
   if (status == null || status.isDenied) {

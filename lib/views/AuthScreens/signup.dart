@@ -65,7 +65,7 @@ class SignUp extends StatelessWidget {
                                       keyboardType: TextInputType.name,
                                       validator: (val) {
                                         return validateInput(
-                                            val!, 3, 10, TextInputType.name);
+                                            val!, 3, 25, TextInputType.name);
                                       },
                                     ),
                                   ),
@@ -80,7 +80,7 @@ class SignUp extends StatelessWidget {
                                       keyboardType: TextInputType.name,
                                       validator: (val) {
                                         return validateInput(
-                                            val!, 3, 10, TextInputType.name);
+                                            val!, 3, 25, TextInputType.name);
                                       },
                                     ),
                                   ),
@@ -102,6 +102,7 @@ class SignUp extends StatelessWidget {
                                 height: 50,
                               ),
                               SignUpTextField(
+                                  textDirection: TextDirection.ltr,
                                   hint: "000 000 0000 964+",
                                   label: "رقم الهاتف",
                                   // obsecure: false,

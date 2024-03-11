@@ -9,101 +9,105 @@ class CouchLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 7, 48, 99),
-      appBar: AppBar(
-          elevation: 0.0,
-          backgroundColor: Colors.transparent,
-          title: const Text(
-            "Shooeb fitness trainer",
-            style: TextStyle(color: Colors.white, fontSize: 30),
-          ),
-          centerTitle: true,
-          actions: [
-            IconButton(
-              onPressed: () {
-                Get.offAll(() => const AppInformation());
-              },
-              icon: const Icon(
-                Icons.info_outline,
-                color: Colors.white,
-                size: 30,
-              ),
+        backgroundColor: const Color.fromARGB(255, 7, 48, 99),
+        appBar: AppBar(
+            elevation: 0.0,
+            backgroundColor: Colors.transparent,
+            title: const Text(
+              "Shooeb fitness trainer",
+              style: TextStyle(color: Colors.white, fontSize: 30),
             ),
-          ]),
-      body: SizedBox(
-        width: MediaQuery.sizeOf(context).width,
-        height: MediaQuery.sizeOf(context).height,
-        child: Column(
-          children: [
-            Expanded(
-              child: Container(
-                height: height! / 1.9,
-                width: width,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                child: const Image(
-                  image: AssetImage(
-                    'assets/images/couch.jpg',
+            centerTitle: true,
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Get.offAll(() => const AppInformation());
+                },
+                icon: const Icon(
+                  Icons.info_outline,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              ),
+            ]),
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            double width = constraints.maxWidth;
+            double height = constraints.maxHeight;
+
+            return SizedBox(
+              width: width,
+              height: height,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: height / 1.9,
+                      width: width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Image(
+                        image: AssetImage('assets/images/couch.jpg'),
+                        // fit: BoxFit.fill,
+                      ),
+                    ),
                   ),
-                  //  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                height: height! / 3.1,
-                alignment: Alignment.bottomCenter,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
+                  Container(
+                    height: height / 3.1,
+                    alignment: Alignment.bottomCenter,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
                         topRight: Radius.circular(30),
-                        topLeft: Radius.circular(30))),
-                width: width,
-                child: ListView(
-                  shrinkWrap: true,
-                  //mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [
-                    CoachDisc(
-                      text: "-مدرب كمال أجسام وصحة بدنية",
-                      fontSize: 20,
-                      textalign: TextAlign.start,
+                        topLeft: Radius.circular(30),
+                      ),
                     ),
-                    CoachDisc(
-                      text: "Bodybuilding and physical health coach",
-                      fontSize: 20,
-                      textalign: TextAlign.end,
+                    width: width,
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: const [
+                        CoachDisc(
+                          text: "-مدرب كمال أجسام وصحة بدنية",
+                          fontSize: 20,
+                          textalign: TextAlign.start,
+                        ),
+                        CoachDisc(
+                          text: "Bodybuilding and physical health coach",
+                          fontSize: 20,
+                          textalign: TextAlign.end,
+                        ),
+                        CoachDisc(
+                          text: "-شهادة دبلوم تغذية صحية",
+                          fontSize: 20,
+                          textalign: TextAlign.start,
+                        ),
+                        CoachDisc(
+                          text: "Health Nutrition Diploma Certificate",
+                          fontSize: 20,
+                          textalign: TextAlign.left,
+                        ),
+                        CoachDisc(
+                          text: "-شهادة بكلوريوس مختبر(هرمونات+أمراض دم)",
+                          fontSize: 18,
+                          textalign: TextAlign.start,
+                        ),
+                        CoachDisc(
+                          text:
+                              "Bachelor's degree in laboratory (hormones,hematology)",
+                          fontSize: 22,
+                          textalign: TextAlign.end,
+                        )
+                      ],
                     ),
-                    CoachDisc(
-                      text: "-شهادة دبلوم تغذية صحية",
-                      fontSize: 20,
-                      textalign: TextAlign.start,
-                    ),
-                    CoachDisc(
-                      text: "Health Nutrition Diploma Certificate",
-                      fontSize: 20,
-                      textalign: TextAlign.left,
-                    ),
-                    CoachDisc(
-                      text: "-شهادة بكلوريوس مختبر(هرمونات+أمراض دم)",
-                      fontSize: 18,
-                      textalign: TextAlign.start,
-                    ),
-                    CoachDisc(
-                      text:
-                          "Bachelor's degree in laboratory (hormones,hematology)",
-                      fontSize: 22,
-                      textalign: TextAlign.end,
-                    )
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
-      ),
-    );
+            );
+          },
+        ));
   }
 }
 

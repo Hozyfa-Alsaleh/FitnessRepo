@@ -77,7 +77,7 @@ class AppSuppCourse extends StatelessWidget {
                                 controller.isUpdate == false
                                     ? "إضافة"
                                     : "تعديل",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.black,
                                     fontFamily: "Tajwal",
                                     fontSize: 24),

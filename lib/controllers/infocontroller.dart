@@ -104,6 +104,9 @@ class InfoController extends GetxController {
     super.onInit();
   }
 
+  ///
+  ///Pick Image For Player Body
+  ///
 //!Mark: mhamad updated this
   ///
   ///Pick Image For Player Body
@@ -141,9 +144,15 @@ class InfoController extends GetxController {
     update();
   }
 
+  deleteCurrentPic() {
+    images.clear();
+    imageName = null;
+    update();
+  }
+
   ///
   ///Send the player information to the database
-  ///NEED FIX
+  ///
   Future<void> sendinformation() async {
     if (exercisetext == "" || hormontext == "" || worktext == "") {
       getxDialog("لم يتم الاختيار", "لم تقم باختيار بعض الخيارات");
@@ -194,10 +203,13 @@ class InfoController extends GetxController {
 
   ///
   ///Send The Subscribe Data
+  RequestStatus statusRequest = RequestStatus.holding;
+
   bool load = false;
   sendSubscribeData() async {
     if (payImage == null) return;
     requestStatus = RequestStatus.loading;
+    statusRequest = RequestStatus.loading;
     // try {
     postRequestWithFile(
         ApiLinks.subscribe,
@@ -208,6 +220,7 @@ class InfoController extends GetxController {
         },
         payImage!);
     requeststatus = RequestStatus.success;
+    statusRequest = RequestStatus.holding;
     load = false;
     update();
   }
@@ -330,6 +343,7 @@ class InfoController extends GetxController {
     //   getxDialog('الصور', 'لم تقم باختيار صور');
     // } else {
     var request = await http.post(Uri.parse(ApiLinks.updateinfo), body: {
+      'name': sherdpref!.getString('username').toString(),
       'acc_id': sherdpref!.getString('userId').toString(),
       'weight': weight.text,
       'height': height.text,
@@ -347,24 +361,28 @@ class InfoController extends GetxController {
     });
     print(jsonEncode(oldImages));
     print(images);
-    if (images.isNotEmpty) {
-      postRequestWithListFile(
-          ApiLinks.bodyimgsUpdate,
-          {
-            'old': jsonEncode(oldImages),
-            'acc_id': sherdpref!.getString('userId').toString()
-          },
-          images);
-    }
-
     var response = await jsonDecode(request.body);
-    if (response['status'] == 'Informations updated successfully') {
+    if (response['status'] == "Informations updated successfully") {
       getxDialog('تعديل البيانات', 'تم تعديل البيانات بنجاح');
       isUpdate = true;
     } else {
-      getxDialog('تعديل البيانات', 'حدث خطأ في تحديث البيانات');
+      getxDialog('تعديل البيانات',
+          'حدث خطأ في تحديث البيانات يجب الا ترسل ذات البيانات الموجودة');
     }
 
+    update();
+  }
+
+  Future<void> updateJustImages() async {
+    if (images.isNotEmpty) {
+      if (await postRequestWithListFile(ApiLinks.bodyimgsUpdate,
+              {'acc_id': sherdpref!.getString('userId').toString()}, images) ==
+          1) {
+        getxDialog('تعديل الصور', 'تم إضافة صور جديدة للصور القديمة');
+      }
+    } else {
+      getxDialog('', 'يرجى إرفاق صور');
+    }
     update();
   }
 

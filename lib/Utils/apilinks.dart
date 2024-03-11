@@ -59,6 +59,8 @@ class ApiLinks {
   ///------Videos
   static const String fetchVideos = "$proteam/videos.php?fetch";
   static const String insertVideos = "$proteam/videos.php?insert";
+  static const String updateVideos = "$proteam/videos.php?update";
+  static const String deleteVideos = "$proteam/videos.php?delete";
 
   ///------ORDERS
   static const String fetchOrders = "$proteam/orders.php?fetch";
@@ -74,4 +76,5 @@ class ApiLinks {
   static const String updateProfileImg = "$proteam/profileimg.php?update";
   static const String fetchExeUser = "$proteam/exercises.php?fetch";
   static const String fetchfood = "$proteam/food.php?fetch";
+  static const String deleteBodyImages = "$proteam/bodyimg.php?delete";
 }

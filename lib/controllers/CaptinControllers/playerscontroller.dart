@@ -7,15 +7,18 @@ import 'package:captainshoaib/core/StaticLData/staticvar.dart';
 import 'package:captainshoaib/core/classes/requeststate.dart';
 import 'package:captainshoaib/core/functions/getxdialog.dart';
 import 'package:captainshoaib/core/functions/handlingdata.dart';
+import 'package:captainshoaib/models/package.dart';
 import 'package:captainshoaib/models/player.dart';
 import 'package:captainshoaib/models/playerdetails.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class PlayersController extends GetxController {
   List<Player> player = [];
   List<PlayerDetails> playerdet = [];
-
+  List<Player> allPlayers = [];
+  late TextEditingController searchbar;
   String profilePic = "";
   String imagename = "";
   Future getAllPlayers() async {
@@ -26,15 +29,22 @@ class PlayersController extends GetxController {
     if (requestStatus == RequestStatus.success) {
       if (response['status'] == 1) {
         print(response);
-        if (player.isEmpty) {
-          for (var element in response['data']) {
-            player.add(Player(
-                id: element['acc_id'],
-                name: element['name'],
-                imgurl:
-                    "${ApiLinks.profileFolder}/${element['imgUrl'].toString()}"));
-          }
+        if (searchbar.text.isNotEmpty) return;
+        if (player.isNotEmpty) {
+          player.clear();
         }
+
+        for (var element in response['data']) {
+          player.add(Player(
+              id: element['acc_id'],
+              name: element['name'],
+              imgurl:
+                  "${ApiLinks.profileFolder}/${element['imgUrl'].toString()}"));
+        }
+        if (allPlayers.isNotEmpty) {
+          allPlayers.clear();
+        }
+        allPlayers.addAll(player);
         return player;
       } else {
         return null;
@@ -158,8 +168,108 @@ class PlayersController extends GetxController {
     }
   }
 
+//Fetch Player Images
+  List<String> bodyPaths = [];
+  fetchBodyImages() async {
+    var request = await http.post(
+        Uri.parse("${ApiLinks.proteam}/bodyimg.php?fetch"),
+        body: {'acc_id': selectedUserId.toString()});
+    var response = await jsonDecode(request.body);
+    print(response);
+    if (response['status'] == 1) {
+      if (bodyPaths.isNotEmpty) {
+        bodyPaths.clear();
+      }
+      for (var element in response['data']) {
+        bodyPaths.add("${ApiLinks.proteam}/body/${element['imgUrl']}");
+      }
+      print('success');
+    } else {
+      print('faild');
+    }
+    //update();
+  }
+
+  ///
+  ///Method for get all packages
+  ///
+  // List<PackageModel> packages = [];
+  // Future getAllPackages() async {
+  //   // try {
+  //   requestStatus = RequestStatus.loading;
+  //   var request = await testData.getpackages(ApiLinks.packages);
+  //   requestStatus = handlingdata(request);
+
+  //   if (requestStatus == RequestStatus.success) {
+  //     if (request['status'] == 1) {
+  //       if (packages.isNotEmpty) {
+  //         packages.clear();
+  //       }
+  //       for (var element in request['data']) {
+  //         packages.add(PackageModel(
+  //             id: element['package_id'],
+  //             name: element['name'],
+  //             time: element['time'],
+  //             price: element['price'],
+  //             details: element['details']));
+  //       }
+  //     }
+  //     return packages;
+  //   } else if (requestStatus == RequestStatus.offline) {
+  //     return getxDialog('', 'أنت غير متصل بالانترنت');
+  //   } else {
+  //     return [];
+  //   }
+  //   //update();
+
+  //   // } catch (e) {
+  //   //   print(e.toString());
+  //   //   return [];
+  //   // }
+  // }
+  PackageModel? package;
+  Future getSubscribeOfUser() async {
+    var request = await http.post(Uri.parse(ApiLinks.fetchUser),
+        body: {'acc_id': selectedUserId.toString()});
+    var response = await jsonDecode(request.body);
+
+    if (response['status'] == 1) {
+      if (response['data'] != null) {
+        package = PackageModel(
+            id: response['data']['id'],
+            name: response['data']['name'],
+            time: response['data']['time'],
+            price: response['data']['price'],
+            details: response['data']['details']);
+      }
+      print('success');
+    } else {
+      print('faild');
+    }
+  }
+
+  ///Search about the player
+  void searchAboutPlayer(String value) {
+    if (allPlayers.isNotEmpty) {
+      allPlayers.clear();
+    }
+    if (value.isNotEmpty) {
+      List<Player> filterdList =
+          player.where((element) => element.name!.contains(value)).toList();
+      allPlayers.addAll(filterdList.reversed);
+    }
+
+    update();
+  }
+
+  void clearSearchBar() {
+    searchbar.clear();
+    update();
+  }
+
   @override
   void onInit() {
+    searchbar = TextEditingController();
     displayProfileImage();
     // displayProfile();
     super.onInit();

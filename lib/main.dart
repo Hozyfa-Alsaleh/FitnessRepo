@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:captainshoaib/Bindings/initialbindings.dart';
 import 'package:captainshoaib/core/StaticLData/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
@@ -51,18 +52,20 @@ class MyApp extends StatelessWidget {
     width = MediaQuery.sizeOf(context).width;
     height = MediaQuery.sizeOf(context).height;
 
-    return WillPopScope(
-      onWillPop: () {
-        return Future.value(false);
-      },
-      child: GetMaterialApp(
-        textDirection: TextDirection.rtl,
-        debugShowCheckedModeBanner: false,
-        initialBinding: InitialBinding(),
-        getPages: getpages,
-        initialRoute: "/",
-        //home: const CustomeProgressbar(),
-      ),
-    );
+    return ScreenUtilInit(
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        // Use builder only if you need to use library outside ScreenUtilInit context
+        builder: (_, child) {
+          return GetMaterialApp(
+            textDirection: TextDirection.rtl,
+            debugShowCheckedModeBanner: false,
+            initialBinding: InitialBinding(),
+            getPages: getpages,
+            initialRoute: "/",
+            //home: const CustomeProgressbar(),
+          );
+        });
   }
 }

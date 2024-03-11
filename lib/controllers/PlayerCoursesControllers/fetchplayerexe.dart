@@ -20,8 +20,10 @@ class FetchPlayerExeCtrl extends GetxController {
   String videoUrl = "";
   List<VideoPlayerController> videosControllers = [];
   List<ExerciesModel> data = [];
+  List<ExerciesModel> allData = [];
   List<IconData> icons = [];
   String currentExeText = "";
+  late TextEditingController searchbar;
   List<String> days = [
     'اليوم الأول',
     "اليوم الثاني",
@@ -45,8 +47,8 @@ class FetchPlayerExeCtrl extends GetxController {
     var request = await testData.getAllExercisesForPlayer(ApiLinks.fetchExeUser,
         sherdpref!.getString('userId').toString(), daynum);
     requestStatus = handlingdata(request);
+    if (searchbar.text.isNotEmpty) return;
 
-    print(data);
     if (requestStatus == RequestStatus.success) {
       if (request['status'] == 1) {
         if (data.isNotEmpty) {
@@ -61,6 +63,11 @@ class FetchPlayerExeCtrl extends GetxController {
             ),
           );
         }
+        if (allData.isNotEmpty) {
+          allData.clear();
+        }
+        allData.addAll(data.reversed);
+
         //print(request['data'][0]['id']);
         return request['data'];
       } else {
@@ -81,14 +88,25 @@ class FetchPlayerExeCtrl extends GetxController {
     var response = await jsonDecode(request.body);
 
     if (response['status'] == 1) {
-      print(response);
-      for (var element in response['data']) {
-        videosM.add(
-          Videos(
-              id: element['vid_id'],
-              exeId: element['exe_id'],
-              url: "${ApiLinks.video}/${element['videourl']}"),
-        );
+      if (videosM.isNotEmpty) {
+        videosM.clear();
+        for (var element in response['data']) {
+          videosM.add(
+            Videos(
+                id: element['vid_id'],
+                exeId: element['exe_id'],
+                url: "${ApiLinks.video}/${element['videourl']}"),
+          );
+        }
+      } else {
+        for (var element in response['data']) {
+          videosM.add(
+            Videos(
+                id: element['vid_id'],
+                exeId: element['exe_id'],
+                url: "${ApiLinks.video}/${element['videourl']}"),
+          );
+        }
       }
       generateVideosControllers();
       print("success");
@@ -100,20 +118,38 @@ class FetchPlayerExeCtrl extends GetxController {
 
   int count = 0;
   void generateVideosControllers() {
-    for (int i = 0; i < videosM.length; i++) {
-      videosControllers.add(VideoPlayerController.networkUrl(
-        Uri.parse(videosM[i].url),
-      )..initialize().then((_) {
-          update();
-          // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        }));
-      icons = List.generate(videosM.length, (index) => Icons.play_circle);
+    if (videosControllers.isNotEmpty) {
+      videosControllers.clear();
+      for (int i = 0; i < videosM.length; i++) {
+        videosControllers.add(VideoPlayerController.networkUrl(
+          Uri.parse(videosM[i].url),
+        )..initialize().then((_) {
+            update();
+            // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+          }));
+        icons = List.generate(videosM.length, (index) => Icons.play_circle);
+      }
+    } else {
+      for (int i = 0; i < videosM.length; i++) {
+        videosControllers.add(VideoPlayerController.networkUrl(
+          Uri.parse(videosM[i].url),
+        )..initialize().then((_) {
+            update();
+            // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+          }));
+        icons = List.generate(videosM.length, (index) => Icons.play_circle);
+      }
     }
+
+    update();
   }
 
   bool valuee = false;
   @override
   void onInit() {
+    searchbar = TextEditingController();
+    update();
+
     // getExercises();
     super.onInit();
   }
@@ -150,20 +186,19 @@ class FetchPlayerExeCtrl extends GetxController {
     update();
   }
 
-  @override
-  void onClose() {
+  Future<void> disposeVideos() async {
     for (var element in videosControllers) {
       element.dispose();
     }
-    super.onClose();
+    print('Disoposed');
   }
 
   gotodetails(int index) {
     getExercises();
-    getvideosforexe(data[index].id.toString());
-    currentExeText = data[index].details;
+    getvideosforexe(allData[index].id.toString());
+    currentExeText = allData[index].details;
     update();
-    Get.to(() => const ExercisePlayerDet());
+    Get.off(() => const ExercisePlayerDet());
     update();
   }
 
@@ -175,5 +210,24 @@ class FetchPlayerExeCtrl extends GetxController {
     } else {
       print("Faild");
     }
+  }
+
+  ///Search about the exercise
+  void searchAboutExercise(String value) {
+    if (allData.isNotEmpty) {
+      allData.clear();
+    }
+    if (value.isNotEmpty) {
+      List<ExerciesModel> filterdList =
+          data.where((element) => element.details.contains(value)).toList();
+      allData.addAll(filterdList.reversed);
+    }
+
+    update();
+  }
+
+  void clearSearchBar() {
+    searchbar.clear();
+    update();
   }
 }

@@ -42,7 +42,7 @@ class RequestInfo extends StatelessWidget {
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
-                          child: CircularProgressIndicator.adaptive(),
+                          child: CircularProgressIndicator(),
                         );
                       } else if (controller.playerInfo.isNotEmpty) {
                         return ListView.builder(
@@ -117,7 +117,7 @@ class RequestInfo extends StatelessWidget {
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
-                          child: CircularProgressIndicator.adaptive(),
+                          child: CircularProgressIndicator(),
                         );
                       } else if (controller.package != null) {
                         return Column(
@@ -184,7 +184,82 @@ class RequestInfo extends StatelessWidget {
                           text: "رفض",
                           onTap: () {
                             ///Here will ignore him and drop from DB
-                            controller.deletePlayer();
+                            Get.defaultDialog(
+                              backgroundColor:
+                                  const Color.fromARGB(255, 12, 55, 90),
+                              title: "رفض طلب اللاعب",
+                              titleStyle: const TextStyle(
+                                  color: Colors.white, fontFamily: 'Tajwal'),
+                              content: SizedBox(
+                                width: width,
+                                child: TextFormField(
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Tajwal'),
+                                  controller: controller.reason,
+                                  decoration: InputDecoration(
+                                      hintText: "اكتب سبب الرفض",
+                                      hintStyle: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Tajwal'),
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: const BorderSide(
+                                              color: Colors.black, width: 1)),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: const BorderSide(
+                                              color: Colors.black, width: 1))),
+                                ),
+                              ),
+                              cancel: Container(
+                                margin: const EdgeInsets.only(left: 30),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: Colors.green,
+                                ),
+                                child: IconButton(
+                                  color: Colors.green,
+                                  onPressed: () {
+                                    controller.reason.clear();
+
+                                    Get.back();
+                                  },
+                                  icon: const Icon(
+                                    Icons.cancel,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              confirm: Container(
+                                margin: const EdgeInsets.only(right: 30),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: Colors.red,
+                                ),
+                                child: IconButton(
+                                  color: Colors.red,
+                                  onPressed: () {
+                                    controller.deletePlayer();
+                                    controller.reason.clear();
+                                    Get.back();
+                                    Get.offAllNamed(AppRoute.captineHomePage);
+                                  },
+                                  icon: const Icon(
+                                    Icons.done,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            );
                           },
                         ))
                       ],

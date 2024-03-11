@@ -9,6 +9,7 @@ import 'package:captainshoaib/core/functions/getxdialog.dart';
 import 'package:captainshoaib/models/package.dart';
 import 'package:captainshoaib/models/player.dart';
 import 'package:captainshoaib/models/playerdetails.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,6 +20,7 @@ class RequestsController extends GetxController {
   String playername = "";
   List<PlayerDetails> playerInfo = [];
   String imagename = "";
+  late TextEditingController reason;
   List<String> titles = [
     'الهدف من التمرين',
     "المنطقة",
@@ -38,6 +40,11 @@ class RequestsController extends GetxController {
     ///uncompleted list
   ];
   String imagePath = "";
+  @override
+  void onInit() {
+    reason = TextEditingController();
+    super.onInit();
+  }
 
   Future getAllPlayers() async {
     ///
@@ -136,7 +143,7 @@ class RequestsController extends GetxController {
     var request = await http.post(Uri.parse(ApiLinks.acceptUser), body: {
       'acc_id': playerid.toString(),
       'date_enable': DateTime.now().toString(),
-      'name': playername
+      'name': "user"
     });
     var response = await jsonDecode(request.body);
     if (response['status'] == 1) {
@@ -153,8 +160,11 @@ class RequestsController extends GetxController {
     ///
     ///Here the captin will refuse the player and drop him from data base
     ///
-    var request = await http.post(Uri.parse(ApiLinks.rejectUser),
-        body: {'acc_id': playerid.toString(), 'name': playername});
+    var request = await http.post(Uri.parse(ApiLinks.rejectUser), body: {
+      'acc_id': playerid.toString(),
+      'name': "user",
+      'reasone': reason.text
+    });
     var response = await jsonDecode(request.body);
     if (response['status'] == 1) {
       getxDialog('', 'تم رفض الطلب');

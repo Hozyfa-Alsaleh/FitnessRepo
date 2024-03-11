@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 import 'package:captainshoaib/Utils/apilinks.dart';
+import 'package:captainshoaib/core/StaticLData/staticvar.dart';
 import 'package:captainshoaib/core/functions/getxdialog.dart';
 import 'package:captainshoaib/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:captainshoaib/approute.dart';
 
-class ManageProfileController extends GetxController {
+class CaptinPlayerProfileManage extends GetxController {
   bool secure = true;
   bool confirmSecure = true;
   late GlobalKey<FormState> settingKey;
@@ -20,55 +20,21 @@ class ManageProfileController extends GetxController {
   late TextEditingController phone;
   String statusText = "لم تقم بإرسال معلومات بعد";
   Color bkcolor = Colors.yellow;
+
+  ///Methods
+  ///
+  ///
+  ///
+
   showpass() {
     secure = !secure;
-    update();
-  }
-
-  showConfirm() {
-    confirmSecure = !confirmSecure;
-    update();
-  }
-
-  Future<void> deleteUser() async {
-    var request = await http.post(Uri.parse(ApiLinks.deletePlayer),
-        body: {'acc_id': sherdpref!.getString('userId')});
-    var response = await jsonDecode(request.body);
-    if (response['status'] == 1) {
-      sherdpref!.clear();
-      Get.offAllNamed(AppRoute.Splash);
-    } else {
-      getxDialog('حذف حسابي', 'حدث خطأ خلال إزالة الحساب');
-    }
-  }
-
-  Future<void> updateMyAccountInfo() async {
-    var request = await http
-        .post(Uri.parse("${ApiLinks.proteam}/manageprofile.php?update"), body: {
-      'acc_id': sherdpref!.getString('userId'),
-      'name': regusername.text,
-      'lastname': nickName.text,
-      'email': email.text,
-      'password': regpassword.text,
-      'phone': phone.text
-    });
-    var response = await jsonDecode(request.body);
-    if (response['status'] == 1) {
-      Get.snackbar('تحديث البيانات', 'تم تحديث بيانات حسابك بنجاح',
-          backgroundColor: const Color.fromARGB(160, 0, 0, 0),
-          colorText: Colors.white);
-      fetchCurrentUserAccount();
-    } else {
-      getxDialog('تحديث معلومات الحساب',
-          'يبدو أنك تواجه خطأ في تحديث البيانات تأكد من جودة الاتصال لديك أو من أنك قمت بأي تعديل');
-    }
     update();
   }
 
   Future fetchCurrentUserAccount() async {
     var request = await http.post(
         Uri.parse("${ApiLinks.proteam}/manageprofile.php?fetch"),
-        body: {'acc_id': sherdpref!.getString('userId').toString()});
+        body: {'acc_id': selectedUserId.toString()});
     var response = await jsonDecode(request.body);
     print(response['data'][0]['status']);
     if (response['status'] == 1) {
@@ -82,7 +48,7 @@ class ManageProfileController extends GetxController {
         statusText = "تم رفض طلبك للأسف";
         bkcolor = const Color.fromARGB(255, 202, 32, 20);
       } else if (response['data'][0]['status'] == 1) {
-        statusText = "حسابك مفعل الآن";
+        statusText = "حسابه مفعل الآن";
         bkcolor = Colors.green;
       } else if (response['data'][0]['status'] == 0) {
         statusText = "بانتظار الاستجابة لطلبك";

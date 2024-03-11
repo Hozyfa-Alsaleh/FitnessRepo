@@ -1,7 +1,9 @@
 import 'package:captainshoaib/Utils/appcolors.dart';
 import 'package:captainshoaib/controllers/PlayerCoursesControllers/fetchplayerexe.dart';
 import 'package:captainshoaib/views/Home/exercisespage.dart';
+import 'package:captainshoaib/widgets/searchbarwidget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class DayExercise extends StatelessWidget {
@@ -16,34 +18,49 @@ class DayExercise extends StatelessWidget {
         return false;
       },
       child: GetBuilder<FetchPlayerExeCtrl>(
+        init: FetchPlayerExeCtrl(),
         builder: (controller) {
           return Scaffold(
             backgroundColor: AppColors.scaffoldBackGroundColor,
             appBar: AppBar(
-              elevation: 0.0,
-              backgroundColor: Colors.transparent,
-              centerTitle: true,
-              toolbarHeight: 90,
-              title: const Text(
-                "التمارين",
-                style: TextStyle(
-                    fontFamily: "Tajwal",
-                    color: Colors.black,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
+                elevation: 0.0,
+                backgroundColor: Colors.transparent,
+                centerTitle: true,
+                toolbarHeight: 90,
+                title: const Text(
+                  "التمارين",
+                  style: TextStyle(
+                      fontFamily: "Tajwal",
+                      color: Colors.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold),
+                ),
+                leading: IconButton(
+                  onPressed: () {
+                    Get.offAll(() => const Exercises());
+                  },
+                  icon: const Icon(Icons.arrow_back_ios),
+                ),
+                bottom: SearchBarWidget(
+                  controller: controller.searchbar,
+                  hint: "ابحث عن تمرين",
+                  onPressed: controller.clearSearchBar,
+                  onChanged: (value) {
+                    controller.searchAboutExercise(value);
+                  },
+                )),
             body: FutureBuilder(
               future: controller.getExercises(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
-                    child: CircularProgressIndicator.adaptive(),
+                    child: CircularProgressIndicator(),
                   );
-                } else if (snapshot.hasData) {
+                } else if (controller.allData.isNotEmpty) {
                   return ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    itemCount: controller.data.length,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
+                    itemCount: controller.allData.length,
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
@@ -65,7 +82,7 @@ class DayExercise extends StatelessWidget {
                             ),
                             contentPadding: const EdgeInsets.all(20),
                             title: Text(
-                              controller.data[index].details,
+                              controller.allData[index].details,
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 24,

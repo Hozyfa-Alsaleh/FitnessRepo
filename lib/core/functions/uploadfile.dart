@@ -71,3 +71,29 @@ postRequestWithListFile(String url, Map data, List<File> files) async {
   var res = jsonDecode(response.body);
   return res['status'];
 }
+
+updateRequestWithListFile(String url, Map data, File file) async {
+  var request = http.MultipartRequest('POST', Uri.parse(url));
+
+  var length = await file.length();
+  var stream = http.ByteStream(file.openRead());
+
+  var multipartFile =
+      http.MultipartFile('file', stream, length, filename: basename(file.path));
+  request.files.add(multipartFile);
+
+  data.forEach((key, value) {
+    request.fields[key] = value;
+  });
+  var myrequest = await request.send();
+
+  var response = await http.Response.fromStream(myrequest);
+  print(response.body);
+  if (response.statusCode == 200) {
+    print('success');
+  } else {
+    print('faild');
+  }
+  var res = jsonDecode(response.body);
+  return res['status'];
+}

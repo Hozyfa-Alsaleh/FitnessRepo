@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
+import 'package:chewie/chewie.dart';
 import 'package:fitnessapp/approute.dart';
 import 'package:fitnessapp/models/exercies.dart';
 import 'package:fitnessapp/models/videos.dart';
@@ -19,6 +20,8 @@ import 'package:http/http.dart' as http;
 class FetchPlayerExeCtrl extends GetxController {
   String videoUrl = "";
   List<VideoPlayerController> videosControllers = [];
+  List<ChewieController> chewieControllers = [];
+
   List<ExerciesModel> data = [];
   List<ExerciesModel> allData = [];
   List<IconData> icons = [];
@@ -128,6 +131,11 @@ class FetchPlayerExeCtrl extends GetxController {
             // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
           }));
         icons = List.generate(videosM.length, (index) => Icons.play_circle);
+      }
+      for (int i = 0; i < videosControllers.length; i++) {
+        chewieControllers.add(ChewieController(
+          videoPlayerController: videosControllers[i],
+        ));
       }
     } else {
       for (int i = 0; i < videosM.length; i++) {

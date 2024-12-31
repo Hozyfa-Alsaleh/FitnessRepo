@@ -165,32 +165,32 @@ class AddNewExercise extends StatelessWidget {
                             ],
                           ),
                         ),
-                        ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: controller.videos == []
-                              ? 0
-                              : controller.videos.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: CustomeVideoPlayer(
-                                //person: "admin",
-                                vidController:
-                                    controller.videosControllers[index],
-                                icon: controller.icons[index],
-                                playVideo: () {
-                                  controller.controllerVideo(
-                                      controller.videosControllers[index],
-                                      index);
-                                  controller.changeIcon(
-                                      controller.videosControllers[index],
-                                      index);
-                                },
-                              ),
-                            );
-                          },
-                        )
+                        // ListView.builder(
+                        //   physics: const NeverScrollableScrollPhysics(),
+                        //   shrinkWrap: true,
+                        //   itemCount: controller.videos == []
+                        //       ? 0
+                        //       : controller.videos.length,
+                        //   itemBuilder: (context, index) {
+                        //     return Padding(
+                        //       padding: const EdgeInsets.all(8.0),
+                        //       child: CustomeVideoPlayer(
+                        //         //person: "admin",
+                        //         vidController:
+                        //             controller.videosControllers[index],
+                        //         icon: controller.icons[index],
+                        //         playVideo: () {
+                        //           controller.controllerVideo(
+                        //               controller.videosControllers[index],
+                        //               index);
+                        //           controller.changeIcon(
+                        //               controller.videosControllers[index],
+                        //               index);
+                        //         },
+                        //       ),
+                        //     );
+                        //   },
+                        // )
                       ],
                     ),
                   ],

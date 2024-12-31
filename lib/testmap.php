@@ -26,7 +26,7 @@ if(isset($_GET['insert'])){
 else if(isset($_GET['update'])){
     $ex_id = filter('exe_id');
     
-    $stmt = $connect->prepare('UPDATE `videos` SET `videourl` = ')
+    $stmt = $connect->prepare('UPDATE `videos` SET `videourl` = ');
 }
 else if(isset($_GET['fetch']))
 {

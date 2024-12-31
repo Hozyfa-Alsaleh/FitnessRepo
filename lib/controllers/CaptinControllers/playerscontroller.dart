@@ -38,13 +38,14 @@ class PlayersController extends GetxController {
           player.add(Player(
               id: element['acc_id'],
               name: element['name'],
-              imgurl:
-                  "${ApiLinks.profileFolder}/${element['imgUrl'].toString()}"));
+              imgurl: element['imgUrl'] == null
+                  ? ""
+                  : "${ApiLinks.profileFolder}/${element['imgUrl'].toString()}"));
         }
         if (allPlayers.isNotEmpty) {
           allPlayers.clear();
         }
-        allPlayers.addAll(player);
+        allPlayers.addAll(player.reversed);
         return player;
       } else {
         return null;

@@ -26,23 +26,23 @@ class DisplayVideo extends StatelessWidget {
             elevation: 0.0,
             backgroundColor: Colors.transparent,
           ),
-          body: SizedBox(
-              width: width,
-              height: height,
-              child: CustomeVideoPlayer(
-                person: "admin",
-                vidController: controller.videosControllers[index],
-                icon: controller.icons[index],
-                fullScreen: () {
-                  controller.changeToFullScreen(index, context);
-                },
-                playVideo: () {
-                  controller.controllerVideo(
-                      controller.videosControllers[index], index);
-                  controller.changeIcon(
-                      controller.videosControllers[index], index);
-                },
-              )),
+          // body: SizedBox(
+          //     width: width,
+          //     height: height,
+          //     child: CustomeVideoPlayer(
+          //       person: "admin",
+          //       vidController: controller.videosControllers[index],
+          //       icon: controller.icons[index],
+          //       fullScreen: () {
+          //         controller.changeToFullScreen(index, context);
+          //       },
+          //       playVideo: () {
+          //         controller.controllerVideo(
+          //             controller.videosControllers[index], index);
+          //         controller.changeIcon(
+          //             controller.videosControllers[index], index);
+          //       },
+          //     )),
         ),
       );
     });

@@ -71,7 +71,7 @@ class ExercisePlayerDet extends StatelessWidget {
                             child: CustomeVideoPlayer(
                               //person: "admin",
                               vidController:
-                                  controller.videosControllers[index],
+                                  controller.chewieControllers[index],
                               icon: controller.icons[index],
                               playVideo: () {
                                 controller.controllerVideo(

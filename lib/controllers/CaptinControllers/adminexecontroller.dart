@@ -17,6 +17,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:video_player/video_player.dart';
+import 'package:chewie/chewie.dart';
 
 class AdminExeController extends GetxController {
   String newValue = 'يوم واحد';
@@ -53,6 +54,8 @@ class AdminExeController extends GetxController {
   ];
   String videoUrl = "";
   List<VideoPlayerController> videosControllers = [];
+  List<ChewieController> chewieControllers = [];
+
   List data = [];
   List<IconData> icons = [];
   TextEditingController editExe = TextEditingController();
@@ -104,7 +107,7 @@ class AdminExeController extends GetxController {
     pickedvideos = null;
     newvideos.clear();
     newvideosforexe.clear();
-    Get.to(const DisplayExercise());
+    Get.to(() => const DisplayExercise());
     update();
   }
 
@@ -434,17 +437,33 @@ class AdminExeController extends GetxController {
 
         icons = List.generate(videos.length, (index) => Icons.play_circle);
       }
+
+      for (int i = 0; i < videosControllers.length; i++) {
+        chewieControllers.add(ChewieController(
+            videoPlayerController: videosControllers[i],
+            autoPlay: true,
+            looping: true));
+      }
+      update();
     } else {
       for (int i = 0; i < videos.length; i++) {
         videosControllers.add(VideoPlayerController.networkUrl(
           Uri.parse(videos[i].url),
-        )..initialize().then((_) {
+        )..initialize().then((value) {
             update();
             // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
           }));
 
         icons = List.generate(videos.length, (index) => Icons.play_circle);
       }
+
+      for (int i = 0; i < videosControllers.length; i++) {
+        chewieControllers.add(ChewieController(
+            videoPlayerController: videosControllers[i],
+            autoPlay: true,
+            looping: true));
+      }
+      update();
     }
 
     print(videosControllers);
@@ -505,6 +524,11 @@ class AdminExeController extends GetxController {
     for (var element in videosControllers) {
       element.dispose();
     }
+    for (var element in chewieControllers) {
+      element.dispose();
+    }
+    videosControllers.clear();
+    chewieControllers.clear();
     update();
   }
 

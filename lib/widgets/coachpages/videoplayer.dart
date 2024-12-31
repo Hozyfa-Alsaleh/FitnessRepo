@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'package:chewie/chewie.dart';
 
 // ignore: camel_case_types
 class CustomeVideoPlayer extends StatelessWidget {
-  final VideoPlayerController vidController;
+  final ChewieController vidController;
   final void Function()? playVideo;
   final void Function()? edit;
   final void Function()? delete;
@@ -22,7 +23,7 @@ class CustomeVideoPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return vidController.dataSource != ""
+    return vidController.videoPlayerController.dataSource != ""
         ? Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
@@ -33,9 +34,10 @@ class CustomeVideoPlayer extends StatelessWidget {
                 children: [
                   SizedBox(
                     child: AspectRatio(
-                      aspectRatio: vidController.value.aspectRatio,
-                      child: VideoPlayer(
-                        vidController,
+                      aspectRatio:
+                          vidController.videoPlayerController.value.aspectRatio,
+                      child: Chewie(
+                        controller: vidController,
                       ),
                     ),
                   ),
@@ -68,7 +70,7 @@ class CustomeVideoPlayer extends StatelessWidget {
                               flex: 3,
                               child: VideoProgressIndicator(
                                 padding: const EdgeInsets.all(0.0),
-                                vidController,
+                                vidController.videoPlayerController,
                                 colors: const VideoProgressColors(
                                     playedColor: Colors.white,
                                     backgroundColor: Colors.black),

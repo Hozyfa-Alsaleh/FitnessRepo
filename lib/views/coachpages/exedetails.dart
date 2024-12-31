@@ -2,11 +2,11 @@ import 'package:fitnessapp/Utils/appcolors.dart';
 import 'package:fitnessapp/controllers/CaptinControllers/adminexecontroller.dart';
 import 'package:fitnessapp/main.dart';
 import 'package:fitnessapp/views/coachpages/displayexercise.dart';
-
 import 'package:fitnessapp/widgets/coachpages/videoplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:chewie/chewie.dart';
 
 class ExeDetails extends StatelessWidget {
   const ExeDetails({super.key});
@@ -15,10 +15,10 @@ class ExeDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<AdminExeController>(
       builder: (controller) {
-        return WillPopScope(
-          onWillPop: () async {
+        return PopScope(
+          canPop: false,
+          onPopInvoked: (val) {
             controller.backToExercisesPage();
-            return false;
           },
           child: Scaffold(
               backgroundColor: AppColors.scaffoldBackGroundColor,
@@ -258,12 +258,22 @@ class ExeDetails extends StatelessWidget {
                                 ],
                               ),
                             ),
+                            // Padding(
+                            //   padding: const EdgeInsets.all(10),
+                            //   child: SizedBox(
+                            //     height: 200,
+                            //     child: Chewie(
+                            //       controller:
+                            //           controller.chewieControllers[index],
+                            //     ),
+                            //   ),
+                            // )
                             Padding(
                               padding: const EdgeInsets.all(10),
                               child: CustomeVideoPlayer(
                                 person: "admin",
                                 vidController:
-                                    controller.videosControllers[index],
+                                    controller.chewieControllers[index],
                                 icon: controller.icons[index],
                                 fullScreen: () {
                                   controller.changeToFullScreen(index, context);
